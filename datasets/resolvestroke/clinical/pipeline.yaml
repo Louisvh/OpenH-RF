@@ -1,0 +1,21 @@
+parameters:
+  grid_type: polar
+  polar_limits: [-0.45, 0.45]
+  zlims: [0.01, 0.11]              # on-axis depth from the transducer face [m]
+  distance_to_apex: 0.022          # virtual source behind the array (|focus_distances|)
+  grid_size_z: 420
+  grid_size_x: 220
+  grid_size_y: 1
+  dynamic_range: [-60, 0]
+
+pipeline:
+  operations:
+    - name: keras.ops.cast
+      params:
+        dtype: float32
+    - name: beamform
+      params:
+        beamformer: delay_and_sum
+    - name: envelope_detect
+    - name: normalize
+    - name: log_compress

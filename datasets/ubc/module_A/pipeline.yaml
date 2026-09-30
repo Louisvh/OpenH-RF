@@ -17,11 +17,13 @@ pipeline:
             - 1.0
             percentile: 99.5
     - log_compress
+    - scan_convert
 parameters:
     enable_scanline: true
     grid_type: polar
     # In scanline mode, zlims are depths along each transmit beam measured
-    # from its origin on the curved element surface.
+    # from its origin on the curved element surface. zea reads distance_to_apex
+    # (10 mm) from the file and adds it to form rho_range for scan conversion.
     zlims:
     - 0.0001
     - 0.100023
@@ -31,3 +33,10 @@ parameters:
     - 0.0
     f_number: 0.0
     apply_lens_correction: false
+    # The 64 transmits span +/-1.088 rad. The probe's stored polar_limits
+    # (+/-1.4144 rad) describe its full field of view, which would scan-convert
+    # into a sector wider than the one actually acquired.
+    polar_limits:
+    - -1.088
+    - 1.088
+    resolution: 0.0004

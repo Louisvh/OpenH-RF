@@ -26,8 +26,8 @@ os.environ.setdefault("MPLBACKEND", "Agg")
 
 from pathlib import Path
 
+import keras
 import matplotlib.pyplot as plt
-import numpy as np
 import zea
 from zea import Config, File, Pipeline
 from zea.ops import (
@@ -41,8 +41,6 @@ from zea.ops import (
 )
 
 HERE = Path(__file__).parent
-DEFAULT_INPUT = "hf://nvidia/OpenH-RF/tue-aaa/data/AAA_subject11.hdf5"
-DEFAULT_OUTPUT = HERE / "AAApatient01_bmode.png"
 CONFIG = HERE / "pipeline.yaml"
 
 # Custom reconstruction parameters. These are passed to load_parameters and
@@ -60,8 +58,9 @@ PARAMETERS = {
 # --- Inputs -----------------------------------------------------------------
 # Defaults stream straight from the published corpus. Swap any of these for a
 # local path to run against your own copy.
-INPUT = "hf://nvidia/OpenH-RF/tue-aaa/data/AAA_subject11.hdf5"
-OUTPUT = DEFAULT_OUTPUT
+ZEA_FILE = "hf://nvidia/OpenH-RF/tue-aaa/data/AAA_subject11.hdf5"
+OUT = HERE / "assets" / "AAApatient01_bmode.png"
+HF_CONFIG = "hf://nvidia/OpenH-RF/tue-aaa/pipeline.yaml"
 DEVICE = None  # CUDA device ID (e.g. 'cuda:0', 'auto:1', or 'cpu')
 
 
@@ -97,7 +96,7 @@ def main():
     config = Config.from_path(str(CONFIG))
 
     # Load file: read acquisition parameters (with config overrides) and raw RF data
-    with File(str(INPUT)) as f:
+    with File(str(ZEA_FILE)) as f:
         parameters = f.load_parameters(**config.parameters)
         raw = f.data.raw_data[0:1]  # (n_frames, n_tx, n_ax, n_el, 1) — RF
 
@@ -107,7 +106,7 @@ def main():
     outputs = pipeline(data=raw, **inputs)
 
     # Convert the output tensor to a NumPy array and save as PNG
-    recon = np.array(outputs["data"])  # (n_frames, grid_z, grid_x)
+    recon = keras.ops.convert_to_numpy(outputs["data"])  # (n_frames, grid_z, grid_x)
     image = zea.display.to_8bit(recon[0], dynamic_range=parameters.dynamic_range)
 
     zea.visualize.set_mpl_style()
@@ -119,10 +118,11 @@ def main():
     )
     plt.xlabel("X (mm)")
     plt.ylabel("Z (mm)")
-    plt.savefig(str(OUTPUT), bbox_inches="tight", dpi=100)
+    Path(OUT).parent.mkdir(parents=True, exist_ok=True)
+    plt.savefig(str(OUT), bbox_inches="tight", dpi=100)
 
     print(f"Reconstructed  : {recon.shape}")
-    print(f"Saved          : {OUTPUT}")
+    print(f"Saved          : {OUT}")
 
 
 if __name__ == "__main__":

@@ -1,5 +1,6 @@
 ---
-pretty_name: "OpenH-RF — Tracked Swept Synthetic Aperture 3D Phantom Dataset"
+name: colorado-boulder
+pretty_name: "Tracked Swept Synthetic Aperture Ultrasound Datasets"
 license: cc-by-4.0
 task_categories:
   - generalized-reconstruction
@@ -14,62 +15,88 @@ size_categories:
   - n<1K
 ---
 
-# Tracked Swept Synthetic Aperture 3D Phantom Ultrasound Dataset
+# Tracked Swept Synthetic Aperture Ultrasound Datasets
+
+| 2D ATS 539 phantom | 3D phantom | In-vivo quadriceps |
+|:---:|:---:|:---:|
+| ![Tracked SSA sweep through the 2D ATS 539 phantom](assets/ssa-sweep-phantom2d.gif) | ![Tracked SSA sweep through the 3D phantom](assets/ssa-sweep-phantom3d.gif) | ![Tracked SSA sweep along in-vivo quadriceps muscle](assets/ssa-sweep-invivo.gif) |
+| [`Sub-dataset-1`](https://huggingface.co/datasets/nvidia/OpenH-RF/tree/main/colorado-boulder/Sub-dataset-1) | [`Sub-dataset-2`](https://huggingface.co/datasets/nvidia/OpenH-RF/tree/main/colorado-boulder/Sub-dataset-2) | [`Sub-dataset-3`](https://huggingface.co/datasets/nvidia/OpenH-RF/tree/main/colorado-boulder/Sub-dataset-3) |
+
+*Motion-compensated tracked SSA reconstructions, one per sub-dataset. Each frame beamforms the raw RF channel data with its own tracked probe pose; a 40 mm window of frames is then coherently summed to synthesise a larger effective aperture, and the window slides along the freehand sweep.*
 
 ## Dataset Description
 
-This dataset contains tracked swept synthetic aperture (SSA) ultrasound acquisitions of a 3D ultrasound imaging phantom. The data were acquired using a Verasonics Vantage research ultrasound system with a P4-2 phased array transducer.
+This dataset contains tracked swept synthetic aperture (SSA) ultrasound acquisitions from three targets: a 2D ATS 539 multipurpose imaging phantom, a 3D ultrasound imaging phantom, and in-vivo quadriceps muscle from healthy volunteer participants.
 
-The dataset includes raw RF channel data, acquisition parameters, probe geometry, transmit information, and frame-wise tracked probe pose metadata. Its purpose is to provide a reproducible example of motion-compensated SSA reconstruction from raw channel data using the zea/OpenH-RF data format.
+The data were acquired using a Verasonics Vantage research ultrasound system with a P4-2 phased array transducer. The dataset includes raw RF channel data, acquisition parameters, probe geometry, transmit information, and frame-wise tracked probe pose metadata.
 
-This dataset contains phantom data only. It does not contain human subject data, animal data, or protected health information (PHI).
+The purpose of this dataset is to provide reproducible examples for generalized ultrasound reconstruction, with a particular focus on motion-compensated tracked SSA reconstruction using the zea/OpenH-RF data format.
+
+The phantom acquisitions do not contain human subject data, animal data, or protected health information (PHI). The in-vivo acquisitions were collected from healthy volunteer participants and de-identified prior to release.
 
 ## Dataset Contributor(s)
 
-**Contributing organization:** University of Colorado Boulder, Bottenus Lab
-
-**Contributors:**
-
-- Anet Sanchez
-- Nick Bottenus
+- Anet Sanchez (University of Colorado Boulder, Bottenus Lab)
+- Nick Bottenus (University of Colorado Boulder, Bottenus Lab)
 
 ## Dataset Creation Date
 
-06/24/2025
+Data were collected between 08/23/2024 and 06/30/2026.
 
 ## License / Terms of Use
 
-This dataset is released under the Creative Commons Attribution 4.0 International License (CC BY 4.0).
-
-The contributed data consist exclusively of phantom ultrasound acquisitions and are cleared for release under CC BY 4.0. Patient consent, clinical data-use agreements, and PHI de-identification are not applicable because the dataset does not contain human subject data.
+[Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/legalcode.en). Retain attribution and identify modifications when reusing the data.
 
 ## Intended Usage
 
-This dataset is intended for research on generalized ultrasound reconstruction, with a particular focus on tracked swept synthetic aperture imaging, motion-compensated beamforming, coherent compounding, and ultrasound image-quality evaluation.
+This dataset is intended for research on generalized ultrasound reconstruction, with a specific focus on tracked swept synthetic aperture imaging, motion-compensated beamforming, coherent compounding, and ultrasound image-quality evaluation.
 
-For SSA reconstruction, each raw RF frame is beamformed using its corresponding tracked transducer pose. The resulting beamformed IQ frames are placed on a common reconstruction grid and coherently summed to synthesize a larger effective aperture. Because the reconstruction relies on coherent compounding, summation is performed before envelope detection, normalization, and log compression.
+For SSA reconstruction, each raw RF frame is beamformed using its corresponding tracked transducer pose. The resulting beamformed frames are placed on a common reconstruction grid and coherently summed to synthesize a larger effective aperture. Because the reconstruction relies on coherent compounding, summation is performed before envelope detection, normalization, and log compression.
 
 ## Dataset Characterization
 
-- **Data Collection Method:** Phantom ultrasound acquisition
-- **Labeling Method:** N/A; no manual labels or segmentation masks are provided
-- **Acquisition System:** Verasonics Vantage research ultrasound scanner with a Verasonics P4-2 phased array transducer
+The dataset includes acquisitions from three targets:
 
-### Acquisition Details
+- 2D ATS 539 multipurpose imaging phantom
+- 3D ultrasound imaging phantom
+- In-vivo quadriceps muscle from healthy volunteer participants
 
-The transducer was manually swept over the phantom field of view while diverging-wave transmissions were acquired at 400 Hz. All 64 array elements were used on receive.
+The ATS 539 multipurpose imaging phantom contains:
 
-Diverging waves were generated using a negative virtual source with the 20 central array elements active on transmit.
+- Wire targets
+- Cylindrical lesions
+- Tissue-mimicking speckle regions
 
-The transducer was optically tracked using an NDI Polaris Vega® XT optical tracking system manufactured by Northern Digital Inc., Ontario, Canada.
+These targets may be used to assess spatial resolution, contrast, lesion visibility, and speckle characteristics.
 
-### Probe and Geometry
+### Data Collection Method
 
-The acquisition used a Verasonics P4-2 phased array transducer with 64 elements. The center frequency stored in the acquisition and used for reconstruction is 2.5 MHz.
+Each acquisition consisted of a freehand sweep in the lateral direciton of the transducer. All 64 array elements were used during receive. Diverging waves were generated using a negative virtual source while activating the 20 central array elements during transmit. For in-vivo targets the transducer was manually swept along the longitudinal direction of the quadriceps while transmitting diverging waves at 400 Hz. The transducer was optically tracked using an NDI Polaris Vega® XT optical tracking system manufactured by Northern Digital Inc., Ontario, Canada.
 
-The probe geometry, transmit origins, transmit delays, transmit apodization, and other acquisition parameters are stored in the zea/OpenH-RF file. Frame-wise probe translations and rotations are stored using the native `metadata/probe_pose` structure.
+### Labeling Method
+
+None (N/A).
+
+### Acquisition System
+
+- Verasonics Vantage research ultrasound scanner
+- Verasonics P4-2 phased array transducer
+- 64 elements
+- Reconstruction center frequency: 2.5 MHz
+- Sampling frequency: 10 MHz
+- Optical tracking: NDI Polaris Vega XT
+
+## Processing the Dataset
+
+The acquisitions can be processed with the `reconstruct.py` [script](https://github.com/open-h/OpenH-RF/blob/main/datasets/colorado-boulder/reconstruct.py) as provided in the [OpenH-RF GitHub repository](https://github.com/open-h/OpenH-RF), together with the `pipeline.yaml` definition in this folder and the [zea library](https://github.com/tue-bmd/zea). The script streams the data from the Hugging Face Hub.
+
+The script selects tracked frames at roughly 1 mm lateral spacing and writes the reconstruction to `ssa_bmode.png`. Point `ZEA_FILE` at any acquisition in the corpus to reconstruct it. [`assets/main_bmode.png`](./assets/main_bmode.png) was produced this way, compounding the full sweep into one image; the loops at the top of this card slide a shorter aperture window along the sweep instead.
+
+`reconstruct.py` defines the custom `apply_probe_pose` operation that `pipeline.yaml` refers to, which applies the frame-wise `metadata/probe_pose` to the probe geometry and transmit origins before beamforming.
 
 ## Dataset Format
+
+[zea v0.1.7](https://github.com/tue-bmd/zea)
 
 The dataset is distributed in the zea/OpenH-RF HDF5 format.
 
@@ -84,20 +111,19 @@ Each file includes:
 - Frame-wise tracked probe translations
 - Frame-wise tracked probe rotations
 
-The stored RF channel data have not been beamformed, envelope detected, normalized, or log compressed. The accompanying reconstruction pipeline performs these processing steps.
+The stored RF channel data have not been beamformed, demodulated, envelope detected, normalized, or log compressed. These processing steps are performed by the accompanying reconstruction pipeline.
 
 ## Dataset Quantification
 
-**Current OpenH-RF release:** 62 HDF5 files; 16.04 GB (16,037,117,952 bytes) stored; root `zea_version` **0.1.6**. Sizes include all HDF5 contents and use decimal units (MB = 10^6 bytes, GB = 10^9 bytes, TB = 10^12 bytes), not decoded-array memory or original-source download sizes.
+- Number of phantom objects: 2
+- Number of volunteer participants: 7
+- Number of acquisitions: 62
+- Number of RF frames per acquisition: 1200–1600
+- Number of transmit events per frame: 1
+- Number of receive elements: 64
+- Number of active transmit elements: 20
 
-- **Number of phantom objects:** 1
-- **Number of acquisitions:** 10
-- **Number of RF frames per acquisition:** 1200
-- **Number of transmit events per frame:** 1
-- **Number of receive elements:** 64
-- **Number of active transmit elements:** 20
-
-### Per-File Feature Summary
+### Per-acquisition contents
 
 | Feature | Shape | Data type | Units | Description |
 |---|---:|---|---|---|
@@ -111,64 +137,40 @@ The stored RF channel data have not been beamformed, envelope detected, normaliz
 
 ## Subject Metadata
 
-### Metadata Schema Migration
+This dataset contains acquisitions from two ultrasound imaging phantoms and healthy volunteer participants.
 
-The zea 0.1.6 migration uses these approved metadata locations:
-
-| Legacy location | Canonical location |
-|---|---|
-| Dataset `metadata/subject_id` | Dataset `metadata/subject/id` |
-| Dataset `metadata/subject_type` | Dataset `metadata/subject/type` |
-| Dataset `metadata/us_machine` | Root HDF5 attribute `us_machine` |
-
-Read the machine name with `f.attrs["us_machine"]`, not `f["us_machine"]`.
-Subject values and their existing attributes are preserved. The machine
-string is preserved; migration stops for review if its legacy dataset has
-attributes that cannot be represented without loss. No numerical arrays are
-rescaled or otherwise changed by these relocations.
-
-The three-field pilot passed full array and metadata parity checks with the
-approved description changes and `transmit_only=False` default. Full-release
-migration is still pending. Replacement files are uploaded only after
-per-file validation; readers supporting both revisions should check the
-canonical locations first, then the legacy locations.
-
-
-This dataset contains one 3D ultrasound imaging phantom.
-
-- **Subject type:** 3D phantom
-- **Anatomical region:** Not applicable
-- **Human participants:** None
-- **Animal subjects:** None
-- **Protected health information:** None
-- **Scanner:** Verasonics Vantage
-- **Probe:** Verasonics P4-2 phased array
+- Subject types: 2D imaging phantom, 3D phantom, and in-vivo human ultrasound data
+- 2D phantom model: ATS 539
+- 2D phantom target types: wires, cylindrical lesions, and tissue-mimicking speckle
+- In-vivo anatomical region: quadriceps muscle
+- Human participants: healthy volunteer participants for the in-vivo dataset
+- Animal subjects: None
+- Protected health information: None
+- Scanner: Verasonics Vantage
+- Probe: Verasonics P4-2 phased array
 
 ## Data Validation
 
-The submission includes a `zea.Pipeline` that reconstructs a representative tracked SSA B-mode image from the raw RF channel data.
+The submission includes a `zea.Pipeline` that reconstructs representative tracked SSA B-mode images from the raw RF channel data.
 
 The pipeline performs:
 
 1. Frame-wise demodulation
 2. Application of the tracked probe pose
 3. Delay-and-sum beamforming onto a common reconstruction grid
-4. Coherent summation of the beamformed IQ frames
+4. Coherent SSA compounding
 5. Envelope detection
 6. Normalization
 7. Log compression
-
-The reconstruction is defined in `pipeline.yaml` and executed using `reconstruct.py`. A representative reconstructed B-mode image is included with the dataset.
 
 ## Known Issues
 
 - Optical tracking measurements may contain small position and orientation uncertainties.
 - Reconstruction quality depends on tracking calibration accuracy and coherent alignment between frames.
-
+- The in-vivo dataset is intended for research use and has not been optimized for clinical workflows.
 
 ## Ethical Considerations
 
-This dataset contains phantom ultrasound data only. It does not contain human participants, animal subjects, personal identifiers, clinical records, or protected health information.
-
-Human-subject consent and institutional review board approval are therefore not applicable.
-
+- **Phantom data:** phantom ultrasound acquisitions only — no human participants, animal subjects, personal identifiers or clinical records; consent and IRB approval are not applicable.
+- **In-vivo data:** acquired from healthy volunteer participants with informed consent under IRB-approved protocol #24-0176, and de-identified prior to release.
+- No protected health information (PHI) or participant-identifying metadata is included in the released files.

@@ -1,5 +1,6 @@
 ---
-pretty_name: "OpenH-RF — TU/e PULS/e — Abdominal Aortic Aneurysm (C5-2v) channel data"
+name: tue-aaa
+pretty_name: "TU/e PULS/e — Abdominal Aortic Aneurysm (C5-2v) channel data"
 license: cc-by-4.0
 task_categories:
   - image-to-image
@@ -15,7 +16,11 @@ language:
   - en
 ---
 
-# Abdominal Aortic Aneurysm (AAA) curved-array channel data
+# TU/e Abdominal Aortic Aneurysm (AAA) Curved-Array Channel Data
+
+![Reconstructed cineloop from AAA_subject11.hdf5](assets/AAA_subject11.gif)
+
+*Cine loop of [`data/AAA_subject11.hdf5`](https://huggingface.co/datasets/nvidia/OpenH-RF/blob/main/tue-aaa/data/AAA_subject11.hdf5), reconstructed from the raw channel data.*
 
 ## Dataset Description
 
@@ -23,10 +28,8 @@ This dataset contains ultrasound channel data acquired in vivo from patients wit
 
 ## Dataset Contributor(s)
 
-PULS/e group
-Department of Biomedical Engineering
-Eindhoven University of Technology
-contact: Hans-Martin Schwab (h.schwab@tue.nl)
+- Hans-Martin Schwab <h.schwab@tue.nl> (contact)
+- PULS/e group, Department of Biomedical Engineering, Eindhoven University of Technology
 
 ## Dataset Creation Date
 
@@ -34,12 +37,12 @@ July 2026
 
 ## License / Terms of Use
 
-CC BY 4.0.
+[Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/legalcode.en). Retain attribution and identify modifications when reusing the data.
 
 ## Intended Usage
 
-Advanced beamforming
-Motion estimation
+- Advanced beamforming
+- Motion estimation
 
 ## Dataset Characterization
 
@@ -47,7 +50,23 @@ Motion estimation
 - **Acquisition system:** Verasonics Vantage, C5-2v curved array, 128 elements, center frequency 3.6 MHz
 - **Transmit sequence:** 15 steered diverging waves (polar angles −12° … +12°)
 
+## Processing the Dataset
+
+The acquisitions can be processed with the `pipeline.yaml` definition in this folder and the [zea library](https://github.com/tue-bmd/zea).
+
+`zea` streams the data from the Hugging Face Hub and processes it according to the pipeline. You can try it out with the following command:
+
+```bash
+zea process \
+  --dataset hf://nvidia/OpenH-RF/tue-aaa/data/AAA_subject11.hdf5 \
+  --config hf://nvidia/OpenH-RF/tue-aaa/pipeline.yaml
+```
+
+Alternatively, you can use the `reconstruct.py` [script](https://github.com/open-h/OpenH-RF/blob/main/datasets/tue-aaa/reconstruct.py) as provided in the [OpenH-RF GitHub repository](https://github.com/open-h/OpenH-RF).
+
 ## Dataset Format
+
+[zea v0.1.4](https://github.com/tue-bmd/zea)
 
 zea file format. Subject metadata is stored under `metadata/subject` (`age`, `sex`, `bmi`); attribution under `metadata/credit`.
 
@@ -55,7 +74,7 @@ zea file format. Subject metadata is stored under `metadata/subject` (`age`, `se
 
 **Current OpenH-RF release:** 15 HDF5 files; 53.08 GB (53,077,606,400 bytes) stored; root `zea_version` **0.1.4**. Sizes include all HDF5 contents and use decimal units (MB = 10^6 bytes, GB = 10^9 bytes, TB = 10^12 bytes), not decoded-array memory or original-source download sizes.
 
-- **Samples / frames:** 500 acquisitions
+- **Samples / frames:** 15 acquisitions (one HDF5 file each), 500 frames per acquisition — 7,500 frames total
 - **Stored HDF5 size:** 53.08 GB (53,077,606,400 bytes).
 
 | Field | Shape | dtype | Units | Description |
@@ -64,7 +83,7 @@ zea file format. Subject metadata is stored under `metadata/subject` (`age`, `se
 
 ## Subject Metadata
 
-Patients are dominantly male, aged 63–90, and scanned in the Netherlands.
+Patients are dominantly male (13 M / 2 F), aged 66–87, and scanned in the Netherlands.
 
 ## Data Validation
 

@@ -41,7 +41,8 @@ from zea.ops import (
 )
 
 HERE = Path(__file__).parent
-CONFIG = HERE / "pipeline.yaml"
+CONFIG = HERE / "pipeline.yaml"  # written by write_config(); this is what the run loads
+HF_CONFIG = "hf://nvidia/OpenH-RF/vanderbilt/pipeline.yaml"  # where CONFIG is published
 
 # P4-2v is a phased array (sector scan), so beamform on a polar grid and
 # scan convert to Cartesian for display, rather than beamforming directly
@@ -61,7 +62,7 @@ PARAMETERS = {
 # --- Inputs -----------------------------------------------------------------
 # Defaults stream straight from the published corpus. Swap any of these for a
 # local path to run against your own copy.
-INPUT = "hf://nvidia/OpenH-RF/vanderbilt/data/Fundamental/118420_1_Focused_Uncoded_TX.hdf5"
+ZEA_FILE = "hf://nvidia/OpenH-RF/vanderbilt/data/Fundamental/118420_1_Focused_Uncoded_TX.hdf5"
 N_FRAMES = 1
 DEVICE = None  # CUDA device ID (e.g. 'cuda:0', 'auto:1', or 'cpu')
 
@@ -93,7 +94,7 @@ def write_config(pipeline: Pipeline, path: Path) -> None:
 
 def main():
     # The input may be an hf:// URI, so write the PNG beside this script.
-    output_path = HERE / f"{Path(INPUT).stem}.png"
+    output_path = HERE / "assets" / f"{Path(ZEA_FILE).stem}.png"
 
     zea.init_device(device=DEVICE, verbose=False)
 
@@ -104,7 +105,7 @@ def main():
 
     frames = list(range(N_FRAMES))
     # Load file: read acquisition parameters (with config overrides) and raw RF data
-    with File(str(INPUT)) as f:
+    with File(str(ZEA_FILE)) as f:
         parameters = f.load_parameters(**config.parameters)
 
         # Only grab and beamform the first frame
@@ -128,6 +129,7 @@ def main():
     )
     plt.xlabel("X (m)")
     plt.ylabel("Z (m)")
+    Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     plt.savefig(str(output_path), bbox_inches="tight", dpi=100)
 
     print(f"Reconstructed  : {recon.shape}")

@@ -44,7 +44,7 @@ HERE = Path(__file__).resolve().parent
 # Defaults stream straight from the published corpus. Swap any of these for a
 # local path to run against your own copy.
 ZEA_FILE = "hf://nvidia/OpenH-RF/ubc/module_C/acquisitions/session_01/session_01_f1306.hdf5"
-OUTPUT = HERE / "results" / "reconstruct_f1306_bk_scanconverted.png"
+OUT = HERE / "assets" / "reconstruct_f1306_bk_scanconverted.png"
 FRAME = 0
 
 NORMALIZATION_PERCENTILE = 99.5
@@ -173,10 +173,10 @@ def save_bmode(sector, x_lim, z_lim, output_path: Path) -> None:
 def main() -> None:
     scanlines, depth_m = reconstruct_scanlines(ZEA_FILE, FRAME)
     sector, x_lim, z_lim = scan_convert_bk_style(scanlines, depth_m)
-    save_bmode(sector, x_lim, z_lim, OUTPUT)
+    save_bmode(sector, x_lim, z_lim, OUT)
     print(f"Scanline B-mode: {scanlines.shape}; {scanlines.min():.3f}..{scanlines.max():.3f} dB")
     print(f"Scan converted : {sector.shape}; depth={depth_m * 1e3:.1f} mm")
-    print(f"Saved          : {OUTPUT}")
+    print(f"Saved          : {OUT}")
 
 
 if __name__ == "__main__":

@@ -35,37 +35,34 @@ from zea import Config, File, Pipeline
 from zea.beamform.pixelgrid import polar_pixel_grid
 
 HERE = Path(__file__).parent
-_HDF5 = "hf://nvidia/OpenH-RF/resolvestroke/phantom_mp/phantom_mp.hdf5"
-DEFAULT_INPUT = "hf://nvidia/OpenH-RF/resolvestroke/phantom_mp/phantom_mp.hdf5"
-CONFIG = HERE / "pipeline.yaml"
+CONFIG = "hf://nvidia/OpenH-RF/resolvestroke/phantom_mp/pipeline.yaml"
 
 # --- Inputs -----------------------------------------------------------------
 # Defaults stream straight from the published corpus. Swap any of these for a
 # local path to run against your own copy.
-INPUT = "hf://nvidia/OpenH-RF/resolvestroke/phantom_mp/phantom_mp.hdf5"
+ZEA_FILE = "hf://nvidia/OpenH-RF/resolvestroke/phantom_mp/phantom_mp.hdf5"
 FRAME = 0
-OUTPUT = None
+OUT = HERE / "assets" / f"{Path(ZEA_FILE).stem}_bmode.png"
 
 
 def sector_grids(p, apex):
     """Two perpendicular diverging-wave sector fans, each (n_radial, n_angular, 3)
     in Cartesian metres. The y-z fan is the x-z fan rotated 90 deg about z (swap
-    x and y). polar_pixel_grid measures radius from the apex, so the near bound is
-    offset by the apex to keep the configured zlims as true on-axis depth."""
+    x and y). polar_pixel_grid takes zlims as on-axis depth and adds the apex to the
+    radii itself, so the configured zlims go in unchanged."""
     lims = tuple(float(v) for v in p["polar_limits"])
     z0, z1 = (float(v) for v in p["zlims"])
-    xz = polar_pixel_grid(lims, (z0 + apex, z1), int(p["grid_size_z"]), int(p["grid_size_x"]), apex)
+    xz = polar_pixel_grid(lims, (z0, z1), int(p["grid_size_z"]), int(p["grid_size_x"]), apex)
     yz = xz.copy()
     yz[..., 0], yz[..., 1] = 0.0, xz[..., 0]
     return np.stack([xz, yz])  # (2, n_r, n_theta, 3)
 
 
 def main():
-    out_path = OUTPUT or Path(f"{Path(INPUT).stem}_bmode.png")
 
     zea.init_device()
     config = Config.from_path(str(CONFIG))
-    with File(str(INPUT)) as f:
+    with File(str(ZEA_FILE)) as f:
         parameters = f.load_parameters(**config.parameters)
         raw = f.data.raw_data[FRAME : FRAME + 1]  # (1, n_tx, n_ax, n_el, n_ch)
 
@@ -73,7 +70,7 @@ def main():
     tgc = np.asarray(parameters.tgc_gain_curve, np.float32)
     raw = np.asarray(raw, np.float32) / tgc.reshape(1, 1, -1, 1, 1)
 
-    apex = float(np.abs(np.ravel(parameters.focus_distances)[0]))  # virtual-source depth
+    apex = float(config.parameters.distance_to_apex)  # virtual source behind the array
     grid = sector_grids(config.parameters, apex)  # (2, n_r, n_theta, 3): [x-z, y-z]
 
     # Beamform both fans in one pass; reshape_grid restores the (2, n_r, n_theta) shape.
@@ -110,8 +107,9 @@ def main():
         fig.colorbar(pm, cax=cax, label="dB")
 
     fig.tight_layout()
-    fig.savefig(str(out_path), dpi=150, bbox_inches="tight")
-    print(f"Saved: {out_path}")
+    Path(OUT).parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(str(OUT), dpi=150, bbox_inches="tight")
+    print(f"Saved: {OUT}")
 
 
 if __name__ == "__main__":

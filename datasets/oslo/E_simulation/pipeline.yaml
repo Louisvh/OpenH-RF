@@ -1,0 +1,28 @@
+# zea pipeline for E_simulation/PICMUS_numerical_calib_v2.hdf5, the example acquisition of this sub-dataset.
+# The shared ../pipeline_iq.yaml plus the per-acquisition settings that
+# ../reconstruct.py takes from ../parameters.yaml (display window in metres,
+# dynamic range), so `zea process` renders it standalone.
+# zea process writes the pixel array as-is, so the grid is sized for square
+# pixels.
+
+parameters:
+  f_number: 1.75
+  grid_size_x: 507
+  grid_size_z: 600
+  dynamic_range: [-60, 0]
+  selected_transmits: all
+  zlims: [0.005, 0.05]
+  xlims: [-0.019, 0.019]
+pipeline:
+  operations:
+  - name: keras.ops.cast
+    params:
+      dtype: float32
+  - name: apply_window
+  - name: beamform
+    params:
+      beamformer: delay_and_sum
+      enable_pfield: false
+  - name: envelope_detect
+  - name: normalize
+  - name: log_compress

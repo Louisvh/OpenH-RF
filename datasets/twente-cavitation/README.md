@@ -1,46 +1,65 @@
 ---
-pretty_name: "OpenH-RF —  Hermen de Roo / Passive cavitation detection"
+name: twente-cavitation
+pretty_name: "Twente Passive Cavitation Detection of Flowing Microbubbles"
 license: cc-by-4.0
 task_categories:
   - image-classification
 tags:
   - ultrasound
-  - rf                   
+  - rf
   - openh-rf
   - cavitation
 language:
   - en
 size_categories:
-  - 1K<n<10K                 
+  - 1K<n<10K
 ---
 
+# Twente Passive Cavitation Detection of Flowing Microbubbles
+
+![A passive acoustic map reconstructed from this dataset.](assets/hero.png)
+
+*Passive acoustic map of microbubbles cavitating in the flow channel, reconstructed from the raw channel data with one-way passive minimum-variance beamforming.*
 
 ## Dataset Description
-The collected data is for cavitation mapping of microbubbles, insonified with focused ultrasound at various pressures and flowrates. This data applicable to therapeutic ultrasound and local drug delivery in any part of the human body. The used sensor hardware is a Verasonics research system with an L11-4v transducer for recording the bubble response during the treatment. Insonification is done using a single element transducer at 2.25MHz. The insonification is done with a 1000 cycles long pulse at 2.25MHz, where the first and last 2 microseconds are used for ramping up and down the pressure. The pulse repetition frequency used is 20Hz, repeated 400 times.
+The collected data is for cavitation mapping of microbubbles, insonified with focused ultrasound at various pressures and flowrates. This data is applicable to therapeutic ultrasound and local drug delivery in any part of the human body. The used sensor hardware is a Verasonics research system with an L11-4v transducer for recording the bubble response during the treatment. Insonification is done using a single element transducer at 2.25MHz. The insonification is done with a 1000 cycles long pulse at 2.25MHz, where the first and last 2 microseconds are used for ramping up and down the pressure. The pulse repetition frequency used is 20Hz, repeated 400 times. The tube goes through the imaging plane of the L11-4v, and the transmitting single element transducer insonifies the tube from the side at 90 degrees. Both transducers are positioned to have their (elevation) focus aligned with the tube containing the microbubbles.
 
+![A top view schematic of the experimental setup.](assets/Schematic_setup.png)
+
+*Top view of the setup: the flow tube crosses the L11-4v imaging plane and the 2.25 MHz single-element transducer insonifies it from the side at 90 degrees.*
 
 ## Dataset Contributor(s)
-Hermen de Roo
-Michel Versluis
-Guillaume Lajoinie (contact email: g.p.r.lajoinie@utwente.nl)
 
+- Hermen de Roo
+- Michel Versluis
+- Guillaume Lajoinie <g.p.r.lajoinie@utwente.nl> (contact)
 
 ## Dataset Creation Date
 Data recorded on 01/19/2026. Dataset created on 07/09/2026.
 
 ## License / Terms of Use
-I confirm that the data is cleared for use under CC BY 4.0.
+
+[Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/legalcode.en). Retain attribution and identify modifications when reusing the data.
 
 ## Intended Usage
 The dataset contains data over a large pressure range, from very low pressures up to the very high pressures used in therapeutic ultrasound. With this data one can quantify the treatment threshold and treatment effects over this wide range. The dataset also includes data for different levels of perfusion by varying the flowrate, from which the effect of perfusion on treatment efficacy can be studied. The data is intended to be processed with passive cavitation detection algorithms.
 
 ## Dataset Characterization
 - **Data Collection Method:** phantom
-- **Labeling Method:** N/A 
+- **Labeling Method:** N/A
 - **Acquisition system:** Verasonics Vantage 256, L11-4v transducer. 128 elements, 7.24MHz center frequency, 27.778 MHz sampling rate
 
+## Processing the Dataset
+
+The acquisitions can be processed with the `reconstruct.py` [script](https://github.com/open-h/OpenH-RF/blob/main/datasets/twente-cavitation/reconstruct.py) as provided in the [OpenH-RF GitHub repository](https://github.com/open-h/OpenH-RF), together with the `pipeline.yaml` definition in this folder and the [zea library](https://github.com/tue-bmd/zea). The script streams the data from the Hugging Face Hub.
+
+Set `ZEA_FILE` at the top of the script to pick an acquisition and `N_FRAMES` to set how many frames are averaged; the map is written to `assets/<file>.png`.
+
 ## Dataset Format
-.zea file format. No preprocessing is applied. 
+
+[zea v0.1.6](https://github.com/tue-bmd/zea)
+
+[zea file format](https://zea.readthedocs.io/en/latest/data-acquisition.html). No preprocessing is applied.
 
 ## Dataset Quantification
 
@@ -51,8 +70,7 @@ The dataset contains data over a large pressure range, from very low pressures u
 - **Stored HDF5 size:** 10.85 GB (10,850,533,376 bytes).
 - All recordings were taken under identical conditions, except for the driving pressure and flowrate of the microbubble solution through the channel.
 
-Each acquisition is one zea HDF5 file with a single track (`tracks/track_0`). The
-per-frame channel data plus the scan/probe fields needed to reconstruct it are:
+Each acquisition is one zea HDF5 file with a single track (`tracks/track_0`). The per-frame channel data plus the scan/probe fields needed to reconstruct it are:
 
 | Field | Shape | dtype | Units | Description |
 |---|---|---|---|---|
@@ -71,11 +89,9 @@ per-frame channel data plus the scan/probe fields needed to reconstruct it are:
 | `scan/tgc_gain_curve` | (16384,) | float32 | a.u. | Time-gain-compensation curve applied along the axial dimension. |
 | `tracks/track_0/transmit_only` | scalar | bool | — | False (the array receives). |
 
-> **Note.** The table below is the **acquisition matrix** — it lists which files exist
-> and under what driving pressure / flowrate, not the internal layout of a sample.
+> **Note.** The table below is the **acquisition matrix** — it lists which files exist and under what driving pressure / flowrate, not the internal layout of a sample.
 
-Files are named `cavitation_bubbles_<pressure>kPa_<flowrate>mL.hdf5`, where
-`<flowrate>` is the microbubble flowrate in mL/min (`01` = 0.1, `05` = 0.5, `2` = 2).
+Files are named `cavitation_bubbles_<pressure>kPa_<flowrate>mL.hdf5`, where `<flowrate>` is the microbubble flowrate in mL/min (`01` = 0.1, `05` = 0.5, `2` = 2).
 
 | Name | Acoustic driving pressure [kPa]| Microbubble flowrate [mL/min] |
 |---                                    |---   |---  |
@@ -99,19 +115,21 @@ Files are named `cavitation_bubbles_<pressure>kPa_<flowrate>mL.hdf5`, where
 | cavitation_bubbles_500kPa_2mL.hdf5    | 500  | 2   |
 | cavitation_bubbles_1000kPa_2mL.hdf5   | 1000 | 2   |
 
-
 ## Subject Metadata
 Only one phantom was used. This is a phantom made of PVCp with a single flow channel ~200 micrometer diameter. The used scanner is a Verasonics Vantage 256 with a L11-4v transducer.
 
 ## Data Validation
-An reconstruction pipeline can be found in pipeline.yaml. The script reconstruct.py is an example of the reconstruction of the data, using the minimum variance / Capon beamformer. An example reconstruction is saved with this dataset, and named reference_image_1000kPa_2mL_per_min.png, which was generated using the Capon beamforming algorithm using epsilon = 2, on the datafile named cavitation_bubbles_1000kPa_2mL_per_min.hdf5. By default the script saves the map next to the input file with the same name and a `.png` extension (e.g. `my_file.hdf5` → `my_file.png`); pass `--output` to override. Usage:
-    python reconstruct.py
-    python reconstruct.py --input my_file.hdf5 --device cpu
-    python reconstruct.py --input my_file.hdf5 --output my_map.png --frames 20 --device cuda:0
+The reconstruction pipeline is in `pipeline.yaml`. `reconstruct.py` is an example reconstruction of the data using the minimum variance (Capon) beamformer integrated in zea, with diagonal loading epsilon = 1e-2: the array only receives, so the transmit model is overridden and the chain aligns purely on receive curvature (one-way passive beamforming), averaging the envelope energy over sampling instants and frames. An example output from `cavitation_bubbles_1000kPa_01mL_per_min.hdf5` is [`assets/cavitation_bubbles_1000kPa_01mL_per_min.png`](assets/cavitation_bubbles_1000kPa_01mL_per_min.png). The script writes the map to `assets/<file>.png`. Usage:
 
+```bash
+python reconstruct.py
+```
 
 ## Known Issues
 No known issues.
 
 ## Ethical Considerations
+
 This is phantom acquisition data, hence no human-subject IRB/HIPAA approval is required.
+
+The contributors confirm that the data is cleared for use under CC BY 4.0.

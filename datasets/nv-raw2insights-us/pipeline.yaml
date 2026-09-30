@@ -1,0 +1,23 @@
+# Reconstruction pipeline recipe for the NV-Raw2Insights-US example.
+#
+# This file is written by reconstruct.py (pipeline.to_yaml) as a shareable
+# artifact; the pipeline is defined in code, then saved here and loaded back
+# in, so this file is provably what reconstruct.py actually runs. It records
+# the DAS -> envelope -> normalize -> log-compress operation chain; the
+# acquisition/grid parameters are derived from the data file at run time, not
+# stored here.
+#
+# This is the plain DAS recipe, without sound-speed (aberration) correction.
+# reconstruct.py's SoS-corrected panel runs this same pipeline a second time,
+# passing sos_map/sos_grid_x/sos_grid_z to the "beamform" op at call time.
+
+pipeline:
+    operations:
+    -   name: beamform
+    - envelope_detect
+    -   name: normalize
+        params:
+            output_range:
+            - 0.0
+            - 1.0
+    - log_compress

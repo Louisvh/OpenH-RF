@@ -4,8 +4,9 @@
 Dataset link: https://huggingface.co/datasets/nvidia/OpenH-RF/tree/main/kaist-snubh-barreleye
 
 B-mode reconstruction of 9-angle plane-wave compounded in-vivo breast channel data.
-
-The reconstruction is written as a single B-mode PNG.
+The 1-12 MHz band-pass rejects a persistent sub-MHz band before coherent
+beamforming, which allows the raw RF (n_ch=1) to demodulate and beamform
+cleanly.
 
 Requires zea>=0.1.6 (https://github.com/tue-bmd/zea), the library that does the
 ultrasound processing here, together with one of its Keras backends (JAX,
@@ -16,147 +17,60 @@ Usage:
     python reconstruct.py
 """
 
-from __future__ import annotations
-
 import os
 
 os.environ.setdefault("KERAS_BACKEND", "jax")
 os.environ.setdefault("MPLBACKEND", "Agg")
 
-
 from pathlib import Path
 
+import keras
 import matplotlib.pyplot as plt
 import numpy as np
 import zea
-from zea import File, Pipeline
-from zea.ops import (
-    BandPassFilter,
-    Beamform,
-    Cast,
-    Demodulate,
-    EnvelopeDetect,
-    LogCompress,
-    Normalize,
-)
+from zea import Config, File, Pipeline
 
-_MM = plt.FuncFormatter(lambda v, _: f"{v * 1e3:.0f}")
-_HERE = Path(__file__).resolve().parent
-
-# Imaging grid & display parameters (shared by both representations).
-PARAMETERS = {
-    "grid_size_x": 512,  # lateral pixels
-    "grid_size_z": 768,  # axial pixels
-    "xlims": [-0.0191, 0.0191],  # metres (lateral_length = 3.82 cm)
-    "zlims": [0.002, 0.04],  # metres — skip first 2 mm dead-zone / TX-pulse residue
-    "dynamic_range": [-50, 0],
-    "apply_lens_correction": False,
-    "f_number": 1.5,
-}
+HERE = Path(__file__).parent
 
 # --- Inputs -----------------------------------------------------------------
 # Defaults stream straight from the published corpus. Swap any of these for a
 # local path to run against your own copy.
-INPUT = "hf://nvidia/OpenH-RF/kaist-snubh-barreleye/data/S32_D2.hdf5"
-SAVE_YAML = False  # write pipeline.yaml / pipeline_simple.yaml from the pipelines below
-OUTPUT = _HERE / "reconstruct.png"
+ZEA_FILE = "hf://nvidia/OpenH-RF/kaist-snubh-barreleye/data/S01_D1.hdf5"
+CONFIG = "hf://nvidia/OpenH-RF/kaist-snubh-barreleye/pipeline.yaml"
+OUT = HERE / "assets" / "reconstruction.png"
 
 
-def build_pipeline(n_ch: int, filtered: bool = True) -> Pipeline:
-    """Pipeline by representation, built directly from zea ops.
+def main():
+    zea.init_device()
+    config = Config.from_path(CONFIG)
 
-    Raw RF (n_ch=1) gets band-pass + demodulate; already-demodulated IQ
-    (n_ch=2) goes straight to beamforming.
-    """
-    ops = [Cast(dtype="float32")]
-    if n_ch == 1:
-        if filtered:
-            # The proposed one-op filter, applied to the raw RF before
-            # demodulation. Low edge 1 MHz: the filter ablation
-            # (evaluation/*.md) shows the entire benefit of the upstream
-            # depth-adaptive filter is rejecting a persistent sub-MHz band
-            # before coherent beamforming. High edge 12 MHz: passes the full
-            # fundamental around fc = 10 MHz (Nyquist = 31.25 MHz). 255 taps
-            # keep the ~0.25 MHz transition well-resolved at the 1 MHz edge
-            # (fs = 62.5 MHz).
-            ops.append(BandPassFilter(passband=(1e6, 12e6), num_taps=255))
-        ops.append(Demodulate())
-    ops += [
-        Beamform(beamformer="delay_and_sum"),
-        EnvelopeDetect(),
-        Normalize(),
-        LogCompress(),
-    ]
-    return Pipeline(operations=ops)
-
-
-def save_yaml() -> None:
-    """Export the code-defined pipeline as a shareable YAML recipe."""
-    out = _HERE / "pipeline.yaml"
-    build_pipeline(n_ch=1).to_yaml(str(out))
-    print(f"Saved : {out}")
-
-
-def reconstruct_file(path: Path, filtered: bool = True) -> dict:
-    """Beamform one .hdf5 file. Returns bmode, extent and metadata."""
-    with File(str(path)) as f:
+    with File(str(ZEA_FILE)) as f:
+        parameters = f.load_parameters(**config.parameters)
         raw = f.data.raw_data[:]
-        parameters = f.load_parameters(**PARAMETERS)
         patient = f.metadata.subject.id
         label = f.metadata.annotations.label
 
-    n_ch = raw.shape[-1]
-    print(
-        f"  {Path(path).parent.name}/{Path(path).name}: n_ch={n_ch} ({'RF' if n_ch == 1 else 'IQ'})"
-    )
-    pipeline = build_pipeline(n_ch, filtered)
+    pipeline = Pipeline.from_config(config)
     inputs = pipeline.prepare_parameters(parameters)
-    recon = np.array(pipeline(data=raw, **inputs)["data"])
-    return {
-        "bmode": zea.display.to_8bit(recon[0]),
-        "extent": parameters.extent_imshow,
-        "patient": patient,
-        "label": label,
-        "n_ch": n_ch,
-    }
+    outputs = pipeline(data=raw, **inputs)
+    recon = keras.ops.convert_to_numpy(outputs[pipeline.output_key])[0]
 
-
-def _imshow_recon(ax, bmode, extent, title):
-    ax.imshow(bmode, cmap="gray", aspect="auto", extent=extent)
-    ax.set_title(title)
-    ax.set_xlabel("x [mm]")
-    ax.set_ylabel("z [mm]")
-    ax.xaxis.set_major_formatter(_MM)
-    ax.yaxis.set_major_formatter(_MM)
-
-
-def run_single() -> int:
-    print(f"Input : {INPUT}")
-    zea.init_device()
-    r = reconstruct_file(INPUT)
-
-    Path(OUTPUT).parent.mkdir(parents=True, exist_ok=True)
     zea.visualize.set_mpl_style()
-    plt.figure(figsize=(5, 7))
-    _imshow_recon(
-        plt.gca(),
-        r["bmode"],
-        r["extent"],
-        f"DAS reconstruction — patient {r['patient']} ({r['label']})",
+    fig, ax = plt.subplots(figsize=(5.5, 6))
+    ax.imshow(
+        zea.display.to_8bit(recon, dynamic_range=parameters.dynamic_range),
+        cmap="gray",
+        extent=np.asarray(parameters.extent_imshow) * 1e3,
+        aspect="equal",
     )
-    plt.tight_layout()
-    plt.savefig(str(OUTPUT), dpi=130, bbox_inches="tight")
-    plt.close()
-    print(f"Saved : {OUTPUT}")
-    return 0
-
-
-def main() -> int:
-    if SAVE_YAML:
-        save_yaml()
-        return 0
-    return run_single()
+    ax.set_xlabel("lateral [mm]")
+    ax.set_ylabel("depth [mm]")
+    ax.set_title(f"{Path(ZEA_FILE).stem} — patient {patient} ({label})")
+    fig.tight_layout()
+    Path(OUT).parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(str(OUT), dpi=130, bbox_inches="tight")
+    print(f"raw {raw.shape} -> B-mode {recon.shape}; saved {OUT}")
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    main()

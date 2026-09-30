@@ -39,7 +39,6 @@ from matplotlib.colors import to_rgba
 from zea.ops import Downsample
 
 HERE = Path(__file__).resolve().parent
-DEFAULT_PIPELINE = HERE / "pipeline.yaml"
 
 OUTPUT_PX = None  # reconstruction side length; None -> derive from segmentation mask dims
 
@@ -56,11 +55,11 @@ FRAME_COLORS = plt.get_cmap("tab10").colors
 # --- Inputs -----------------------------------------------------------------
 # Defaults stream straight from the published corpus. Swap any of these for a
 # local path to run against your own copy.
-INPUT = "hf://nvidia/OpenH-RF/mosaic-intelligence/data/15_10_50_19.hdf5"
-PIPELINE = "hf://nvidia/OpenH-RF/mosaic-intelligence/pipeline.yaml"
+ZEA_FILE = "hf://nvidia/OpenH-RF/mosaic-intelligence/data/22_12_10_52.hdf5"
+CONFIG = "hf://nvidia/OpenH-RF/mosaic-intelligence/pipeline.yaml"
 NUM_FRAMES = 5  # Number of frames to overlay, spaced evenly across the pullback
 FRAMES = None  # Explicit frame indices to overlay (overrides NUM_FRAMES)
-OUTPUT = None
+OUT = None
 BANDWIDTH = 30e6
 DYNAMIC_RANGE = (-43.0, -0.0)
 SIZE = OUTPUT_PX  # Square canvas side length (px) for the reconstruction
@@ -203,10 +202,10 @@ def render_overview(panels, frames, labels, position_mm, frame_rate_hz, alpha, o
 def main():
     zea.init_device()
 
-    pipeline = zea.Pipeline.from_path(str(PIPELINE))
+    pipeline = zea.Pipeline.from_path(str(CONFIG))
     print(f"Pipeline: {pipeline}")
 
-    with zea.File(str(INPUT)) as f:
+    with zea.File(str(ZEA_FILE)) as f:
         parameters = f.load_parameters()
         n_frames = int(f.data.raw_data.shape[0])
         frames = select_frames(n_frames, FRAMES, NUM_FRAMES)
@@ -280,7 +279,7 @@ def main():
             )
         panels.append((frame, recon_gray, mask))
 
-    output = OUTPUT or (HERE / "outputs" / Path(INPUT).stem / f"overview_{len(frames)}_frames.png")
+    output = OUT or (HERE / "assets" / Path(ZEA_FILE).stem / f"overview_{len(frames)}_frames.png")
     render_overview(panels, frames, labels, position_mm, frame_rate_hz, ALPHA, output)
 
 

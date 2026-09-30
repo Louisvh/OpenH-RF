@@ -1,3 +1,14 @@
+parameters:
+    xlims: [-0.018, 0.018]
+    zlims: [0.0, 0.035]     # RF runs out at 40.7 mm
+    # Isotropic pixels (~35.5 um both ways). The stored data/image is exactly
+    # isotropic (0.0791 mm over 36 x 40 mm); 1014 x 1100 over 36 x 35 mm is not,
+    # and stretched every reconstruction ~12% vertically against the reference.
+    grid_size_x: 1014
+    grid_size_z: 986
+    n_ch: 2                 # baseband IQ
+    selected_transmits: all
+    dynamic_range: [-60, 0]
 pipeline:
     operations:
     - beamform

@@ -2,7 +2,7 @@ parameters:
   xlims: [-0.01902, 0.01863]
   zlims: [0.0, 0.072]
   grid_size_x: 256
-  grid_size_z: 256
+  grid_size_z: 352
 
 pipeline:
   operations:

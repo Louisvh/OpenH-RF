@@ -1,3 +1,15 @@
+parameters:
+    xlims:
+    - -0.0191
+    - 0.0191
+    zlims:
+    - 0.002
+    - 0.04
+    dynamic_range:
+    - -50
+    - 0
+    apply_lens_correction: false
+    f_number: 1.5
 pipeline:
     operations:
     -   name: keras.ops.cast

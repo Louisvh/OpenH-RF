@@ -18,6 +18,14 @@ pipeline:
             - 1.0
     - log_compress
 parameters:
+    xlims:
+    - -0.019
+    - 0.019
+    zlims:
+    - 0.0
+    - 0.03
+    grid_size_x: 381
+    grid_size_z: 301
     dynamic_range:
     - -50
     - 0

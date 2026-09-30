@@ -32,10 +32,10 @@ HERE = Path(__file__).parent
 # --- Inputs -----------------------------------------------------------------
 # Defaults stream straight from the published corpus. Swap any of these for a
 # local path to run against your own copy.
-ZEA_FILE = "hf://nvidia/OpenH-RF/technion/bladder/data/ak.hdf5"
+ZEA_FILE = "hf://nvidia/OpenH-RF/technion/bladder/data/a1.hdf5"
 CONFIG = "hf://nvidia/OpenH-RF/technion/bladder/pipeline.yaml"
-FRAME = 0
-OUT = HERE / "bmode.png"
+FRAME = 10
+OUT = HERE / "assets" / "bmode.png"
 
 
 def main():
@@ -65,6 +65,7 @@ def main():
     cax = make_axes_locatable(ax).append_axes("right", size="5%", pad=0.05)
     fig.colorbar(im, cax=cax, label="a.u. (8-bit)")
     fig.tight_layout()
+    Path(OUT).parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(str(OUT), dpi=130, bbox_inches="tight")
     print(f"raw {raw.shape} -> B-mode {recon.shape}; saved {OUT}")
 

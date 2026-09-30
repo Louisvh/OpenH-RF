@@ -1,7 +1,8 @@
 parameters:
   grid_type: polar
   polar_limits: [-0.45, 0.45]     # sector half-angle in rad (≈ ±26°)
-  zlims: [0.01, 0.12]             # on-axis depth range in m (reconstruct.py offsets the apex)
+  zlims: [0.01, 0.12]             # on-axis depth range in m (zea adds distance_to_apex)
+  distance_to_apex: 0.05          # virtual source behind the array (|focus_distances|)
   grid_size_z: 420                # radial samples
   grid_size_x: 220                # angular samples
   grid_size_y: 1                  # 1 => 2D sector (unlocks polar grid)

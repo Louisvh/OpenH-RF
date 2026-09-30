@@ -9,7 +9,10 @@ The simulation ships its own ground truth, so the reconstruction can be checked
 against it directly. The figure puts seven panels side by side: IQ energy, the
 stored DAS B-mode, the focused-transmit B-mode, the zea reconstruction, a
 sound-speed-corrected zea reconstruction, the ground-truth speed-of-sound map
-and the segmentation.
+and the segmentation. The DAS -> envelope -> normalize -> log-compress pipeline
+is defined in code and saved to pipeline.yaml as a shareable recipe; it is the
+plain, non-SoS-corrected reconstruction. The SoS-corrected panel reruns the
+same pipeline with sos_map/sos_grid_x/sos_grid_z supplied at call time.
 
 Requires zea>=0.1.6 (https://github.com/tue-bmd/zea), the library that does the
 ultrasound processing here, together with one of its Keras backends (JAX,
@@ -36,8 +39,9 @@ HERE = Path(__file__).resolve().parent
 # --- Inputs -----------------------------------------------------------------
 # Defaults stream straight from the published corpus. Swap any of these for a
 # local path to run against your own copy.
-ZEA_FILE = "hf://nvidia/OpenH-RF/nv-raw2insights-us/data/nv_r2i_us_train_0000.hdf5"
-OUTPUT = HERE / "nv_raw2insights_us_reconstructed.png"
+ZEA_FILE = "hf://nvidia/OpenH-RF/nv-raw2insights-us/data/nv_r2i_us_validation_0084.hdf5"
+OUT = HERE / "assets" / "nv_raw2insights_us_reconstructed.png"
+CONFIG = HERE / "pipeline.yaml"
 
 
 def coords_to_imshow_mm(coords):
@@ -46,6 +50,18 @@ def coords_to_imshow_mm(coords):
     c = np.asarray(coords)
     x, z = c[..., 0] * 1e3, c[..., 2] * 1e3
     return [x.min(), x.max(), z.max(), z.min()]
+
+
+def build_pipeline() -> "zea.Pipeline":
+    """Define the DAS beamforming pipeline in code (no SoS correction)."""
+    return zea.Pipeline(
+        operations=[
+            Beamform(beamformer="delay_and_sum"),
+            EnvelopeDetect(),
+            Normalize(),
+            LogCompress(),
+        ]
+    )
 
 
 def main():
@@ -67,14 +83,10 @@ def main():
 
     print(f"raw_data: {raw.shape}")
 
-    pipeline = zea.Pipeline(
-        operations=[
-            Beamform(beamformer="delay_and_sum"),
-            EnvelopeDetect(),
-            Normalize(),
-            LogCompress(),
-        ]
-    )
+    build_pipeline().to_yaml(str(CONFIG))
+    config = zea.Config.from_path(str(CONFIG))
+    pipeline = zea.Pipeline.from_config(config)
+
     params = pipeline.prepare_parameters(parameters)
     outputs = pipeline(**{pipeline.key: raw}, **params)
     recon = keras.ops.convert_to_numpy(outputs[pipeline.output_key])[0]
@@ -172,8 +184,9 @@ def main():
 
     fig.suptitle(f"openh-rf sample (phase error: {phase_err[0]:.2f} rad)", fontsize=14, y=1.02)
     plt.tight_layout()
-    plt.savefig(OUTPUT, dpi=150, bbox_inches="tight")
-    print(f"Saved {OUTPUT}")
+    Path(OUT).parent.mkdir(parents=True, exist_ok=True)
+    plt.savefig(OUT, dpi=150, bbox_inches="tight")
+    print(f"Saved {OUT}")
 
 
 if __name__ == "__main__":

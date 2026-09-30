@@ -40,6 +40,7 @@ os.environ.setdefault("MPLBACKEND", "Agg")
 
 from pathlib import Path
 
+import keras
 import matplotlib.pyplot as plt
 import numpy as np
 import zea
@@ -95,7 +96,7 @@ def reconstruct(
     outputs = pipeline(data=data, **pipeline.prepare_parameters(parameters))
     image = np.array(
         zea.display.to_8bit(
-            np.squeeze(np.array(outputs["data"])),
+            np.squeeze(keras.ops.convert_to_numpy(outputs["data"])),
             dynamic_range=parameters.dynamic_range,
         )
     )
@@ -121,7 +122,8 @@ def reconstruct(
     ax.set_ylabel("z [mm]")
     ax.set_title(Path(path).stem, fontsize=8)
 
-    out_path = HERE / (Path(path).stem + suffix)
+    out_path = HERE / "assets" / (Path(path).stem + suffix)
+    Path(out_path).parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(str(out_path), bbox_inches="tight", dpi=110)
     plt.close(fig)
     print(f"{Path(path).parent.name}/{Path(path).name} -> {out_path.name}")

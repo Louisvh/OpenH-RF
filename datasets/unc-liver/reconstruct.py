@@ -18,8 +18,6 @@ Usage:
     python reconstruct.py
 """
 
-from __future__ import annotations
-
 import os
 
 os.environ.setdefault("KERAS_BACKEND", "jax")
@@ -51,7 +49,7 @@ CONFIG = HERE / "pipeline.yaml"
 # local path to run against your own copy.
 ZEA_FILE = "hf://nvidia/OpenH-RF/unc-liver/data/fullwave_abdominal_wall_1283_reg.hdf5"
 FRAME = 0
-OUT = Path("bmode.png")
+OUT = HERE / "assets" / "bmode.png"
 SOS_MAP = False  # Also plot the ground-truth sos_map next to the B-mode (2 subplots)
 
 
@@ -141,7 +139,13 @@ def main() -> None:
 
         fig, (ax_bmode, ax_sos) = plt.subplots(1, 2, figsize=(12, 7))
 
-        im_bmode = ax_bmode.imshow(bmode, cmap="gray", vmin=-60, vmax=0, extent=extent)
+        im_bmode = ax_bmode.imshow(
+            bmode,
+            cmap="gray",
+            vmin=params.dynamic_range[0],
+            vmax=params.dynamic_range[1],
+            extent=extent,
+        )
         ax_bmode.set_aspect("equal")
         ax_bmode.set_title(f"B-mode (DAS), frame {FRAME}")
         ax_bmode.set_xlabel("Lateral position [mm]")
@@ -158,7 +162,13 @@ def main() -> None:
         fig.colorbar(im_sos, cax=cax_sos, label="m/s")
     else:
         fig, ax = plt.subplots(figsize=(6.5, 7))
-        im = ax.imshow(bmode, cmap="gray", vmin=-60, vmax=0, extent=extent)
+        im = ax.imshow(
+            bmode,
+            cmap="gray",
+            vmin=params.dynamic_range[0],
+            vmax=params.dynamic_range[1],
+            extent=extent,
+        )
         ax.set_aspect("equal")
         ax.set_title(f"Fullwave abdominal wall B-mode (DAS), frame {FRAME}")
         ax.set_xlabel("Lateral position [mm]")
@@ -167,6 +177,7 @@ def main() -> None:
         fig.colorbar(im, cax=cax, label="dB")
 
     fig.tight_layout()
+    Path(OUT).parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(OUT, dpi=150, bbox_inches="tight")
     print(f"Saved reconstruction to {OUT}")
 

@@ -1,4 +1,5 @@
 ---
+name: waterloo-carotid
 pretty_name: UW-CarotidRF
 license: cc-by-4.0
 task_categories:
@@ -21,31 +22,22 @@ size_categories:
 
 # UW-Carotid RF
 
-Dataset consisting of raw RF data and vector velocity measurements of carotid
-arteries acquired in in vivo carotid artery studies conducted by LITMUS @
-University of Waterloo. The dataset consists of longitudinal and cross-sectional
-images of the common and internal carotid arteries respectively.
+![Reconstructed cineloop from Acq1.hdf5](assets/Acq1.gif)
 
+*Cine loop of [`data/Acq1.hdf5`](https://huggingface.co/datasets/nvidia/OpenH-RF/blob/main/waterloo-carotid/data/Acq1.hdf5), rendered using provided velocity fields.*
 
 ## Dataset Description
 
-This is a dataset consisting of raw RF frames (plane wave) and vector flow
-profiles of the carotid arteries (Common Carotid Artery and Internal Carotid
-Artery) in humans, acquired using a programmable research scanner configured for
-high frame rate vector flow imaging. The data was collected as part of studies
-conducted by the LITMUS research group at the University of Waterloo, focusing on
-carotid artery hemodynamics during baseline and physiological maneuvers (such as
-the Valsalva Maneuver, head-down tilt, and supine postures).
+Raw RF frames (plane wave) and vector flow profiles of the human carotid arteries, acquired in vivo by the LITMUS research group at the University of Waterloo with a programmable research scanner configured for high-frame-rate vector flow imaging. The dataset holds longitudinal images of the common carotid artery and cross-sectional images of the internal carotid artery, recorded to study carotid hemodynamics at baseline and during physiological maneuvers (Valsalva maneuver, head-down tilt, and supine postures).
 
 ## Dataset Contributor(s)
 
-Hassan Nahas, Jason Y. -H. Hsu, Theresa Gu, Adrian J. Y. Chee, Alfred C. H. Yu
-
-Correspondence emails:
-hassan.nahas@uwaterloo.ca
-jason.hsu@uwaterloo.ca
-theresa.gu@uwaterloo.ca
-alfred.yu@uwaterloo.ca
+- Hassan Nahas <hassan.nahas@uwaterloo.ca>
+- Jason Y. -H. Hsu <jason.hsu@uwaterloo.ca>
+- Theresa Gu <theresa.gu@uwaterloo.ca>
+- Adrian J. Y. Chee <adrian.chee@uwaterloo.ca>
+- Alfred C. H. Yu <alfred.yu@uwaterloo.ca>
+- LITMUS, University of Waterloo
 
 ## Dataset Creation Date
 
@@ -53,27 +45,39 @@ alfred.yu@uwaterloo.ca
 
 ## License / Terms of Use
 
-[Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/legalcode.en).
-
-All human studies were approved by the University of Waterloo’s Human Research
-Ethics Board (ORE #46278). All included data was acquired from participants who
-provided both written and verbal consent prior to participating in the study
-regarding public data sharing.
+[Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/legalcode.en). Retain attribution and identify modifications when reusing the data.
 
 ## Intended Usage
 
-Developing, benchmarking, and evaluating methods for ultrasound image
-reconstruction, motion estimation, clutter filtering, multi-angle Doppler
-processing, and vector flow imaging (VFI) in carotid artery imaging.
+Developing, benchmarking, and evaluating methods for ultrasound image reconstruction, motion estimation, clutter filtering, multi-angle Doppler processing, and vector flow imaging (VFI) in carotid artery imaging.
 
 ## Dataset Characterization
 
 - **Data Collection Method:** In vivo imaging of human carotid arteries (Common Carotid Artery and Internal Carotid Artery).
 - **Labeling Method:** Categorized by target artery (Anatomy), view direction (Longitudinal or Cross-sectional), and physiological condition/maneuver (Baseline, Valsalva Maneuver, Valsalva Maneuver – Supine, Valsalva Maneuver – Head Down Tilt, Head Down Tilt).
-- **Acquisition system:**
-  Raw RF data was acquired from programmable research scanners (US4R/US4R-Lite, US4US, Warsaw, Poland) equipped with an L14-5 linear array transducer.
+- **Acquisition system:** Raw RF data was acquired from programmable research scanners (US4R/US4R-Lite, US4US, Warsaw, Poland) equipped with an L14-5 linear array transducer.
+
+## Processing the Dataset
+
+The acquisitions can be processed with the `pipeline.yaml` definition in this folder and the [zea library](https://github.com/tue-bmd/zea).
+
+`zea` streams the data from the Hugging Face Hub and processes it according to the pipeline. You can try it out with the following command:
+
+```bash
+zea process \
+  --dataset hf://nvidia/OpenH-RF/waterloo-carotid/data/Acq1.hdf5 \
+  --config hf://nvidia/OpenH-RF/waterloo-carotid/pipeline.yaml \
+  --n-frames 1 \
+  --save-as png
+```
+
+Alternatively, you can use the `reconstruct.py` [script](https://github.com/open-h/OpenH-RF/blob/main/datasets/waterloo-carotid/reconstruct.py) as provided in the [OpenH-RF GitHub repository](https://github.com/open-h/OpenH-RF).
+
+Swap `--n-frames 1 --save-as png` for `--save-as gif` to get the cine loop. In the script, `ZEA_FILE`, `FRAME` and `POWER_THRESHOLD` (the power-Doppler mask threshold, in dB) at the top select what is reconstructed and overlaid.
 
 ## Dataset Format
+
+[zea v0.1.4](https://github.com/tue-bmd/zea)
 
 Submitted in the [`zea` file format](https://zea.readthedocs.io/en/latest/) (one HDF5 file per acquisition).
 
@@ -100,33 +104,15 @@ Per-sample contents of the converted HDF5:
 | `data/color_doppler` | `[n_frames, z, x]` (+ `coordinates` `[z, x, 3]`) | float32 | m/s | Color Doppler map |
 | `scan/*` | -- | -- | -- | Probe geometry, sampling/center/demodulation frequency, t0 delays, sound speed, transmit angles, focus distances, transmit origins, apodizations, PRI... |
 
-All `coordinates` arrays are per-pixel Cartesian positions in meters, last axis
-`[x, y, z]` (y = 0 for 2-D maps).
-
-## Shipped Example Acquisitions
-
-Two example acquisitions are included under `hdf5/` as a representative subset of
-the full dataset:
-
-| File | Subject | Anatomy | View | Condition | Frames |
-|---|---|---|---|---|---|
-| `hdf5/Acq0.hdf5` | 1 | Common Carotid Artery | Longitudinal | Baseline | 500 |
-| `hdf5/Acq62.hdf5` | 1 | Internal Carotid Artery | Cross-sectional | Baseline | 500 |
-
-Each common carotid artery frame comprises 2 steered plane-wave transmits (`n_tx = 2`), 2048 axial
-samples, and 128 receive channels. Each internal carotid artery frame comprises 1 steered plane-wave transmits (`n_tx = 1`), 1536 axial
-samples, and 128 receive channels.
-
-The frame count in these examples is truncated for demonstration; full acquisitions contain the frame counts described below.
+All `coordinates` arrays are per-pixel Cartesian positions in meters, last axis `[x, y, z]` (y = 0 for 2-D maps).
 
 ## Dataset Quantification
 
 **Current OpenH-RF release:** 93 HDF5 files; 6.90 TB (6,902,089,770,179 bytes) stored; root `zea_version` **0.1.4**. Sizes include all HDF5 contents and use decimal units (MB = 10^6 bytes, GB = 10^9 bytes, TB = 10^12 bytes), not decoded-array memory or original-source download sizes.
 
-Data was collected from 8 participants, spanning carotid arteries (Common Carotid
-Artery and Internal Carotid Artery) in both longitudinal and cross-sectional
-views. In total, the dataset consists of 93 acquisitions, containing
-36,000/60,000 frames of raw RF data per acquisition.
+Data was collected from 8 participants, spanning carotid arteries (Common Carotid Artery and Internal Carotid Artery) in both longitudinal and cross-sectional views. In total, the dataset consists of 93 acquisitions, containing 30,000 or 36,000 frames of raw RF data per acquisition (47 acquisitions of 30,000 frames and 46 of 36,000 frames). 
+Each common carotid artery frame comprises 2 steered plane-wave transmits (`n_tx = 2`), 2048 axial samples, and 128 receive channels. Each internal carotid artery frame comprises 1 steered plane-wave transmits (`n_tx = 1`), 1536 axial samples, and 128 receive channels.
+
 
 ## Subject Metadata
 
@@ -135,7 +121,7 @@ views. In total, the dataset consists of 93 acquisitions, containing
 | **Total Number of Subjects** | 8 |
 | **Total Number of Files (Acquisitions)** | 93 |
 | **Sex Composition** | M: 6 (75.0%), F: 2 (25.0%) |
-| **Total RF Frames** | 4,476,000 |
+| **Total RF Frames** | 3,066,000 |
 
 ## Known Issues
 
@@ -147,29 +133,19 @@ views. In total, the dataset consists of 93 acquisitions, containing
 
 ## Beamforming and Processing
 
-1. **Pre-Filtering:**
-   Channel RF data is pre-filtered using a 5 MHz bandpass filter before beamforming.
-2. **GPU-Accelerated Beamforming (DAS):**
-   Beamforming is carried out via a GPU-accelerated Delay-and-Sum (DAS) module.
+1. **Pre-Filtering:** Channel RF data is pre-filtered using a 5 MHz bandpass filter before beamforming.
+2. **GPU-Accelerated Beamforming (DAS):** Beamforming is carried out via a GPU-accelerated Delay-and-Sum (DAS) module.
    - **Aperture & Apodization:** 64-element Hanning window apodization and an F-number of 1.5.
    - **Dual Angle-Compounding:** Beamforming for B-mode and power Doppler is performed twice with opposite receive angles ($+15^{\circ}$ and $-15^{\circ}$). The final high-resolution beamformed image (HRI) is the average of these two acquisitions:
      $$HRI = \frac{HRI_{+15^{\circ}} + HRI_{-15^{\circ}}}{2}$$
    - **Reconstruction Grid:** Cartesian coordinates mapped by a `PixelMap` representing a lateral range of $[-19, 19]\text{ mm}$ and axial depth of $[0, 30]\text{ mm}$ at $0.1\text{ mm}$ spatial resolution.
-3. **Clutter Filtering:**
-   Clutter filtering is performed on the beamformed ensemble using a high-pass wall filter (normalized cut-off frequencies of 0.1 and 0.15, filter length of 100).
-4. **Multi-Angle Doppler Frequency Estimation:**
-   Angle-specific Doppler frequencies are computed using an ensemble size of 64 frames with a step size of 1.
-   - For acquisitions with 2 tx angles, we used the following Tx-Rx angles:
-     Tx: [-10, -10, 10, 10]; Rx: [-10, 10, -10, 10]
-   - For acquisitions with 1 tx angle:
-     Tx: [-10, -10, -10]; Rx: [-10, 0, 10]
-5. **Vector Doppler Velocity Estimation:**
-   Lateral ($v_x$) and axial ($v_z$) velocity components are computed from the multi-angle Doppler frequency estimates using least-squares estimation.
+3. **Clutter Filtering:** Clutter filtering is performed on the beamformed ensemble using a high-pass wall filter (normalized cut-off frequencies of 0.1 and 0.15, attenuation of 100 db).
+4. **Multi-Angle Doppler Frequency Estimation:** Angle-specific Doppler frequencies are computed using an ensemble size of 64 frames with a step size of 1.
+   - For acquisitions with 2 tx angles, we used the following Tx-Rx angles: Tx: [-10°, -10°, 10°, 10°]; Rx: [-10°, 10°, -10°, 10°]
+   - For acquisitions with 1 tx angle: Tx: [-10°, -10°, -10°]; Rx: [-10°, 0°, 10°]
+5. **Vector Doppler Velocity Estimation:** Lateral ($v_x$) and axial ($v_z$) velocity components are computed from the multi-angle Doppler frequency estimates using least-squares estimation.
 
-The full LITMUS processing pipeline (GPU DAS beamforming + multi-angle vector
-Doppler) is documented in [`convert.py`](convert.py). That script is included for
-provenance and reproducibility; it depends on the LITMUS core Python package and
-the raw acquisition frames, so it is not runnable from this folder alone.
+The full LITMUS processing pipeline (GPU DAS beamforming + multi-angle vector Doppler) is documented by the contributors. That documentation is provided for provenance and reproducibility; it depends on the LITMUS core Python package and the raw acquisition frames, so it is not runnable from this folder alone.
 
 Papers relevant to our pipeline:
 
@@ -181,42 +157,17 @@ B. Y. S. Yiu and A. C. H. Yu, "Least-Squares Multi-Angle Doppler Estimators for 
 
 ## Data Validation
 
-[`reconstruct.py`](reconstruct.py) builds a `zea.Pipeline` of DAS beamforming →
-envelope detection → normalization → log-compression **in code** and
-reconstructs a B-mode directly from `raw_data`, showing the raw-to-image flow
-without any config file. It also saves the pipeline to
-[`pipeline.yaml`](pipeline.yaml) as a shareable recipe. Comparing the
-reconstruction against the stored (LITMUS) B-mode is a sanity check that the
-acquisition parameters and probe geometry are recorded correctly, and serves as
-a reproducible reference reconstruction.
+`reconstruct.py` builds a `zea.Pipeline` of DAS beamforming → envelope detection → normalization → log-compression **in code** and reconstructs a B-mode directly from `raw_data`, showing the raw-to-image flow without any config file. It also saves the pipeline to `pipeline.yaml` as a shareable recipe. Comparing the reconstruction against the stored (LITMUS) B-mode is a sanity check that the acquisition parameters and probe geometry are recorded correctly, and serves as a reproducible reference reconstruction.
 
-When the vector-flow fields (`vector_velocity_x/z` + `power_doppler`) are present,
-a third panel overlays the vector velocity field on the stored B-mode. The
-overlay uses `draw_velocity_field`, a single self-contained (numpy + matplotlib)
-helper reproduced inside `reconstruct.py` from the LITMUS core Python package
-(`litmus.core_py.visualization`), so the script has no dependency on the full
-LITMUS GPU stack.
+When the vector-flow fields (`vector_velocity_x/z` + `power_doppler`) are present, a third panel overlays the vector velocity field on the stored B-mode. The overlay uses `draw_velocity_field`, a single self-contained (numpy + matplotlib) helper reproduced inside `reconstruct.py` from the LITMUS core Python package (`litmus.core_py.visualization`), so the script has no dependency on the full LITMUS GPU stack.
 
 The result is written to `reconstruct_output.png`:
 
-![reference reconstruction](reconstruct_output.png)
-
-### Example Usage of reconstruct.py
-
-```bash
-# Reconstruct the default file (hdf5/Acq0.hdf5) at frame 100
-python reconstruct.py
-
-# Reconstruct a specific file and frame, and adjust the power-Doppler mask
-python reconstruct.py --input hdf5/Acq1.hdf5 --frame 250 --power-threshold 55.0
-```
+![reference reconstruction](assets/reconstruct_output.png)
 
 ## Ethical Considerations
 
-All human studies were approved by the University of Waterloo’s Human Research
-Ethics Board (ORE #46278). All included data was acquired from participants who
-provided both written and verbal consent prior to participating in the study
-regarding public data sharing.
+All human studies were approved by the University of Waterloo’s Human Research Ethics Board (ORE #46278). All included data was acquired from participants who provided both written and verbal consent prior to participating in the study regarding public data sharing.
 
 ## Citation
 

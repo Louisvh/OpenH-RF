@@ -18,8 +18,6 @@ Usage:
     python reconstruct.py
 """
 
-from __future__ import annotations
-
 import os
 
 os.environ.setdefault("KERAS_BACKEND", "jax")
@@ -37,13 +35,12 @@ from zea.ops import Beamform, Cast, Demodulate, EnvelopeDetect, LogCompress, Nor
 
 HERE = Path(__file__).resolve().parent
 CONFIG = HERE / "pipeline.yaml"
-DEFAULT_INPUT = "hf://nvidia/OpenH-RF/weillcornell/data/ac10_15m_SK.hdf5"
-DEFAULT_OUTPUT = HERE / "ac1_15m_SK_pipeline.png"
 
-# Common shallow reference grid used for every acquisition.
+# Common shallow reference grid used for every acquisition, with isotropic
+# ~0.073 mm (~lambda/4) pixels so the image keeps its physical aspect ratio.
 PARAMETERS = {
-    "grid_size_x": 300,
-    "grid_size_z": 597,
+    "grid_size_x": 600,
+    "grid_size_z": 301,
     "xlims": [-0.021965, 0.021965],
     "zlims": [0.0029568189236411113, 0.02498497892364108],
     "dynamic_range": [-60, 0],
@@ -52,8 +49,9 @@ PARAMETERS = {
 # --- Inputs -----------------------------------------------------------------
 # Defaults stream straight from the published corpus. Swap any of these for a
 # local path to run against your own copy.
-INPUT = "hf://nvidia/OpenH-RF/weillcornell/data/ac10_15m_SK.hdf5"
-OUTPUT = DEFAULT_OUTPUT  # Output PNG path
+ZEA_FILE = "hf://nvidia/OpenH-RF/weillcornell/data/ac10_15m_SK.hdf5"
+OUT = HERE / "assets" / "ac10_15m_SK_pipeline.png"
+HF_CONFIG = "hf://nvidia/OpenH-RF/weillcornell/pipeline.yaml"
 FRAME = 0  # Frame index to reconstruct
 DEVICE = None  # Optional zea device, e.g. cpu, cuda:0, auto:0
 
@@ -172,26 +170,25 @@ def summarize_qus(zea_file: Path, frame: int) -> None:
         )
 
 
-def main() -> int:
+def main():
     # Define the beamforming pipeline in code, save it (with the reconstruction
     # parameters) to pipeline.yaml, then load that YAML back in.
     write_config(build_pipeline(), CONFIG)
     config = Config.from_path(str(CONFIG))
 
-    image_db, parameters = reconstruct_one(INPUT, config, FRAME, DEVICE)
-    save_png(image_db, parameters, OUTPUT, f"{Path(INPUT).stem}, frame {FRAME}")
+    image_db, parameters = reconstruct_one(ZEA_FILE, config, FRAME, DEVICE)
+    save_png(image_db, parameters, OUT, f"{Path(ZEA_FILE).stem}, frame {FRAME}")
 
-    print(f"Input          : {INPUT}")
+    print(f"Input          : {ZEA_FILE}")
     print(f"Pipeline       : {CONFIG}")
-    print(f"Output         : {OUTPUT}")
+    print(f"Output         : {OUT}")
     print(
         f"Reconstruction : shape={image_db.shape}, "
         f"min={float(np.nanmin(image_db)):.2f}, "
         f"max={float(np.nanmax(image_db)):.2f}"
     )
-    summarize_qus(INPUT, FRAME)
-    return 0
+    summarize_qus(ZEA_FILE, FRAME)
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    main()

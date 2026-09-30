@@ -44,7 +44,7 @@ HERE = Path(__file__).parent
 # Defaults stream straight from the published corpus. Swap any of these for a
 # local path to run against your own copy.
 ZEA_FILE = "hf://nvidia/OpenH-RF/politorino/data/PAT02/PAT02_w1.hdf5"
-OUT = HERE / "PAT02_w1_reconstructed.png"
+OUT = HERE / "assets" / "PAT02_w1_reconstructed.png"
 SAVE_PIPELINE = None  # Optionally write the pipeline to a reusable pipeline.yaml
 FRAME = 0
 FPS = 50  # tracking rate to overlay: 25, 50 or 125
@@ -191,6 +191,7 @@ def main():
     ax.set_ylabel("Axial depth [mm]")
     ax.legend(loc="upper right", fontsize=8)
     fig.tight_layout()
+    Path(OUT).parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(str(OUT), dpi=150, bbox_inches="tight")
     print(f"Saved {OUT}")
 

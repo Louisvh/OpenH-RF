@@ -1,0 +1,57 @@
+pipeline:
+    operations:
+    -   name: keras.ops.cast
+        params:
+            dtype: float32
+    -   name: band_pass_filter
+        params:
+            passband:
+            - 4680000.122070313
+            - 10519999.877929688
+    - demodulate
+    -   name: pipeline
+        operations:
+        -   name: patched_grid
+            operations:
+            -   name: tof_correction
+                params:
+                    jit_compile: false
+                    with_batch_dim: false
+            -   name: delay_and_sum
+                params:
+                    jit_compile: false
+                    with_batch_dim: false
+            params: {}
+        - reshape_grid
+    - envelope_detect
+parameters:
+    f_number: 1.155
+    apply_lens_correction: true
+    xlims:
+    - -0.019200000911951065
+    - 0.019200000911951065
+    zlims:
+    - 0.0010131578892469406
+    - 0.06008026376366615
+    selected_transmits:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 10
+    - 11
+    - 12
+    - 13
+    - 14
+    - 15
+    - 16
+    - 17
+    - 18
+    - 19
+    - 20

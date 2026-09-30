@@ -1,0 +1,41 @@
+# zea pipeline for B_carotid/L7_FI_carotid_cross_1.hdf5, the example acquisition of this sub-dataset.
+# The shared ../pipeline_scanline.yaml plus the per-acquisition settings that
+# ../reconstruct.py takes from ../parameters.yaml (display window in metres,
+# dynamic range), so `zea process` renders it standalone.
+# zea process writes the pixel array as-is, so the grid is sized for square
+# pixels (scanline: resized after log compression).
+
+parameters:
+  f_number: 1.75
+  dynamic_range: [-60, 0]
+  enable_scanline: true
+  grid_type: cartesian
+  selected_transmits: all
+  grid_size_z: 700
+  zlims: [0.001, 0.06]
+  xlims: [-0.019, 0.019]
+pipeline:
+  operations:
+  - name: keras.ops.cast
+    params:
+      dtype: float32
+  - name: apply_window
+  - name: demodulate
+  - name: beamform
+    params:
+      beamformer: delay_and_sum
+      enable_aligned_apodization: true
+      enable_pfield: false
+  - name: envelope_detect
+  - name: normalize
+  - name: log_compress
+  - name: keras.ops.expand_dims
+    params:
+      axis: -1
+  - name: keras.ops.image.resize
+    params:
+      size: [700, 449]
+      interpolation: bilinear
+  - name: keras.ops.squeeze
+    params:
+      axis: -1

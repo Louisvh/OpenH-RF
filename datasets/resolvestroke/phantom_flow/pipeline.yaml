@@ -1,7 +1,8 @@
 parameters:
   grid_type: polar
   polar_limits: [-0.45, 0.45]
-  zlims: [0.01, 0.11]
+  zlims: [0.01, 0.11]              # on-axis depth from the transducer face [m]
+  distance_to_apex: 0.022          # virtual source behind the array (|focus_distances|)
   grid_size_z: 420
   grid_size_x: 220
   grid_size_y: 1

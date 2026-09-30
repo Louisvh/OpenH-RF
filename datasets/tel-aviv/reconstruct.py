@@ -37,14 +37,15 @@ HERE = Path(__file__).parent
 # local path to run against your own copy. The phantom acquisitions live under
 # tel-aviv/phantom and carry no segmentation.
 ZEA_FILE = "hf://nvidia/OpenH-RF/tel-aviv/mouse_tumor/seg/01-scan-3.hdf5"
-PIPELINE = "hf://nvidia/OpenH-RF/tel-aviv/mouse_tumor/pipeline.yaml"
+CONFIG = HERE / "mouse_tumor" / "pipeline.yaml"  # this is what the run loads
+HF_CONFIG = "hf://nvidia/OpenH-RF/tel-aviv/mouse_tumor/pipeline.yaml"  # where CONFIG is published
 FRAME = 46
-OUT = HERE / "01-scan-3_frame046.png"
+OUT = HERE / "assets" / "01-scan-3_frame046.png"
 
 
 def main():
     zea.init_device()
-    config = zea.Config.from_path(PIPELINE)
+    config = zea.Config.from_path(str(CONFIG))
 
     with zea.File(ZEA_FILE) as f:
         parameters = f.load_parameters(**config.parameters)
@@ -74,6 +75,7 @@ def main():
     ax.set_xlabel("Lateral [mm]")
     ax.set_ylabel("Axial depth [mm]")
     fig.tight_layout()
+    Path(OUT).parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(OUT, dpi=300, bbox_inches="tight")
     print(f"Saved {OUT}")
 

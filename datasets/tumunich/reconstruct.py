@@ -5,21 +5,20 @@ Dataset link: https://huggingface.co/datasets/nvidia/OpenH-RF/tree/main/tumunich
 
 B-mode reconstruction of walking-aperture robotic ultrasound sweep channel data.
 
-Each steering angle is acquired three times with the 64-element transmit and
-receive aperture walked across the array, so a reconstruction has to compound
-all 21 acquisitions to cover the full probe. The grey levels reproduce the
+Each steering angle is acquired three times with the aperture walked across the
+array, so a reconstruction has to compound all 21 acquisitions to cover the full
+probe. Transmit uses a 64-element aperture; receive is multiplexed into three
+42/44-element blocks that tile the 128 elements. The grey levels reproduce the
 Verasonics display mapping, making them directly comparable to the VSX B-mode
-stored in the file as ``data/image``, which is rendered alongside. The
-comparison figure follows the sample as ``<input>_reconstructed.png``, unless
-OUTPUT says otherwise.
+stored in the file as ``data/image``.
 
-Requires zea>=0.1.6 (https://github.com/tue-bmd/zea), the library that does the
+Requires zea>=0.1.7 (https://github.com/tue-bmd/zea), the library that does the
 ultrasound processing here, together with one of its Keras backends (JAX,
 PyTorch or TensorFlow). Installation instructions are at
 https://zea.readthedocs.io/en/latest/installation.html.
 
 Usage:
-    python reconstruct.py
+    uv run python reconstruct.py
 """
 
 import os
@@ -50,8 +49,8 @@ from zea.ops import (
 from zea.ops.base import Operation
 
 HERE = Path(__file__).parent
-DEFAULT_INPUT = "hf://nvidia/OpenH-RF/tumunich/data/cirs_phantom/synth_apert_sweep_1.hdf5"
-CONFIG = HERE / "pipeline.yaml"
+CONFIG = HERE / "pipeline.yaml"  # written by build_pipeline(); this is what the run loads
+HF_CONFIG = "hf://nvidia/OpenH-RF/tumunich/pipeline.yaml"  # where CONFIG is published
 
 
 PARAMETERS = {
@@ -62,10 +61,15 @@ PARAMETERS = {
 # --- Inputs -----------------------------------------------------------------
 # Defaults stream straight from the published corpus. Swap any of these for a
 # local path to run against your own copy.
-INPUT = "hf://nvidia/OpenH-RF/tumunich/data/cirs_phantom/synth_apert_sweep_1.hdf5"
-OUTPUT = None  # PNG to write (default: <input>_reconstructed.png next to the sample)
+ZEA_FILE = "hf://nvidia/OpenH-RF/tumunich/data/cirs_phantom/synth_apert_sweep_1.hdf5"
+OUT = HERE / "assets" / f"{Path(ZEA_FILE).stem}_reconstructed.png"
 FRAME = 0  # Zero-based frame index to reconstruct
 DYNAMIC_RANGE = [-40, 0]  # dB range shown
+
+# Leading fast-time samples to blank before beamforming. Samples 0-1 are transmit
+# pulse feedthrough clipped at the ADC rail: the same value on every driven element
+# (~32000 against a typical echo of ~284), on exactly the elements that transmit.
+FEEDTHROUGH_SAMPLES = 2
 
 
 def coords_to_imshow_mm(coords):
@@ -125,6 +129,7 @@ def reconstruct_frame(f, frame):
     n_tx = f.scan.polar_angles.shape[0]
     selected = list(range(n_tx))
     raw = np.asarray(f.data.raw_data[frame : frame + 1, selected]).copy()
+    raw[:, :, :FEEDTHROUGH_SAMPLES] = 0
 
     sound_speed = float(np.asarray(f.scan.sound_speed))
     initial_times = np.asarray(f.scan.initial_times, dtype=np.float64)
@@ -167,18 +172,19 @@ def reconstruct_frame(f, frame):
     # The grid starts at the imaging start depth, so pad the near field back on
     # to line the result up with the stored Verasonics B-mode.
     axial_spacing = (end_depth - start_depth) / (generated.shape[0] - 1)
-    generated = np.pad(generated, ((round(start_depth / axial_spacing), 0), (0, 0)))
+    generated = np.pad(
+        generated,
+        ((round(start_depth / axial_spacing), 0), (0, 0)),
+        constant_values=DYNAMIC_RANGE[0],
+    )
     return generated
 
 
 def main():
-    global OUTPUT
-    if OUTPUT is None:
-        OUTPUT = Path(f"{Path(INPUT).stem}_reconstructed.png")
 
     zea.init_device()
 
-    with zea.File(str(INPUT)) as f:
+    with zea.File(str(ZEA_FILE)) as f:
         display_coords = f.data.image.coordinates[:]
         generated = reconstruct_frame(f, FRAME)
         print(f"Reconstructed: {generated.shape}")
@@ -186,6 +192,7 @@ def main():
     extent = coords_to_imshow_mm(display_coords)
     zea.visualize.set_mpl_style()
     fig, ax = plt.subplots(figsize=(6, 8))
+
     ax.imshow(
         generated,
         aspect="equal",
@@ -197,8 +204,9 @@ def main():
     ax.set_xlabel("Lateral [mm]")
     ax.set_ylabel("Depth [mm]")
     plt.tight_layout()
-    plt.savefig(OUTPUT, dpi=150, bbox_inches="tight")
-    print(f"Saved {OUTPUT}")
+    Path(OUT).parent.mkdir(parents=True, exist_ok=True)
+    plt.savefig(OUT, dpi=150, bbox_inches="tight")
+    print(f"Saved {OUT}")
 
 
 if __name__ == "__main__":

@@ -1,3 +1,24 @@
+parameters:
+    # Imaging FOV: 45 mm lateral x 40 mm axial, starting 10 mm from the
+    # transducer face. This is a reconstruction-time choice, not part of the zea
+    # scan spec, so without it zea falls back to an aperture-wide, full-depth
+    # default grid.
+    xlims:
+    - -0.0225
+    - 0.0225
+    zlims:
+    - 0.01
+    - 0.05
+    # Isotropic pixels (~74 um both ways). data/image is stored on a 542 x 384
+    # anisotropic grid; rendering that grid as square pixels stretches the
+    # phantom vertically.
+    grid_size_x: 610
+    grid_size_z: 542
+    # zea's default is 1.0, which is not what produced the reference images.
+    f_number: 1.75
+    dynamic_range:
+    - -60
+    - 0
 pipeline:
     operations:
     -   name: keras.ops.cast

@@ -1,0 +1,34 @@
+# zea pipeline for C_verasonics_phantom/FI_P4_cysts_center.hdf5, the example acquisition of this sub-dataset.
+# The shared ../pipeline_sector.yaml plus the per-acquisition settings that
+# ../reconstruct.py takes from ../parameters.yaml (display window in metres,
+# dynamic range, polar_limits), so `zea process` renders it standalone.
+
+parameters:
+  f_number: 0
+  grid_type: polar
+  grid_size_x: 400
+  grid_size_z: 600
+  dynamic_range: [-60, 0]
+  selected_transmits: all
+  focal_region_length: 0.002
+  pfield_kwargs:
+    interpolation: bilinear
+    percentile: 70
+    alpha: 15
+  zlims: [0.001, 0.115]
+  polar_limits: [-0.7853981852531433, 0.7853981852531433]
+pipeline:
+  operations:
+  - name: keras.ops.cast
+    params:
+      dtype: float32
+  - name: apply_window
+  - name: demodulate
+  - name: beamform
+    params:
+      beamformer: delay_and_sum
+      enable_pfield: true
+  - name: envelope_detect
+  - name: normalize
+  - name: log_compress
+  - name: scan_convert

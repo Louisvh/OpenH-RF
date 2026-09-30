@@ -34,14 +34,14 @@ HERE = Path(__file__).parent
 # Defaults stream straight from the published corpus. Swap any of these for a
 # local path to run against your own copy.
 ZEA_FILE = "hf://nvidia/OpenH-RF/tue-carotid/data/5_long_bifur_R_0000.hdf5"
-PIPELINE = "hf://nvidia/OpenH-RF/tue-carotid/pipeline.yaml"
+CONFIG = "hf://nvidia/OpenH-RF/tue-carotid/pipeline.yaml"
 FRAME = 0
-OUT = HERE / "zea_carotid_2023_sample.png"
+OUT = HERE / "assets" / "zea_carotid_2023_sample.png"
 
 
 def main():
     zea.init_device()
-    config = zea.Config.from_path(PIPELINE)
+    config = zea.Config.from_path(CONFIG)
 
     # Load data and parameters
     with zea.File(ZEA_FILE) as f:
@@ -49,7 +49,7 @@ def main():
         raw_data = f.data.raw_data[FRAME, parameters.selected_transmits]
 
     # Process data through the pipeline
-    pipeline = zea.Pipeline.from_path(PIPELINE, with_batch_dim=False)
+    pipeline = zea.Pipeline.from_path(CONFIG, with_batch_dim=False)
     bmode = pipeline(data=raw_data, **pipeline.prepare_parameters(parameters))["data"]
 
     # Save PNG
@@ -65,6 +65,7 @@ def main():
     plt.xlabel("x [mm]")
     plt.ylabel("z [mm]")
     plt.title("TU/e carotid 2023 sample")
+    Path(OUT).parent.mkdir(parents=True, exist_ok=True)
     plt.savefig(str(OUT), dpi=300, bbox_inches="tight")
     print(f"Saved to {OUT}")
 

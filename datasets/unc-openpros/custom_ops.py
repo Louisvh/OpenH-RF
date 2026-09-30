@@ -10,7 +10,7 @@ from zea.ops import Operation
 # only once this module is imported. See https://github.com/open-h/OpenH-RF
 @ops_registry("openpros.custom_ops.MyRearrange")
 class MyRearrange(Operation):
-    """Invert the ``data`` to ``raw_data`` conversion in ``convert.py``."""
+    """Restore the original OpenPros ``data`` layout from the stored ``raw_data``."""
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

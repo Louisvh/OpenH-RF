@@ -64,7 +64,7 @@ PARAMETERS = {
 # --- Inputs -----------------------------------------------------------------
 # Defaults stream straight from the published corpus. Swap any of these for a
 # local path to run against your own copy.
-INPUT = "hf://nvidia/OpenH-RF/dartmouth-uct/data/2d/phantom_179604449_z200.hdf5"
+ZEA_FILE = "hf://nvidia/OpenH-RF/dartmouth-uct/data/2d/phantom_179604449_z200.hdf5"
 FOV = None  # square field of view [m] (default: the ground-truth map footprint)
 NUM_PIXELS = None  # output image is num_pixels x num_pixels (default: ground-truth resolution)
 SOS_MAP = False  # use the ground-truth sound-speed map for straight-ray corrected delays
@@ -182,12 +182,12 @@ def crop_to_grid(gt, grid):
 
 def main():
     suffix = "_sos.png" if SOS_MAP else ".png"
-    output_path = Path(Path(INPUT).stem + suffix)
+    output_path = HERE / "assets" / (Path(ZEA_FILE).stem + suffix)
 
     zea.init_device(device=DEVICE, verbose=True)
 
     # Load file: acquisition parameters (with config overrides) and raw RF data.
-    with File(str(INPUT)) as f:
+    with File(str(ZEA_FILE)) as f:
         check_ring_in_imaging_plane(f)
         gt_full = ground_truth(f)
         grid = grid_limits(gt_full, ring_radius(f), FOV, NUM_PIXELS)
@@ -244,8 +244,9 @@ def main():
         # Tie the colorbar axes to the image axes so it matches the panel height.
         cax = make_axes_locatable(ax).append_axes("right", size="5%", pad=0.05)
         fig.colorbar(handle, cax=cax)
-    fig.suptitle(Path(INPUT).name)
+    fig.suptitle(Path(ZEA_FILE).name)
     fig.tight_layout()
+    Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     plt.savefig(str(output_path), bbox_inches="tight", dpi=100)
 
     print(f"Reconstructed  : {recon.shape}")

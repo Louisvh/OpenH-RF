@@ -26,22 +26,25 @@ os.environ.setdefault("MPLBACKEND", "Agg")
 
 from pathlib import Path
 
+import keras
 import matplotlib.pyplot as plt
 import numpy as np
 import zea
 from zea import Config, File, Pipeline
 
 HERE = Path(__file__).parent
-DEFAULT_INPUT = "hf://nvidia/OpenH-RF/wpi/data/narrow_lateral_32el__point_z045_r0.hdf5"
-DEFAULT_OUTPUT = HERE / "outputs" / "reconstruct_example.png"
 CONFIG = HERE / "pipeline.yaml"
 
 # --- Inputs -----------------------------------------------------------------
 # Defaults stream straight from the published corpus. Swap any of these for a
-# local path to run against your own copy.
-INPUT = "hf://nvidia/OpenH-RF/wpi/data/narrow_lateral_32el__point_z045_r0.hdf5"
-OUTPUT = DEFAULT_OUTPUT
-FRAME_INDEX = None  # rotation frame to beamform (default: closest to +-90 deg rotation)
+# local path to run against your own copy. The default below is one of the 5
+# measured-phantom scans, which show real reflector/reverberation texture --
+# a more representative first look than the mostly-empty simulated point
+# targets (see the probe x target grid in this dataset's README for those).
+ZEA_FILE = "hf://nvidia/OpenH-RF/wpi/data/experiment__acq_exp_30mm.hdf5"
+OUT = HERE / "assets" / "bmode.png"
+HF_CONFIG = "hf://nvidia/OpenH-RF/wpi/pipeline.yaml"
+FRAME = None  # rotation frame to beamform (default: closest to +-90 deg rotation)
 
 
 def main():
@@ -54,14 +57,14 @@ def main():
     # and this dataset's special data — the probe rotation angle per frame.
     # Files are single-track (channel RF + scan); the paired eSAF label volume
     # lives in the custom group (custom/saf_bmode/{values,coordinates}, via f.custom).
-    with File(str(INPUT)) as f:
+    with File(str(ZEA_FILE)) as f:
         parameters = f.load_parameters(**config.parameters)
         # Rotation angle per frame lives in metadata/probe_pose (euler_xyz [rad],
         # nominal 1 Hz sampling — one pose per rotation frame): the array rotates
         # about its axial (z) axis, so the angle is the z Euler component.
         rotation_angles_deg = np.degrees(np.asarray(f.metadata.probe_pose.rotation)[:, 2]).ravel()
         n_frames = f.data.raw_data.shape[0]
-        frame = FRAME_INDEX
+        frame = FRAME
         if frame is None:  # default: frame where the probe has rotated ~90 deg
             # Select on rotation *magnitude* so signed encoder angles work too
             # (measured scans run 0 -> ~-180 deg; a plain |angle - 90| would pick
@@ -80,7 +83,7 @@ def main():
     inputs = pipeline.prepare_parameters(parameters)
     outputs = pipeline(data=raw, **inputs)
 
-    recon = np.array(outputs["data"])  # (1, grid_z, grid_x), log-compressed dB
+    recon = keras.ops.convert_to_numpy(outputs["data"])  # (1, grid_z, grid_x), log-compressed dB
     image = zea.display.to_8bit(recon[0], dynamic_range=parameters.dynamic_range, pillow=False)
 
     # B-mode + rotation-angle plot (how to interpret the frame axis)
@@ -107,13 +110,13 @@ def main():
     axes[1].grid(True, color="0.85", linewidth=0.8)
     axes[1].legend(loc="upper left", fontsize=8, frameon=False)
 
-    fig.suptitle(f"OpenH-RF eSAF rotational 3D US — {Path(INPUT).name}", y=0.98)
+    fig.suptitle(f"OpenH-RF eSAF rotational 3D US — {Path(ZEA_FILE).name}", y=0.98)
     plt.tight_layout()
-    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    plt.savefig(str(OUTPUT), bbox_inches="tight", dpi=150)
+    OUT.parent.mkdir(parents=True, exist_ok=True)
+    plt.savefig(str(OUT), bbox_inches="tight", dpi=150)
 
     print(f"Reconstructed  : {recon.shape}")
-    print(f"Saved          : {OUTPUT}")
+    print(f"Saved          : {OUT}")
 
 
 if __name__ == "__main__":

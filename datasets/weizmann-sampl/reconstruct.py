@@ -7,12 +7,12 @@ B-mode reconstruction of focused ray-line thyroid channel data.
 
 Three modes, selected by the constants below:
 
-  1. Single-scan mode (``INPUT`` set): beamform frame ``FRAME`` of that one file
+  1. Single-scan mode (``ZEA_FILE`` set): beamform frame ``FRAME`` of that one file
      and save it as a PNG. This is the default.
-  2. Random grid mode (``INPUT = None``): pick ``N_SCANS`` random scans from
+  2. Random grid mode (``ZEA_FILE = None``): pick ``N_SCANS`` random scans from
      ``DATA_DIR``, ``N_FRAMES`` random frames from each (never below
      ``MIN_FRAME``), and save a single PNG grid (rows = scans, columns = frames).
-  3. Systematic grid mode (``INPUT = None`` and ``SYSTEMATIC = True``): fixed,
+  3. Systematic grid mode (``ZEA_FILE = None`` and ``SYSTEMATIC = True``): fixed,
      evenly-spaced frame numbers (``FRAME_START``/``FRAME_STEP``/``FRAME_COUNT``,
      1-indexed to match the raw rawdata_{frame}of4 numbering) for the patients
      named in ``PATIENTS``. Rows = patients, columns = frame numbers.
@@ -34,8 +34,8 @@ os.environ.setdefault("MPLBACKEND", "Agg")
 import random
 from pathlib import Path
 
+import keras
 import matplotlib.pyplot as plt
-import numpy as np
 import zea
 from zea import Config, File, Pipeline
 
@@ -45,9 +45,9 @@ CONFIG = HERE / "pipeline.yaml"
 # --- Inputs -----------------------------------------------------------------
 # Defaults stream straight from the published corpus. Swap any of these for a
 # local path to run against your own copy.
-INPUT = "hf://nvidia/OpenH-RF/weizmann-sampl/data/30_1.hdf5"
-DATA_DIR = HERE / "subjects"  # HDF5 files to sample from (grid modes, used when INPUT is None)
-OUTPUT = None
+ZEA_FILE = "hf://nvidia/OpenH-RF/weizmann-sampl/data/30_1.hdf5"
+DATA_DIR = HERE / "subjects"  # HDF5 files to sample from (grid modes, used when ZEA_FILE is None)
+OUT = None
 # Frame 0 is unsettled: a near-field transient saturates the log compression
 # and blacks out everything below ~10 mm.
 FRAME = 20  # Frame index (single-scan mode)
@@ -63,9 +63,9 @@ FRAME_COUNT = 15  # Number of frames to sample (systematic mode)
 
 
 def reconstruct_single(config):
-    output_path = OUTPUT or Path(Path(INPUT).stem + ".png")
+    output_path = OUT or HERE / "assets" / f"{Path(ZEA_FILE).stem}.png"
 
-    with File(str(INPUT)) as f:
+    with File(str(ZEA_FILE)) as f:
         n_frames_available = f.data.raw_data.shape[0]
         frame = FRAME if FRAME is not None else 0
         # apply_lens_correction (pipeline.yaml) + the probe's lens_thickness/
@@ -87,7 +87,7 @@ def reconstruct_single(config):
     inputs = pipeline.prepare_parameters(parameters)
     outputs = pipeline(data=raw, **inputs)
 
-    recon = np.array(outputs["data"])  # (1, grid_z, grid_x)
+    recon = keras.ops.convert_to_numpy(outputs["data"])  # (1, grid_z, grid_x)
     image = zea.display.to_8bit(recon[0], dynamic_range=parameters.dynamic_range)
     # NOTE: parameters.extent_imshow is in meters, not mm -- scale explicitly.
     extent_mm = [v * 1e3 for v in parameters.extent_imshow]
@@ -96,6 +96,7 @@ def reconstruct_single(config):
     plt.imshow(image, extent=extent_mm, cmap="gray")
     plt.xlabel("X (mm)")
     plt.ylabel("Z (mm)")
+    Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     plt.savefig(str(output_path), bbox_inches="tight", dpi=100)
 
     print(f"Reconstructed  : {recon.shape}")
@@ -128,13 +129,13 @@ def reconstruct_grid(config):
 
         inputs = pipeline.prepare_parameters(parameters)
         outputs = pipeline(data=raw, **inputs)
-        recon = np.array(outputs["data"])  # (n_frames, grid_z, grid_x)
+        recon = keras.ops.convert_to_numpy(outputs["data"])  # (n_frames, grid_z, grid_x)
         extent_mm = [v * 1e3 for v in parameters.extent_imshow]
         images = [zea.display.to_8bit(r, dynamic_range=parameters.dynamic_range) for r in recon]
         rows.append((path.stem, list(zip(frame_indices, images, [extent_mm] * len(images)))))
         print(f"raw_data shape   : {raw.shape}  ({path.stem})")
 
-    _save_grid(rows, OUTPUT or DATA_DIR / "random_grid.png", frame_label_offset=0)
+    _save_grid(rows, OUT or HERE / "assets" / "random_grid.png", frame_label_offset=0)
 
 
 def reconstruct_systematic_grid(config):
@@ -171,13 +172,13 @@ def reconstruct_systematic_grid(config):
 
         inputs = pipeline.prepare_parameters(parameters)
         outputs = pipeline(data=raw, **inputs)
-        recon = np.array(outputs["data"])
+        recon = keras.ops.convert_to_numpy(outputs["data"])
         extent_mm = [v * 1e3 for v in parameters.extent_imshow]
         images = [zea.display.to_8bit(r, dynamic_range=parameters.dynamic_range) for r in recon]
         rows.append((patient, list(zip(valid, images, [extent_mm] * len(images)))))
         print(f"raw_data shape   : {raw.shape}  ({patient}, frame numbers {valid})")
 
-    _save_grid(rows, OUTPUT or DATA_DIR / "search_grid.png", frame_label_offset=0)
+    _save_grid(rows, OUT or HERE / "assets" / "search_grid.png", frame_label_offset=0)
 
 
 def _save_grid(rows, output_path, frame_label_offset):
@@ -199,20 +200,15 @@ def _save_grid(rows, output_path, frame_label_offset):
             ax.set_ylabel("Z (mm)")
 
     fig.tight_layout()
+    Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(str(output_path), bbox_inches="tight", dpi=100)
     print(f"Saved          : {output_path}")
 
 
 def main():
-    global INPUT
-    if INPUT is None and not SYSTEMATIC and not True:
-        found = sorted(HERE.glob("*.hdf5"))
-        if found:
-            INPUT = found[0]
-
     config = Config.from_path(str(CONFIG))
 
-    if INPUT is not None:
+    if ZEA_FILE is not None:
         reconstruct_single(config)
     elif SYSTEMATIC:
         reconstruct_systematic_grid(config)
