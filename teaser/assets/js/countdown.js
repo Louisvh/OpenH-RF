@@ -1,7 +1,7 @@
-// Counts down to the launch: 4 October 2026, 12:00 UTC.
+// Counts down to the launch: 4 October 2026, 10:00 EDT (=14:00 UTC).
 (() => {
   "use strict";
-  const LAUNCH = Date.UTC(2026, 9, 4, 12, 0, 0);
+  const LAUNCH = Date.UTC(2026, 9, 4, 14, 0, 0);
   const root = document.querySelector(".countdown");
   const fields = ["days", "hours", "minutes", "seconds"].map((k) => root.querySelector(`[data-unit="${k}"]`));
   const pad = (n) => String(n).padStart(2, "0");

@@ -1,10 +1,10 @@
 :root {
-  color-scheme: dark;
-  --text: #cfd0d0;
-  --text-2: #9ca0a5;
-  --text-3: #81868d;
-  --bg: #131416;
-  --border: #303335;
+  color-scheme: light dark;
+  --text: light-dark(#000, #cfd0d0);
+  --text-2: light-dark(#5a5c63, #9ca0a5);
+  --text-3: light-dark(#6b6f76, #81868d);
+  --bg: light-dark(#fff, #131416);
+  --border: light-dark(#c8cbcf, #303335);
   --radius: 6px;
   --radius-lg: 8px;
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
@@ -25,11 +25,13 @@ img { max-width: 100%; display: block; }
 
 /* ── Countdown ────────────────────────────────────────────────────────── */
 
-.countdown { display: flex; justify-content: center; align-items: flex-start; gap: clamp(0.4rem, 2.2vw, 1.4rem); margin: 2.5rem 0 0; }
+.launch { margin: 2.5rem 0 0; color: var(--text-2); font-size: 1.05rem; }
+.launch-utc { color: var(--text-3); }
+.countdown { display: flex; justify-content: center; align-items: flex-start; gap: clamp(0.4rem, 2.2vw, 1.4rem); margin: 1rem 0 0; }
 .countdown-unit { display: flex; flex-direction: column; align-items: center; min-width: 1.6ch; }
 .countdown-num {
   font-size: clamp(3.4rem, 14vw, 8.5rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1;
-  font-variant-numeric: tabular-nums; color: #fff;
+  font-variant-numeric: tabular-nums; color: light-dark(#000, #fff);
 }
 .countdown-sep {
   font-size: clamp(3.4rem, 14vw, 8.5rem); font-weight: 800; line-height: 1; color: var(--border);
@@ -39,7 +41,7 @@ img { max-width: 100%; display: block; }
   margin-top: 0.6rem; font-size: clamp(0.62rem, 1.6vw, 0.78rem); font-weight: 700;
   text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-3);
 }
-.countdown-done { margin: 2.5rem 0 0; font-size: clamp(2.4rem, 8vw, 5rem); font-weight: 800; letter-spacing: -0.03em; color: #fff; }
+.countdown-done { margin: 1rem 0 0; font-size: clamp(2.4rem, 8vw, 5rem); font-weight: 800; letter-spacing: -0.03em; color: light-dark(#000, #fff); }
 
 /* ── Hero ─────────────────────────────────────────────────────────────── */
 
@@ -50,7 +52,7 @@ img { max-width: 100%; display: block; }
 /* The bars of the logo's H run from the top of the H to the bottom of the p. */
 .hero-logo { height: 1.25em; width: auto; position: relative; top: 0.3em; }
 .hero-lead { margin: 1.6rem auto 0; max-width: 640px; color: var(--text-2); font-size: 1.05rem; }
-.hero-orgs { display: flex; flex-wrap: wrap; gap: 0.65rem; justify-content: center; margin-top: 1.5rem; }
+.hero-orgs { display: flex; flex-wrap: wrap; gap: 0.65rem; justify-content: center; margin-top: 2.5rem; }
 .org-logo { display: block; max-width: 100%; }
 .org-logo img {
   display: block; box-sizing: border-box; width: 7.7rem; height: 2.67rem; max-width: 100%; padding: 0.35rem 0.56rem;
@@ -60,8 +62,12 @@ img { max-width: 100%; display: block; }
 /* ── Collage ──────────────────────────────────────────────────────────── */
 
 .hero-examples {
-  position: relative; margin-bottom: 2.5rem; border-radius: var(--radius-lg); overflow: hidden; container-type: inline-size;
+  position: relative; margin-top: 2.5rem; border-radius: var(--radius-lg); overflow: hidden; container-type: inline-size;
   -webkit-touch-callout: none; user-select: none;
+}
+/* Add dark border in light mode so the collage borders look slightly better. */
+@media (prefers-color-scheme: light) {
+  .hero-examples { padding: 5px; background: #000; }
 }
 .hero-set { position: relative; }
 .hero-set img { display: block; width: 100%; height: auto; }
