@@ -1,0 +1,92 @@
+:root {
+  color-scheme: dark;
+  --text: #cfd0d0;
+  --text-2: #9ca0a5;
+  --text-3: #81868d;
+  --bg: #131416;
+  --border: #303335;
+  --radius: 6px;
+  --radius-lg: 8px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; justify-content: center;
+  font-family: var(--font); font-size: 16px; line-height: 1.6;
+  color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+
+.container { width: 100%; max-width: 1152px; margin: 0 auto; padding-inline: 1.25rem; }
+.center { text-align: center; }
+.page { padding-block: 2.5rem 3rem; }
+
+/* ── Countdown ────────────────────────────────────────────────────────── */
+
+.countdown { display: flex; justify-content: center; align-items: flex-start; gap: clamp(0.4rem, 2.2vw, 1.4rem); margin: 2.5rem 0 0; }
+.countdown-unit { display: flex; flex-direction: column; align-items: center; min-width: 1.6ch; }
+.countdown-num {
+  font-size: clamp(3.4rem, 14vw, 8.5rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1;
+  font-variant-numeric: tabular-nums; color: #fff;
+}
+.countdown-sep {
+  font-size: clamp(3.4rem, 14vw, 8.5rem); font-weight: 800; line-height: 1; color: var(--border);
+  transform: translateY(-0.06em);
+}
+.countdown-label {
+  margin-top: 0.6rem; font-size: clamp(0.62rem, 1.6vw, 0.78rem); font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-3);
+}
+.countdown-done { margin: 2.5rem 0 0; font-size: clamp(2.4rem, 8vw, 5rem); font-weight: 800; letter-spacing: -0.03em; color: #fff; }
+
+/* ── Hero ─────────────────────────────────────────────────────────────── */
+
+.hero-title {
+  display: inline-flex; align-items: baseline; gap: 0.22em; margin: 0;
+  font-size: clamp(2.8rem, 7vw, 4.4rem); font-weight: 800; letter-spacing: -0.035em; line-height: 1.05;
+}
+/* The bars of the logo's H run from the top of the H to the bottom of the p. */
+.hero-logo { height: 1.25em; width: auto; position: relative; top: 0.3em; }
+.hero-lead { margin: 1.6rem auto 0; max-width: 640px; color: var(--text-2); font-size: 1.05rem; }
+.hero-orgs { display: flex; flex-wrap: wrap; gap: 0.65rem; justify-content: center; margin-top: 1.5rem; }
+.org-logo { display: block; max-width: 100%; }
+.org-logo img {
+  display: block; box-sizing: border-box; width: 7.7rem; height: 2.67rem; max-width: 100%; padding: 0.35rem 0.56rem;
+  object-fit: contain; background: #fff; border-radius: var(--radius);
+}
+
+/* ── Collage ──────────────────────────────────────────────────────────── */
+
+.hero-examples {
+  position: relative; margin-bottom: 2.5rem; border-radius: var(--radius-lg); overflow: hidden; container-type: inline-size;
+  -webkit-touch-callout: none; user-select: none;
+}
+.hero-set { position: relative; }
+.hero-set img { display: block; width: 100%; height: auto; }
+/* Each tile shows the RF version of its B-mode image: quickly while hovered or held, slowly
+   (.auto) when picked at random (.on). */
+.hero-tile { position: absolute; opacity: 0; transition: opacity 0.15s; background-image: url("../img/examples-rf.webp"); }
+.hero-examples.rf-full .hero-tile { background-image: url("../img/examples-rf@2x.webp"); }
+.hero-tile.auto { transition-duration: 0.5s; }
+.hero-tile.on, .hero-tile.held { opacity: 1; }
+@media (hover: hover) {
+  .hero-tile:hover { opacity: 1; }
+}
+.hero-copy { display: none; }
+/* On a phone the banner is twice as wide as the screen and scrolls past, followed by a copy
+   of itself. It stands still while a finger is down. */
+@keyframes hero-scroll { to { transform: translateX(-50%); } }
+@media (max-width: 560px) and (prefers-reduced-motion: no-preference) {
+  .hero-examples { margin-inline: -1.25rem; border-radius: 0; background: #000; }
+  .hero-track { display: flex; width: max-content; animation: hero-scroll 12s linear infinite; }
+  .hero-set { flex: none; width: 200cqw; margin-right: 0.5cqw; }
+  .hero-copy { display: block; }
+  .hero-examples.touching .hero-track { animation-play-state: paused; }
+}
+
+@media (max-width: 560px) {
+  .page { padding-block: 1.25rem 2rem; }
+  .countdown-sep { display: none; }
+}
