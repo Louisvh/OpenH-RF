@@ -19,6 +19,7 @@ dependencies = [
 
 [project.optional-dependencies]
 test = ["pytest", "ruff==0.16.8"]
+site = ["pillow", "pyyaml"]
 gpu = ["jax[cuda12]"]
 torch = ["torch"]
 tf = ["tensorflow"]

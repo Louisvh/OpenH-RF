@@ -1,0 +1,1697 @@
+{
+ "zea_version": "0.1.8",
+ "keys": {
+  "acquisition_time": {
+   "kind": "field",
+   "description": "UTC acquisition timestamp in ISO 8601 format (e.g. '2026-06-12T14:30:00+00:00'). Optional \u2014 not recorded when omitted.",
+   "unit": null,
+   "shapes": [
+    []
+   ]
+  },
+  "data": {
+   "kind": "group",
+   "description": "Recorded data for this track; may be omitted for a transmit-only track.",
+   "unit": "\u2013"
+  },
+  "data/aligned_data": {
+   "kind": "group",
+   "description": "Time-of-flight corrected data.",
+   "unit": null
+  },
+  "data/aligned_data/labels": {
+   "kind": "field",
+   "description": "Channel labels, e.g. 'RF' or ['I', 'Q'].",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_ch"
+    ]
+   ]
+  },
+  "data/aligned_data/values": {
+   "kind": "field",
+   "description": "Time-of-flight corrected channel data.",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_frames",
+     "n_tx",
+     "n_ax",
+     "n_el",
+     "n_ch"
+    ]
+   ]
+  },
+  "data/attenuation_map": {
+   "kind": "group",
+   "description": "Acoustic attenuation map data.",
+   "unit": null
+  },
+  "data/attenuation_map/coordinates": {
+   "kind": "field",
+   "description": "Per-pixel Cartesian positions (x, y, z) in metres.",
+   "unit": "m",
+   "shapes": [
+    [
+     "...",
+     3
+    ]
+   ]
+  },
+  "data/attenuation_map/description": {
+   "kind": "field",
+   "description": "Free-text description of the map contents.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/attenuation_map/gamma": {
+   "kind": "field",
+   "description": "Power-law exponent of the frequency dependence alpha(f) = alpha_0 * f**gamma. 1.0 is linear (soft tissue ~1-1.5, e.g. liver ~1.14), 2.0 for water.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/attenuation_map/labels": {
+   "kind": "field",
+   "description": "Labels for each channel in values.",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_spatial_ch"
+    ]
+   ]
+  },
+  "data/attenuation_map/max": {
+   "kind": "field",
+   "description": "Maximum value of the map.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/attenuation_map/min": {
+   "kind": "field",
+   "description": "Minimum value of the map.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/attenuation_map/start_time_offset": {
+   "kind": "field",
+   "description": "Time offset between the first transmit event of the ultrasound acquisition and frame 0 of this map. Negative means frame 0 was acquired before the first transmit event; positive means it was acquired after.",
+   "unit": "s",
+   "shapes": [
+    []
+   ]
+  },
+  "data/attenuation_map/timestamps": {
+   "kind": "field",
+   "description": "Per-frame acquisition timestamps relative to frame 0.",
+   "unit": "s",
+   "shapes": [
+    [
+     "n_frames"
+    ]
+   ]
+  },
+  "data/attenuation_map/unit": {
+   "kind": "field",
+   "description": "Physical unit of the map values, e.g. 'm/s', '%'.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/attenuation_map/values": {
+   "kind": "field",
+   "description": "Map pixel values.",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_frames",
+     "z",
+     "x",
+     "y",
+     "n_spatial_ch"
+    ],
+    [
+     "n_frames",
+     "z",
+     "x",
+     "y"
+    ],
+    [
+     "n_frames",
+     "z",
+     "x",
+     "n_spatial_ch"
+    ],
+    [
+     "n_frames",
+     "z",
+     "x"
+    ]
+   ]
+  },
+  "data/beamformed_data": {
+   "kind": "group",
+   "description": "Beamformed data.",
+   "unit": null
+  },
+  "data/beamformed_data/coordinates": {
+   "kind": "field",
+   "description": "Per-pixel Cartesian positions (x, y, z) in metres.",
+   "unit": "m",
+   "shapes": [
+    [
+     "...",
+     3
+    ]
+   ]
+  },
+  "data/beamformed_data/description": {
+   "kind": "field",
+   "description": "Free-text description of the map contents.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/beamformed_data/labels": {
+   "kind": "field",
+   "description": "Labels for each channel in values.",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_ch"
+    ]
+   ]
+  },
+  "data/beamformed_data/max": {
+   "kind": "field",
+   "description": "Maximum value of the map.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/beamformed_data/min": {
+   "kind": "field",
+   "description": "Minimum value of the map.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/beamformed_data/start_time_offset": {
+   "kind": "field",
+   "description": "Time offset between the first transmit event of the ultrasound acquisition and frame 0 of this map. Negative means frame 0 was acquired before the first transmit event; positive means it was acquired after.",
+   "unit": "s",
+   "shapes": [
+    []
+   ]
+  },
+  "data/beamformed_data/timestamps": {
+   "kind": "field",
+   "description": "Per-frame acquisition timestamps relative to frame 0.",
+   "unit": "s",
+   "shapes": [
+    [
+     "n_frames"
+    ]
+   ]
+  },
+  "data/beamformed_data/unit": {
+   "kind": "field",
+   "description": "Physical unit of the map values, e.g. 'm/s', '%'.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/beamformed_data/values": {
+   "kind": "field",
+   "description": "Map pixel values.",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_frames",
+     "z",
+     "x",
+     "y",
+     "n_ch"
+    ],
+    [
+     "n_frames",
+     "z",
+     "x",
+     "n_ch"
+    ]
+   ]
+  },
+  "data/color_doppler": {
+   "kind": "group",
+   "description": "Color Doppler velocity data.",
+   "unit": null
+  },
+  "data/color_doppler/coordinates": {
+   "kind": "field",
+   "description": "Per-pixel Cartesian positions (x, y, z) in metres.",
+   "unit": "m",
+   "shapes": [
+    [
+     "...",
+     3
+    ]
+   ]
+  },
+  "data/color_doppler/description": {
+   "kind": "field",
+   "description": "Free-text description of the map contents.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/color_doppler/labels": {
+   "kind": "field",
+   "description": "Labels for each channel in values.",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_spatial_ch"
+    ]
+   ]
+  },
+  "data/color_doppler/max": {
+   "kind": "field",
+   "description": "Maximum value of the map.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/color_doppler/min": {
+   "kind": "field",
+   "description": "Minimum value of the map.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/color_doppler/start_time_offset": {
+   "kind": "field",
+   "description": "Time offset between the first transmit event of the ultrasound acquisition and frame 0 of this map. Negative means frame 0 was acquired before the first transmit event; positive means it was acquired after.",
+   "unit": "s",
+   "shapes": [
+    []
+   ]
+  },
+  "data/color_doppler/timestamps": {
+   "kind": "field",
+   "description": "Per-frame acquisition timestamps relative to frame 0.",
+   "unit": "s",
+   "shapes": [
+    [
+     "n_frames"
+    ]
+   ]
+  },
+  "data/color_doppler/unit": {
+   "kind": "field",
+   "description": "Physical unit of the map values, e.g. 'm/s', '%'.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/color_doppler/values": {
+   "kind": "field",
+   "description": "Map pixel values.",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_frames",
+     "z",
+     "x",
+     "y",
+     "n_spatial_ch"
+    ],
+    [
+     "n_frames",
+     "z",
+     "x",
+     "y"
+    ],
+    [
+     "n_frames",
+     "z",
+     "x",
+     "n_spatial_ch"
+    ],
+    [
+     "n_frames",
+     "z",
+     "x"
+    ]
+   ]
+  },
+  "data/envelope_data": {
+   "kind": "group",
+   "description": "Envelope-detected data.",
+   "unit": null
+  },
+  "data/envelope_data/coordinates": {
+   "kind": "field",
+   "description": "Per-pixel Cartesian positions (x, y, z) in metres.",
+   "unit": "m",
+   "shapes": [
+    [
+     "...",
+     3
+    ]
+   ]
+  },
+  "data/envelope_data/description": {
+   "kind": "field",
+   "description": "Free-text description of the map contents.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/envelope_data/labels": {
+   "kind": "field",
+   "description": "Labels for each channel in values.",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_spatial_ch"
+    ]
+   ]
+  },
+  "data/envelope_data/max": {
+   "kind": "field",
+   "description": "Maximum value of the map.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/envelope_data/min": {
+   "kind": "field",
+   "description": "Minimum value of the map.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/envelope_data/start_time_offset": {
+   "kind": "field",
+   "description": "Time offset between the first transmit event of the ultrasound acquisition and frame 0 of this map. Negative means frame 0 was acquired before the first transmit event; positive means it was acquired after.",
+   "unit": "s",
+   "shapes": [
+    []
+   ]
+  },
+  "data/envelope_data/timestamps": {
+   "kind": "field",
+   "description": "Per-frame acquisition timestamps relative to frame 0.",
+   "unit": "s",
+   "shapes": [
+    [
+     "n_frames"
+    ]
+   ]
+  },
+  "data/envelope_data/unit": {
+   "kind": "field",
+   "description": "Physical unit of the map values, e.g. 'm/s', '%'.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/envelope_data/values": {
+   "kind": "field",
+   "description": "Map pixel values.",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_frames",
+     "z",
+     "x",
+     "y"
+    ],
+    [
+     "n_frames",
+     "z",
+     "x"
+    ]
+   ]
+  },
+  "data/image": {
+   "kind": "group",
+   "description": "Reconstructed image data.",
+   "unit": null
+  },
+  "data/image/coordinates": {
+   "kind": "field",
+   "description": "Per-pixel Cartesian positions (x, y, z) in metres.",
+   "unit": "m",
+   "shapes": [
+    [
+     "...",
+     3
+    ]
+   ]
+  },
+  "data/image/description": {
+   "kind": "field",
+   "description": "Free-text description of the map contents.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/image/labels": {
+   "kind": "field",
+   "description": "Labels for each channel in values.",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_spatial_ch"
+    ]
+   ]
+  },
+  "data/image/max": {
+   "kind": "field",
+   "description": "Maximum value of the map.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/image/min": {
+   "kind": "field",
+   "description": "Minimum value of the map.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/image/start_time_offset": {
+   "kind": "field",
+   "description": "Time offset between the first transmit event of the ultrasound acquisition and frame 0 of this map. Negative means frame 0 was acquired before the first transmit event; positive means it was acquired after.",
+   "unit": "s",
+   "shapes": [
+    []
+   ]
+  },
+  "data/image/timestamps": {
+   "kind": "field",
+   "description": "Per-frame acquisition timestamps relative to frame 0.",
+   "unit": "s",
+   "shapes": [
+    [
+     "n_frames"
+    ]
+   ]
+  },
+  "data/image/unit": {
+   "kind": "field",
+   "description": "Physical unit of the map values, e.g. 'm/s', '%'.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/image/values": {
+   "kind": "field",
+   "description": "Map pixel values.",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_frames",
+     "z",
+     "x",
+     "y"
+    ],
+    [
+     "n_frames",
+     "z",
+     "x"
+    ]
+   ]
+  },
+  "data/raw_data": {
+   "kind": "field",
+   "description": "Raw channel data.",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_frames",
+     "n_tx",
+     "n_ax",
+     "n_el",
+     "n_ch"
+    ]
+   ]
+  },
+  "data/segmentation": {
+   "kind": "group",
+   "description": "Segmentation data.",
+   "unit": null
+  },
+  "data/segmentation/coordinates": {
+   "kind": "field",
+   "description": "Per-pixel Cartesian positions (x, y, z) in metres.",
+   "unit": "m",
+   "shapes": [
+    [
+     "...",
+     3
+    ]
+   ]
+  },
+  "data/segmentation/description": {
+   "kind": "field",
+   "description": "Free-text description of the map contents.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/segmentation/labels": {
+   "kind": "field",
+   "description": "Labels for each channel in values.",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_spatial_ch"
+    ]
+   ]
+  },
+  "data/segmentation/max": {
+   "kind": "field",
+   "description": "Maximum value of the map.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/segmentation/min": {
+   "kind": "field",
+   "description": "Minimum value of the map.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/segmentation/start_time_offset": {
+   "kind": "field",
+   "description": "Time offset between the first transmit event of the ultrasound acquisition and frame 0 of this map. Negative means frame 0 was acquired before the first transmit event; positive means it was acquired after.",
+   "unit": "s",
+   "shapes": [
+    []
+   ]
+  },
+  "data/segmentation/timestamps": {
+   "kind": "field",
+   "description": "Per-frame acquisition timestamps relative to frame 0.",
+   "unit": "s",
+   "shapes": [
+    [
+     "n_frames"
+    ]
+   ]
+  },
+  "data/segmentation/unit": {
+   "kind": "field",
+   "description": "Physical unit of the map values, e.g. 'm/s', '%'.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/segmentation/values": {
+   "kind": "field",
+   "description": "Map pixel values.",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_frames",
+     "z",
+     "x",
+     "y",
+     "n_spatial_ch"
+    ],
+    [
+     "n_frames",
+     "z",
+     "x",
+     "n_spatial_ch"
+    ]
+   ]
+  },
+  "data/shear_wave_elastography_map": {
+   "kind": "group",
+   "description": "Shear-wave elastography data.",
+   "unit": null
+  },
+  "data/shear_wave_elastography_map/coordinates": {
+   "kind": "field",
+   "description": "Per-pixel Cartesian positions (x, y, z) in metres.",
+   "unit": "m",
+   "shapes": [
+    [
+     "...",
+     3
+    ]
+   ]
+  },
+  "data/shear_wave_elastography_map/description": {
+   "kind": "field",
+   "description": "Free-text description of the map contents.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/shear_wave_elastography_map/labels": {
+   "kind": "field",
+   "description": "Labels for each channel in values.",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_spatial_ch"
+    ]
+   ]
+  },
+  "data/shear_wave_elastography_map/max": {
+   "kind": "field",
+   "description": "Maximum value of the map.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/shear_wave_elastography_map/min": {
+   "kind": "field",
+   "description": "Minimum value of the map.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/shear_wave_elastography_map/start_time_offset": {
+   "kind": "field",
+   "description": "Time offset between the first transmit event of the ultrasound acquisition and frame 0 of this map. Negative means frame 0 was acquired before the first transmit event; positive means it was acquired after.",
+   "unit": "s",
+   "shapes": [
+    []
+   ]
+  },
+  "data/shear_wave_elastography_map/timestamps": {
+   "kind": "field",
+   "description": "Per-frame acquisition timestamps relative to frame 0.",
+   "unit": "s",
+   "shapes": [
+    [
+     "n_frames"
+    ]
+   ]
+  },
+  "data/shear_wave_elastography_map/unit": {
+   "kind": "field",
+   "description": "Physical unit of the map values, e.g. 'm/s', '%'.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/shear_wave_elastography_map/values": {
+   "kind": "field",
+   "description": "Map pixel values.",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_frames",
+     "z",
+     "x",
+     "y",
+     "n_spatial_ch"
+    ],
+    [
+     "n_frames",
+     "z",
+     "x",
+     "y"
+    ],
+    [
+     "n_frames",
+     "z",
+     "x",
+     "n_spatial_ch"
+    ],
+    [
+     "n_frames",
+     "z",
+     "x"
+    ]
+   ]
+  },
+  "data/sos_map": {
+   "kind": "group",
+   "description": "Speed-of-sound map data.",
+   "unit": null
+  },
+  "data/sos_map/coordinates": {
+   "kind": "field",
+   "description": "Per-pixel Cartesian positions (x, y, z) in metres.",
+   "unit": "m",
+   "shapes": [
+    [
+     "...",
+     3
+    ]
+   ]
+  },
+  "data/sos_map/description": {
+   "kind": "field",
+   "description": "Free-text description of the map contents.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/sos_map/labels": {
+   "kind": "field",
+   "description": "Labels for each channel in values.",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_spatial_ch"
+    ]
+   ]
+  },
+  "data/sos_map/max": {
+   "kind": "field",
+   "description": "Maximum value of the map.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/sos_map/min": {
+   "kind": "field",
+   "description": "Minimum value of the map.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/sos_map/start_time_offset": {
+   "kind": "field",
+   "description": "Time offset between the first transmit event of the ultrasound acquisition and frame 0 of this map. Negative means frame 0 was acquired before the first transmit event; positive means it was acquired after.",
+   "unit": "s",
+   "shapes": [
+    []
+   ]
+  },
+  "data/sos_map/timestamps": {
+   "kind": "field",
+   "description": "Per-frame acquisition timestamps relative to frame 0.",
+   "unit": "s",
+   "shapes": [
+    [
+     "n_frames"
+    ]
+   ]
+  },
+  "data/sos_map/unit": {
+   "kind": "field",
+   "description": "Physical unit of the map values, e.g. 'm/s', '%'.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/sos_map/values": {
+   "kind": "field",
+   "description": "Map pixel values.",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_frames",
+     "z",
+     "x",
+     "y",
+     "n_spatial_ch"
+    ],
+    [
+     "n_frames",
+     "z",
+     "x",
+     "y"
+    ],
+    [
+     "n_frames",
+     "z",
+     "x",
+     "n_spatial_ch"
+    ],
+    [
+     "n_frames",
+     "z",
+     "x"
+    ]
+   ]
+  },
+  "data/strain_percentage_map": {
+   "kind": "group",
+   "description": "Strain map data.",
+   "unit": null
+  },
+  "data/strain_percentage_map/coordinates": {
+   "kind": "field",
+   "description": "Per-pixel Cartesian positions (x, y, z) in metres.",
+   "unit": "m",
+   "shapes": [
+    [
+     "...",
+     3
+    ]
+   ]
+  },
+  "data/strain_percentage_map/description": {
+   "kind": "field",
+   "description": "Free-text description of the map contents.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/strain_percentage_map/labels": {
+   "kind": "field",
+   "description": "Labels for each channel in values.",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_spatial_ch"
+    ]
+   ]
+  },
+  "data/strain_percentage_map/max": {
+   "kind": "field",
+   "description": "Maximum value of the map.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/strain_percentage_map/min": {
+   "kind": "field",
+   "description": "Minimum value of the map.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/strain_percentage_map/start_time_offset": {
+   "kind": "field",
+   "description": "Time offset between the first transmit event of the ultrasound acquisition and frame 0 of this map. Negative means frame 0 was acquired before the first transmit event; positive means it was acquired after.",
+   "unit": "s",
+   "shapes": [
+    []
+   ]
+  },
+  "data/strain_percentage_map/timestamps": {
+   "kind": "field",
+   "description": "Per-frame acquisition timestamps relative to frame 0.",
+   "unit": "s",
+   "shapes": [
+    [
+     "n_frames"
+    ]
+   ]
+  },
+  "data/strain_percentage_map/unit": {
+   "kind": "field",
+   "description": "Physical unit of the map values, e.g. 'm/s', '%'.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/strain_percentage_map/values": {
+   "kind": "field",
+   "description": "Map pixel values.",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_frames",
+     "z",
+     "x",
+     "y",
+     "n_spatial_ch"
+    ],
+    [
+     "n_frames",
+     "z",
+     "x",
+     "y"
+    ],
+    [
+     "n_frames",
+     "z",
+     "x",
+     "n_spatial_ch"
+    ],
+    [
+     "n_frames",
+     "z",
+     "x"
+    ]
+   ]
+  },
+  "data/tissue_doppler": {
+   "kind": "group",
+   "description": "Tissue Doppler data.",
+   "unit": null
+  },
+  "data/tissue_doppler/coordinates": {
+   "kind": "field",
+   "description": "Per-pixel Cartesian positions (x, y, z) in metres.",
+   "unit": "m",
+   "shapes": [
+    [
+     "...",
+     3
+    ]
+   ]
+  },
+  "data/tissue_doppler/description": {
+   "kind": "field",
+   "description": "Free-text description of the map contents.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/tissue_doppler/labels": {
+   "kind": "field",
+   "description": "Labels for each channel in values.",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_spatial_ch"
+    ]
+   ]
+  },
+  "data/tissue_doppler/max": {
+   "kind": "field",
+   "description": "Maximum value of the map.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/tissue_doppler/min": {
+   "kind": "field",
+   "description": "Minimum value of the map.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/tissue_doppler/start_time_offset": {
+   "kind": "field",
+   "description": "Time offset between the first transmit event of the ultrasound acquisition and frame 0 of this map. Negative means frame 0 was acquired before the first transmit event; positive means it was acquired after.",
+   "unit": "s",
+   "shapes": [
+    []
+   ]
+  },
+  "data/tissue_doppler/timestamps": {
+   "kind": "field",
+   "description": "Per-frame acquisition timestamps relative to frame 0.",
+   "unit": "s",
+   "shapes": [
+    [
+     "n_frames"
+    ]
+   ]
+  },
+  "data/tissue_doppler/unit": {
+   "kind": "field",
+   "description": "Physical unit of the map values, e.g. 'm/s', '%'.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "data/tissue_doppler/values": {
+   "kind": "field",
+   "description": "Map pixel values.",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_frames",
+     "z",
+     "x",
+     "y",
+     "n_spatial_ch"
+    ],
+    [
+     "n_frames",
+     "z",
+     "x",
+     "y"
+    ],
+    [
+     "n_frames",
+     "z",
+     "x",
+     "n_spatial_ch"
+    ],
+    [
+     "n_frames",
+     "z",
+     "x"
+    ]
+   ]
+  },
+  "description": {
+   "kind": "field",
+   "description": "",
+   "unit": null,
+   "shapes": [
+    []
+   ]
+  },
+  "label": {
+   "kind": "field",
+   "description": "Short human-readable track name.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "metadata": {
+   "kind": "group",
+   "description": "",
+   "unit": null
+  },
+  "metadata/annotations": {
+   "kind": "group",
+   "description": "Frame-level annotations.",
+   "unit": "\u2013"
+  },
+  "metadata/annotations/anatomy": {
+   "kind": "field",
+   "description": "Anatomical structure imaged (e.g. carotid, liver).",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_frames"
+    ],
+    []
+   ]
+  },
+  "metadata/annotations/image_quality": {
+   "kind": "field",
+   "description": "Image quality label.",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_frames"
+    ],
+    []
+   ]
+  },
+  "metadata/annotations/label": {
+   "kind": "field",
+   "description": "Pathology or classification label.",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_frames"
+    ],
+    []
+   ]
+  },
+  "metadata/annotations/view": {
+   "kind": "field",
+   "description": "Imaging plane/orientation (e.g. longitudinal, apical_4_chamber).",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_frames"
+    ],
+    []
+   ]
+  },
+  "metadata/credit": {
+   "kind": "field",
+   "description": "Credit or attribution for the dataset.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "metadata/ecg": {
+   "kind": "group",
+   "description": "Electrocardiogram signal.",
+   "unit": "\u2013"
+  },
+  "metadata/ecg/samples": {
+   "kind": "field",
+   "description": "Signal samples.",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "T"
+    ]
+   ]
+  },
+  "metadata/ecg/sampling_frequency": {
+   "kind": "field",
+   "description": "Sampling frequency.",
+   "unit": "Hz",
+   "shapes": [
+    []
+   ]
+  },
+  "metadata/ecg/start_time_offset": {
+   "kind": "field",
+   "description": "Time offset between the first transmit event of the ultrasound acquisition and sample 0 of this data. Negative means this data starts before the first transmit event; positive means it starts after.",
+   "unit": "s",
+   "shapes": [
+    []
+   ]
+  },
+  "metadata/ecg/timestamps": {
+   "kind": "field",
+   "description": "Explicit sample timestamps relative to sample 0.",
+   "unit": "s",
+   "shapes": [
+    [
+     "T"
+    ]
+   ]
+  },
+  "metadata/probe_pose": {
+   "kind": "group",
+   "description": "Sampled probe pose at the transducer tip.",
+   "unit": "\u2013"
+  },
+  "metadata/probe_pose/rotation": {
+   "kind": "field",
+   "description": "Orientation associated with the transducer-tip pose in the x-lateral, y-elevation, z-axial coordinate convention, interpreted according to rotation_representation.",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "T",
+     3
+    ],
+    [
+     "T",
+     4
+    ]
+   ]
+  },
+  "metadata/probe_pose/rotation_representation": {
+   "kind": "field",
+   "description": "Rotation parameterization: one of euler_xyz, quaternion_wxyz, or quaternion_xyzw.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "metadata/probe_pose/sampling_frequency": {
+   "kind": "field",
+   "description": "Sampling frequency.",
+   "unit": "Hz",
+   "shapes": [
+    []
+   ]
+  },
+  "metadata/probe_pose/start_time_offset": {
+   "kind": "field",
+   "description": "Time offset between the first transmit event of the ultrasound acquisition and sample 0 of this data. Negative means this data starts before the first transmit event; positive means it starts after.",
+   "unit": "s",
+   "shapes": [
+    []
+   ]
+  },
+  "metadata/probe_pose/timestamps": {
+   "kind": "field",
+   "description": "Explicit sample timestamps relative to sample 0.",
+   "unit": "s",
+   "shapes": [
+    [
+     "T"
+    ]
+   ]
+  },
+  "metadata/probe_pose/translation": {
+   "kind": "field",
+   "description": "Position of the transducer tip, ordered as (x, y, z), where x is lateral along the transducer, y is elevation (out of plane), and z is axial (depth).",
+   "unit": "m",
+   "shapes": [
+    [
+     "T",
+     3
+    ]
+   ]
+  },
+  "metadata/subject": {
+   "kind": "group",
+   "description": "Subject associated with the study.",
+   "unit": "\u2013"
+  },
+  "metadata/subject/age": {
+   "kind": "field",
+   "description": "Subject age in years.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "metadata/subject/bmi": {
+   "kind": "field",
+   "description": "Subject body mass index.",
+   "unit": "kg/m\u00b2",
+   "shapes": [
+    []
+   ]
+  },
+  "metadata/subject/fat_percentage": {
+   "kind": "field",
+   "description": "Subject fat percentage.",
+   "unit": "%",
+   "shapes": [
+    []
+   ]
+  },
+  "metadata/subject/genetic_strain": {
+   "kind": "field",
+   "description": "Genetic strain (inbred line) of an animal subject, e.g. C57BL/6N.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "metadata/subject/id": {
+   "kind": "field",
+   "description": "Subject ID. Needed for subject-wise splits.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "metadata/subject/sex": {
+   "kind": "field",
+   "description": "Subject sex.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "metadata/subject/type": {
+   "kind": "field",
+   "description": "Subject type, e.g. human, phantom, animal.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "metadata/subject/weight": {
+   "kind": "field",
+   "description": "Subject weight.",
+   "unit": "kg",
+   "shapes": [
+    []
+   ]
+  },
+  "metadata/text_report": {
+   "kind": "field",
+   "description": "Free-text report associated with the study.",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "metadata/voice_narration": {
+   "kind": "group",
+   "description": "Voice narration signal.",
+   "unit": "\u2013"
+  },
+  "metadata/voice_narration/samples": {
+   "kind": "field",
+   "description": "Signal samples.",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "T"
+    ]
+   ]
+  },
+  "metadata/voice_narration/sampling_frequency": {
+   "kind": "field",
+   "description": "Sampling frequency.",
+   "unit": "Hz",
+   "shapes": [
+    []
+   ]
+  },
+  "metadata/voice_narration/start_time_offset": {
+   "kind": "field",
+   "description": "Time offset between the first transmit event of the ultrasound acquisition and sample 0 of this data. Negative means this data starts before the first transmit event; positive means it starts after.",
+   "unit": "s",
+   "shapes": [
+    []
+   ]
+  },
+  "metadata/voice_narration/timestamps": {
+   "kind": "field",
+   "description": "Explicit sample timestamps relative to sample 0.",
+   "unit": "s",
+   "shapes": [
+    [
+     "T"
+    ]
+   ]
+  },
+  "metrics": {
+   "kind": "group",
+   "description": "",
+   "unit": null
+  },
+  "metrics/coherence_factor": {
+   "kind": "field",
+   "description": "Coherence factor; ratio of coherent to incoherent energy (0-1).",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_frames"
+    ]
+   ]
+  },
+  "metrics/common_midpoint_phase_error": {
+   "kind": "field",
+   "description": "Common midpoint phase error.",
+   "unit": "rad",
+   "shapes": [
+    [
+     "n_frames"
+    ]
+   ]
+  },
+  "probe": {
+   "kind": "group",
+   "description": "",
+   "unit": null
+  },
+  "probe/element_height": {
+   "kind": "field",
+   "description": "Height (elevation aperture) of a single transducer element.",
+   "unit": "m",
+   "shapes": [
+    []
+   ]
+  },
+  "probe/element_width": {
+   "kind": "field",
+   "description": "Width of a single transducer element.",
+   "unit": "m",
+   "shapes": [
+    []
+   ]
+  },
+  "probe/lens_sound_speed": {
+   "kind": "field",
+   "description": "Speed of sound in the acoustic lens.",
+   "unit": "m/s",
+   "shapes": [
+    []
+   ]
+  },
+  "probe/lens_thickness": {
+   "kind": "field",
+   "description": "Thickness of the acoustic lens.",
+   "unit": "m",
+   "shapes": [
+    []
+   ]
+  },
+  "probe/name": {
+   "kind": "field",
+   "description": "Probe model name/identifier.",
+   "unit": null,
+   "shapes": [
+    []
+   ]
+  },
+  "probe/probe_bandwidth_percent": {
+   "kind": "field",
+   "description": "Fractional bandwidth as a percentage.",
+   "unit": "%",
+   "shapes": [
+    []
+   ]
+  },
+  "probe/probe_center_frequency": {
+   "kind": "field",
+   "description": "Probe nominal centre frequency (midpoint of the probe's -6 dB band).",
+   "unit": "Hz",
+   "shapes": [
+    []
+   ]
+  },
+  "probe/probe_geometry": {
+   "kind": "field",
+   "description": "Element positions (x, y, z) per element, shape (n_el, 3).",
+   "unit": "m",
+   "shapes": [
+    [
+     "n_el",
+     3
+    ]
+   ]
+  },
+  "probe/type": {
+   "kind": "field",
+   "description": "Probe geometry type (linear, phased, curved, ...).",
+   "unit": null,
+   "shapes": [
+    []
+   ]
+  },
+  "scan": {
+   "kind": "group",
+   "description": "Scan acquisition parameters for this track; required when raw_data is present in data, or when data is omitted.",
+   "unit": "\u2013"
+  },
+  "scan/azimuth_angles": {
+   "kind": "field",
+   "description": "Azimuthal angles of transmit beams.",
+   "unit": "rad",
+   "shapes": [
+    [
+     "n_tx"
+    ]
+   ]
+  },
+  "scan/center_frequency": {
+   "kind": "field",
+   "description": "Center frequency of the transmit pulse.",
+   "unit": "Hz",
+   "shapes": [
+    [],
+    [
+     "n_tx"
+    ]
+   ]
+  },
+  "scan/demodulation_frequency": {
+   "kind": "field",
+   "description": "Demodulation frequency.",
+   "unit": "Hz",
+   "shapes": [
+    [],
+    [
+     "n_tx"
+    ]
+   ]
+  },
+  "scan/focus_distances": {
+   "kind": "field",
+   "description": "Transmit focus distances. Positive = focused, negative = diverging (virtual source behind the array), np.inf = plane wave (preferred; 0 is also accepted).",
+   "unit": "m",
+   "shapes": [
+    [
+     "n_tx"
+    ]
+   ]
+  },
+  "scan/initial_times": {
+   "kind": "field",
+   "description": "A/D converter start times per transmit.",
+   "unit": "s",
+   "shapes": [
+    [
+     "n_tx"
+    ]
+   ]
+  },
+  "scan/polar_angles": {
+   "kind": "field",
+   "description": "Polar angles of transmit beams.",
+   "unit": "rad",
+   "shapes": [
+    [
+     "n_tx"
+    ]
+   ]
+  },
+  "scan/rx_aperture_indices": {
+   "kind": "field",
+   "description": "Probe element index for each receive channel of the channel data, shape (n_tx, n_rx). Required to interpret the channel axis when the receive aperture is a subset of the probe. Omit it when every element receives, where the mapping is the identity.",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_tx",
+     "n_rx"
+    ]
+   ]
+  },
+  "scan/sampling_frequency": {
+   "kind": "field",
+   "description": "Sampling frequency.",
+   "unit": "Hz",
+   "shapes": [
+    []
+   ]
+  },
+  "scan/sound_speed": {
+   "kind": "field",
+   "description": "Speed of sound.",
+   "unit": "m/s",
+   "shapes": [
+    []
+   ]
+  },
+  "scan/t0_delays": {
+   "kind": "field",
+   "description": "Transmit delays per element.",
+   "unit": "s",
+   "shapes": [
+    [
+     "n_tx",
+     "n_el"
+    ]
+   ]
+  },
+  "scan/tgc_gain_curve": {
+   "kind": "field",
+   "description": "Time-gain-compensation curve.",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_ax"
+    ]
+   ]
+  },
+  "scan/time_to_next_transmit": {
+   "kind": "field",
+   "description": "Time between transmit events.",
+   "unit": "s",
+   "shapes": [
+    [
+     "n_frames",
+     "n_tx"
+    ],
+    [
+     "n_timing_intervals"
+    ]
+   ]
+  },
+  "scan/transmit_origins": {
+   "kind": "field",
+   "description": "Transmit beam origins (x, y, z).",
+   "unit": "m",
+   "shapes": [
+    [
+     "n_tx",
+     3
+    ]
+   ]
+  },
+  "scan/tx_apodizations": {
+   "kind": "field",
+   "description": "Transmit apodization per element, in [-1, 1]. 0 = element did not contribute, 1 = full contribution, negative = fired with opposite polarity.",
+   "unit": "\u2013",
+   "shapes": [
+    [
+     "n_tx",
+     "n_el"
+    ]
+   ]
+  },
+  "scan/waveforms_one_way": {
+   "kind": "field",
+   "description": "One-way transmit waveforms.",
+   "unit": "V",
+   "shapes": [
+    [
+     "n_tx",
+     "n_samples_one_way"
+    ]
+   ]
+  },
+  "scan/waveforms_two_way": {
+   "kind": "field",
+   "description": "Two-way transmit waveforms.",
+   "unit": "V",
+   "shapes": [
+    [
+     "n_tx",
+     "n_samples_two_way"
+    ]
+   ]
+  },
+  "track_schedule": {
+   "kind": "field",
+   "description": "",
+   "unit": null,
+   "shapes": [
+    [
+     "n_total_tx"
+    ]
+   ]
+  },
+  "transmit_only": {
+   "kind": "field",
+   "description": "Whether this track records only the transmit sequence with no corresponding receive data (e.g. a shear wave push pulse or therapeutic ultrasound).",
+   "unit": "\u2013",
+   "shapes": [
+    []
+   ]
+  },
+  "us_machine": {
+   "kind": "field",
+   "description": "",
+   "unit": null,
+   "shapes": [
+    []
+   ]
+  }
+ }
+}

@@ -1,0 +1,8 @@
+# Scratch
+__pycache__/
+*.pyc
+# A write that scan_files.write_atomically did not finish
+*.part
+
+# Archived scan, kept by refresh_data.py --full
+data/*.stale

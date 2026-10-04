@@ -35,5 +35,12 @@ jobs:
       - name: Lint with ruff
         run: uv run ruff check .
 
+      # Generated from inputs that are committed with them.
+      - name: Check the website's generated files are up to date
+        run: |
+          uv run --frozen python site/zea_keys.py
+          uv run --frozen python site/corpus.py --allow-partial
+          git diff --exit-code site/zea_keys.json site/hub/corpus.json site/hub/files.json
+
       - name: Run lightweight script tests
         run: uv run pytest tests/ -m "not heavy" -v
