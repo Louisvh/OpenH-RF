@@ -50,7 +50,7 @@ wrong thing:
   read as synthetic aperture. `twente-vortexflow`'s chirp is in the waveform, not the
   apodization, so it would read as a plane wave.
 - An array that never transmits only listens (`twente-cavitation`: passive), and a single
-  element that is the whole probe is a rotating catheter (`mosaic-intelligence`: other).
+  element that is the whole probe is a rotating catheter (`mosaic-nuevosono`: other).
   Otherwise both would read as synthetic aperture.
 
 Fix at the source: correct the `stanford-murine` card, which says the apodizations keep the
@@ -67,7 +67,7 @@ read, and drops NC State University from `unc-liver` and the other OpenPros affi
 from `unc-openpros`, since neither is an author's affiliation.
 
 The other affiliations of a dataset's authors are its `collaborating_institutions`:
-NuevoSono (`mosaic-intelligence`), Ruhr University Bochum (`politorino`), ImFusion
+NuevoSono (`mosaic-nuevosono`), Ruhr University Bochum (`politorino`), ImFusion
 (`tumunich`), Mila (`ulmshare`) and Johns Hopkins University, National Institutes of Health,
 Iowa State University and QT Imaging (`unc-openpros`). The page does not show them, but
 search and the institution filter find the dataset by them, and the institution count

@@ -14,7 +14,7 @@ DATASETS = {
     "concordia": {"hf": f"{HF_ROOT}/concordia"},
     "dartmouth-uct": {"hf": f"{HF_ROOT}/dartmouth-uct"},
     "kaist-snubh-barreleye": {"hf": f"{HF_ROOT}/kaist-snubh-barreleye"},
-    "mosaic-intelligence": {"hf": f"{HF_ROOT}/mosaic-intelligence"},
+    "mosaic-nuevosono": {"hf": f"{HF_ROOT}/mosaic-nuevosono"},
     "nv-raw2insights-us": {"hf": f"{HF_ROOT}/nv-raw2insights-us"},
     "oslo-cardiac": {"hf": f"{HF_ROOT}/oslo/A_cardiac"},
     "oslo-carotid": {"hf": f"{HF_ROOT}/oslo/B_carotid"},

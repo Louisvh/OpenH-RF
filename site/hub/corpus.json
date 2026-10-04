@@ -1,7 +1,7 @@
 {
  "source": {
-  "revision": "0877eb3a0a77bd336a96017bbc2f237677b15cac",
-  "date": "2026-10-01",
+  "revision": "88730aa47007553da09ffea61b499002e8b552b1",
+  "date": "2026-10-04",
   "files_in_repo": 19336,
   "files_scanned": 19336
  },
@@ -1416,7 +1416,7 @@
     "n_el": 1,
     "acquisitions": 9,
     "datasets": {
-     "mosaic-intelligence": 9
+     "mosaic-nuevosono": 9
     }
    }
   ],
@@ -4856,7 +4856,7 @@
     "192-element linear breast probe": 70
    }
   },
-  "mosaic-intelligence": {
+  "mosaic-nuevosono": {
    "files": 9,
    "acquisitions": 9,
    "tracks": 9,
@@ -5629,12 +5629,12 @@
    },
    "folders": [
     {
-     "path": "mosaic-intelligence/data",
+     "path": "mosaic-nuevosono/data",
      "files": 9,
      "bytes": 13756334080
     }
    ],
-   "first_file": "mosaic-intelligence/data/15_10_18_21.hdf5",
+   "first_file": "mosaic-nuevosono/data/15_10_18_21.hdf5",
    "pipeline": true,
    "probe_models": {
     "NuevoSono IVUS": 9

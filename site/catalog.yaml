@@ -101,7 +101,7 @@ datasets:
   # both kinds, must be in institution_filters.csv, as an author's affiliation or in a row
   # without one; build.py fails otherwise.
   kaist-snubh-barreleye: {institution: KAIST & Barreleye Inc. & Seoul National University Bundang Hospital}
-  mosaic-intelligence: {institution: Mosaic Intelligence Labs, collaborating_institutions: [NuevoSono]}
+  mosaic-nuevosono: {institution: Mosaic Intelligence Labs, collaborating_institutions: [NuevoSono]}
   politorino: {institution: Politecnico di Torino, collaborating_institutions: [Ruhr University Bochum]}
   resolvestroke/clinical: {institution: Resolve Stroke}
   resolvestroke/phantom_flow: {institution: Resolve Stroke}
