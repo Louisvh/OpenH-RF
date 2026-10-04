@@ -1,0 +1,2535 @@
+{
+ "revision": "0877eb3a0a77bd336a96017bbc2f237677b15cac",
+ "date": "2026-10-01",
+ "collections": {
+  "oslo": "UltraSound ToolBox (USTB) Channel Capture Collection",
+  "resolvestroke": "Resolve Stroke Transcranial CEUS, Flow and Imaging Phantom Channel Data"
+ },
+ "cards": {
+  "colorado-boulder": {
+   "sha": "42b5aebd8d9a694dc51e2946f7a0f4f6de560e67",
+   "collection": null,
+   "pretty_name": "Tracked Swept Synthetic Aperture Ultrasound Datasets",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "openh-rf",
+    "3d"
+   ],
+   "summary": "This dataset contains tracked swept synthetic aperture (SSA) ultrasound acquisitions from three targets: a 2D ATS 539 multipurpose imaging phantom, a 3D ultrasound imaging phantom, and in-vivo quadriceps muscle from healthy volunteer participants.",
+   "contributors": [
+    "Anet Sanchez (University of Colorado Boulder, Bottenus Lab)",
+    "Nick Bottenus (University of Colorado Boulder, Bottenus Lab)"
+   ],
+   "institutions": [
+    "University of Colorado Boulder"
+   ],
+   "created": "Data were collected between 08/23/2024 and 06/30/2026.",
+   "keys": [
+    "metadata/probe_pose"
+   ],
+   "known_issues": "- Optical tracking measurements may contain small position and orientation uncertainties.\n- Reconstruction quality depends on tracking calibration accuracy and coherent alignment between frames.\n- The in-vivo dataset is intended for research use and has not been optimized for clinical workflows.",
+   "text": {
+    "description": "This dataset contains tracked swept synthetic aperture (SSA) ultrasound acquisitions from three targets: a 2D ATS 539 multipurpose imaging phantom, a 3D ultrasound imaging phantom, and in-vivo quadriceps muscle from healthy volunteer participants.\n\nThe data were acquired using a Verasonics Vantage research ultrasound system with a P4-2 phased array transducer. The dataset includes raw RF channel data, acquisition parameters, probe geometry, transmit information, and frame-wise tracked probe pose metadata.\n\nThe purpose of this dataset is to provide reproducible examples for generalized ultrasound reconstruction, with a particular focus on motion-compensated tracked SSA reconstruction using the zea/OpenH-RF data format.\n\nThe phantom acquisitions do not contain human subject data, animal data, or protected health information (PHI). The in-vivo acquisitions were collected from healthy volunteer participants and de-identified prior to release.",
+    "intended_usage": "This dataset is intended for research on generalized ultrasound reconstruction, with a specific focus on tracked swept synthetic aperture imaging, motion-compensated beamforming, coherent compounding, and ultrasound image-quality evaluation.\n\nFor SSA reconstruction, each raw RF frame is beamformed using its corresponding tracked transducer pose. The resulting beamformed frames are placed on a common reconstruction grid and coherently summed to synthesize a larger effective aperture. Because the reconstruction relies on coherent compounding, summation is performed before envelope detection, normalization, and log compression.",
+    "characterization": "The dataset includes acquisitions from three targets:\n\n- 2D ATS 539 multipurpose imaging phantom\n- 3D ultrasound imaging phantom\n- In-vivo quadriceps muscle from healthy volunteer participants\n\nThe ATS 539 multipurpose imaging phantom contains:\n\n- Wire targets\n- Cylindrical lesions\n- Tissue-mimicking speckle regions\n\nThese targets may be used to assess spatial resolution, contrast, lesion visibility, and speckle characteristics.\n\nData Collection Method\n\nEach acquisition consisted of a freehand sweep in the lateral direciton of the transducer. All 64 array elements were used during receive. Diverging waves were generated using a negative virtual source while activating the 20 central array elements during transmit. For in-vivo targets the transducer was manually swept along the longitudinal direction of the quadriceps while transmitting diverging waves at 400 Hz. The transducer was optically tracked using an NDI Polaris Vega® XT optical tracking system manufactured by Northern Digital Inc., Ontario, Canada.\n\nLabeling Method\n\nNone (N/A).\n\nAcquisition System\n\n- Verasonics Vantage research ultrasound scanner\n- Verasonics P4-2 phased array transducer\n- 64 elements\n- Reconstruction center frequency: 2.5 MHz\n- Sampling frequency: 10 MHz\n- Optical tracking: NDI Polaris Vega XT",
+    "subject_metadata": "This dataset contains acquisitions from two ultrasound imaging phantoms and healthy volunteer participants.\n\n- Subject types: 2D imaging phantom, 3D phantom, and in-vivo human ultrasound data\n- 2D phantom model: ATS 539\n- 2D phantom target types: wires, cylindrical lesions, and tissue-mimicking speckle\n- In-vivo anatomical region: quadriceps muscle\n- Human participants: healthy volunteer participants for the in-vivo dataset\n- Animal subjects: None\n- Protected health information: None\n- Scanner: Verasonics Vantage\n- Probe: Verasonics P4-2 phased array"
+   },
+   "image": {
+    "source": "colorado-boulder/assets/main_bmode.png",
+    "thumb": "images/colorado-boulder-cee7037-ad6e.jpg",
+    "preview": "images/colorado-boulder-cee7037-preview.jpg",
+    "preview_size": [
+     771,
+     900
+    ]
+   }
+  },
+  "concordia": {
+   "sha": "e53b6e21470b9dc62f2d3313bd534df48ca9d16b",
+   "collection": null,
+   "pretty_name": "SynthUS-FSA",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "openh-rf",
+    "synthetic",
+    "field-ii"
+   ],
+   "summary": "SynthUS-FSA is a fully synthetic corpus of pre-beamformed full-synthetic-aperture (FSA) ultrasound channel-data captures, generated with the Field II simulator to model a 128-element L11-5v linear array. Each capture fires one transmit event per element (128 transmits, receive on all 128 elements), so every element-to-element combination is retained and any receive/transmit beamforming scheme (focused B-mode, multi-angle plane-wave compounding, diverging-wave, adaptive/compressive schemes) can be retrospectively synthesized from the same channel data.",
+   "contributors": [
+    "Mostafa Sharifzadeh (IMPACT Lab, Concordia University)",
+    "Hassan Rivaz (IMPACT Lab, Concordia University)"
+   ],
+   "institutions": [
+    "Concordia University"
+   ],
+   "created": "07/01/2026",
+   "keys": [
+    "data/diverse_source_image",
+    "data/diverse_source_image/coordinates",
+    "data/diverse_source_image/values",
+    "data/echogenicity_multiplier",
+    "data/echogenicity_multiplier/values",
+    "data/image",
+    "data/image/coordinates",
+    "data/image/values",
+    "data/raw_data",
+    "data/scatterers",
+    "data/scatterers/coordinates",
+    "data/scatterers/values",
+    "data/segmentation",
+    "data/segmentation/coordinates",
+    "data/segmentation/values",
+    "metadata/annotations/label",
+    "probe/probe_bandwidth_percent",
+    "probe/probe_geometry",
+    "scan/azimuth_angles",
+    "scan/t0_delays",
+    "scan/tgc_gain_curve",
+    "scan/time_to_next_transmit",
+    "scan/tx_apodizations"
+   ],
+   "known_issues": "- data/image is a log-compressed dB B-mode, not raw beamformed RF — This is a minor packaging note, not a coverage gap, precisely because the data is FSA: data/raw_data retains every element-to-element transmit/receive combination (128 single-element transmit firings × 128-element receive aperture on the L11-5v), which is a more general representation than any one fixed beamformed product could be: by delay-and-sum with the appropriate per-element transmit delays and apodization (linear superposition over the 128 single-element firings), it is a sufficient basis to retrospectively synthesize o…",
+   "text": {
+    "description": "SynthUS-FSA is a fully synthetic corpus of pre-beamformed full-synthetic-aperture (FSA) ultrasound channel-data captures, generated with the Field II simulator to model a 128-element L11-5v linear array. Each capture fires one transmit event per element (128 transmits, receive on all 128 elements), so every element-to-element combination is retained and any receive/transmit beamforming scheme (focused B-mode, multi-angle plane-wave compounding, diverging-wave, adaptive/compressive schemes) can be retrospectively synthesized from the same channel data. The dataset is packaged in zea format — the OpenH-RF reference Python library for ultrasound file I/O and beamforming — which every .hdf5 file and reconstruct.py depend on. The dataset targets three OpenH-RF task categories: (1) generalized reconstruction (FSA channel data paired with a synthesized full synthetic-aperture B-mode as ground truth), (2) compressed sensing / adaptive transmit (retrospective sub-selection of the 128 transmit events — derived from the same captures, no additional files), and (3) segmentation (binary echogenicity masks on a subset of phantoms). All data is simulated — no clinical, phantom-hardware, or animal acquisition is involved.\n\nA similar data-generation approach was used in Sharifzadeh et al. (2024). Users of this dataset are kindly requested to cite that work:\n\n> M. Sharifzadeh, S. Goudarzi, A. Tang, H. Benali, and H. Rivaz, \"Mitigating aberration-induced noise: A deep learning-based aberration-to-aberration approach,\" *IEEE Transactions on Medical Imaging*, vol. 43, no. 12, pp. 4380–4392, 2024.",
+    "intended_usage": "- Generalized reconstruction — learning a direct mapping from raw FSA channel data to a B-mode image, and/or from FSA to arbitrary retrospective beamforming targets (focused, multi-angle compounded, diverging-wave, adaptive).\n- Compressed sensing / adaptive transmit — sparse-aperture and adaptive transmit design research using retrospective sub-selection of the 128 FSA transmit events.\n- Segmentation — pixel-aligned echogenicity-region segmentation (anechoic / hypoechoic / hyperechoic) from raw channel data.\n- Scatterer-level analysis — data/scatterers exposes the exact Field II point-scatterer cloud (position + amplitude) used to simulate each capture, for tasks that want ground truth finer than a pixel grid (e.g. quantitative ultrasound, scatterer-density estimation).",
+    "characterization": "- Data Collection Method: synthetic (Field II full-synthetic-aperture simulation).\n- Labeling Method: synthetic ground truth.\n  - Segmentation masks (anechoic/hypoechoic/hyperechoic) are Open Images V7 animal-class segmentation annotations, used for shape only.\n  - Diverse-echogenicity amplitude weighting uses a Wikimedia Commons photograph as a continuous grayscale weight map, preserved as data/diverse_source_image so an end user can see what pattern the capture was generated from.\n  - The reconstruction-target B-mode (data/image) is synthesized from the same FSA capture (see *Data Validation* below), not an independent acquisition.\n- Acquisition system (simulated): 128-element linear array (model: L11-5v), center frequency 5.208 MHz, element width 0.27 mm, kerf 0.03 mm, pitch 0.3 mm, element height 5 mm, elevation focus (Rfocus) 20 mm. Simulated at 104.16 MHz (a high rate required for Field II's numerical precision), then decimated ×5 to a delivered sampling rate of 20.832 MHz. Sound speed 1540 m/s. Receive dynamic-focus reconstruction uses F-number 1.75 (baked into reconstruct.py's F_NUMBER constant — zea's own default is 1.0, so this must be supplied explicitly rather than relying on the file alone to reproduce the reference images).\n- Transmit pulse: Hann-windowed 2.5-cycle tone burst at the 5.208 MHz center frequency, sampled at the native 104.16 MHz simulation rate. −6dB fractional bandwidth ≈ 76.5% (stored as probe/probe_bandwidth_percent).\n- Coordinate convention: x = lateral, y = elevation (always 0 for this 2D acquisition), z = axial/depth — the standard zea convention, applied throughout probe_geometry, transmit_origins, and every map's coordinates field.\n- Frame timing: each file is a single static frame (n_frames=1) with no simulated motion or pulse-repetition-frequency concept, so scan/time_to_next_transmit is intentionally omitted rather than populated with a fabricated value. Likewise, no time-gain-compensation was applied to this synthetic data, so scan/tgc_gain_curve is omitted.",
+    "subject_metadata": "Not applicable — no human or animal subjects. Each \"subject\" is a simulated phantom of ≈275,000 scatterers. The reconstructed image FOV is 45 mm (lateral) × 40 mm (axial), starting 10 mm from the transducer face. The scatterer field is deliberately larger than this FOV (≈49.5 mm wide, extending to 54 mm deep) so that beamforming at the FOV edges is fully supported by surrounding scatterers and free of edge-truncation artifacts; only the reconstruction grid is cropped to the FOV, while data/raw_data and data/scatterers retain the full extent. Per-class amplitude weighting inside the mask/weight-map region:\n\n- Anechoic: scatterer amplitude zeroed.\n- Hypoechoic: amplitude × U[0.07, 0.50]; the exact per-capture draw is preserved in data/echogenicity_multiplier.\n- Hyperechoic: amplitude × U[2, 8]; same per-capture preservation via data/echogenicity_multiplier.\n- Diverse: continuous grayscale weight map from a Wikimedia Commons photograph (histogram-equalized, normalized to [0, 1], clipped at the extremes) — preserved as data/diverse_source_image.\n- Point-target: 10–20 point targets per phantom (count ~ U[10, 20], rounded to an integer), each target's amplitude an independent U[15, 35] draw.  The targets consist of adjacent groups of high-amplitude scatterers within data/scatterers.\n\nAll classes except point-target additionally include 2–5 extra bright point scatterers (amplitude 18–22) scattered at valid random positions, for realism."
+   },
+   "image": {
+    "source": "concordia/assets/main.png",
+    "thumb": "images/concordia-acf3e39-ad6e.jpg",
+    "preview": "images/concordia-acf3e39-preview.jpg",
+    "preview_size": [
+     610,
+     542
+    ]
+   }
+  },
+  "dartmouth-uct": {
+   "sha": "14630c11bc77e366313038970c72abf37c8620d9",
+   "collection": null,
+   "pretty_name": "2D Ring-Array USCT Waveforms from 2D- and 3D-k-Wave Simulations",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "openh-rf",
+    "usct",
+    "sound-speed-estimation",
+    "attenuation",
+    "breast",
+    "simulation"
+   ],
+   "summary": "This sub-dataset provides pre-beamformed channel-domain radio-frequency ultrasound waveforms from simulated ring-array ultrasound computed tomography (USCT) acquisitions of digital breast phantoms. All data are two-dimensional: each acquisition is a 2D channel tensor (transmit × time × receiver) recorded at a 256-element ring as every element fires in turn, paired with 2D voxel-level ground-truth maps of speed-of-sound (SOS) and acoustic attenuation for a single breast cross-section.",
+   "contributors": [
+    "Yujia Wu (primary point of contact)",
+    "Geoffrey P. Luke (PI)",
+    "Thayer School of Engineering, Dartmouth College",
+    "University of Rochester Medical Center"
+   ],
+   "institutions": [
+    "Dartmouth College",
+    "University of Rochester Medical Center"
+   ],
+   "created": "07/04/2026",
+   "keys": [
+    "custom/element_focus",
+    "custom/phantom_z_idx",
+    "custom/z_off",
+    "custom/z_slice",
+    "data/attenuation_map",
+    "data/attenuation_map/gamma",
+    "data/attenuation_map/values",
+    "data/raw_data",
+    "data/sos_map",
+    "data/sos_map/coordinates",
+    "data/sos_map/values",
+    "metadata/annotations",
+    "probe/element_height",
+    "probe/element_width",
+    "probe/probe_geometry",
+    "scan",
+    "scan/center_frequency",
+    "scan/initial_times",
+    "scan/sampling_frequency",
+    "scan/sound_speed",
+    "scan/t0_delays",
+    "scan/transmit_origins",
+    "scan/tx_apodizations"
+   ],
+   "known_issues": "- 2D-sim vs 3D-sim differ in geometry and sampling — 60 mm vs 110.9 mm ring; 256 vs 64 transmits; 867 @ 6.67 MHz (130 µs) vs 2161 @ 12 MHz (~180 µs); 230² (0.30 mm) vs 800² (0.29 mm) GT maps. Users combining both must resample to a common grid.\n- 2D-sim point elements vs 3D-sim focused elements: the 2D-sim set idealizes elements as points (no element directivity), while the 3D-sim set models finite focused elements (0.558 mm × 19 mm, 75 mm elevation focus) and out-of-plane propagation.",
+   "text": {
+    "description": "This sub-dataset provides pre-beamformed channel-domain radio-frequency ultrasound waveforms from simulated ring-array ultrasound computed tomography (USCT) acquisitions of digital breast phantoms. All data are two-dimensional: each acquisition is a 2D channel tensor (transmit × time × receiver) recorded at a 256-element ring as every element fires in turn, paired with 2D voxel-level ground-truth maps of speed-of-sound (SOS) and acoustic attenuation for a single breast cross-section.\n\nWhat distinguishes the two collections is the k-Wave simulation used to generate the RF:\n\n- 2D-sim (2,149 acquisitions): RF computed with 2D k-Wave (kspaceFirstOrder2D) on the breast cross-section.\n- 3D-sim (476 acquisitions): RF computed with 3D k-Wave (kspaceFirstOrder3D) on the full breast volume, then recorded at the ring plane. The 3D simulation captures out-of-plane propagation and finite focused-element behaviour that a 2D simulation cannot represent.\n\nBoth collections are generated from the same underlying digital breast phantoms (derived from the open VICTRE breast model), enabling direct study of how 3D acoustic effects change the channel data relative to an idealized 2D simulation. All data are synthetic (simulated); no human or animal subjects are involved.",
+    "intended_usage": "- Sound-speed estimation / imaging (quantitative SOS reconstruction).\n- Acoustic-attenuation imaging.\n- Ultrasound computed tomography (USCT) reconstruction from full-ring channel data.\n- Compressed sensing — sub-sampling along the transmit (Tx) or receive (Rx) axis and recovering missing channels.",
+    "characterization": "- Data Collection Method: synthetic (k-Wave simulation).\n- Labeling Method: synthetic ground truth (voxel-level SOS and attenuation maps are the exact simulation inputs; no annotation error).\n- Acquisition system (the label denotes the k-Wave simulation dimensionality; the recorded data are 2D in both cases):\n\n2D-sim (RF from 2D k-Wave)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n3D-sim (RF from 3D k-Wave)",
+    "subject_metadata": "Not applicable — all data are synthetic. Aggregate phantom statistics:\n\n- Anatomical region: breast cross-sections. The 3D-sim set samples several z-planes per phantom (one 2D cross-section each).\n- Tissue classes represented: fat, glandular, skin/connective, with continuous SOS/attenuation/density assignments.\n- No PHI."
+   },
+   "image": {
+    "source": "dartmouth-uct/assets/main.png",
+    "thumb": "images/dartmouth-uct-00a3a10-ad6e.jpg",
+    "preview": "images/dartmouth-uct-00a3a10-preview.jpg",
+    "preview_size": [
+     900,
+     900
+    ]
+   }
+  },
+  "kaist-snubh-barreleye": {
+   "sha": "47e75b70acfa9841d18cba793155caf0a663b6e3",
+   "collection": null,
+   "pretty_name": "KAIST–SNUBH In-vivo Breast Plane-Wave RF",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "openh-rf",
+    "breast",
+    "in-vivo",
+    "plane-wave",
+    "sound-speed-estimation"
+   ],
+   "summary": "This dataset contains pre-beamformed RF channel-capture data from in-vivo breast ultrasound exams performed on a clinical, FDA-cleared scanner. Every acquisition is a 9-angle plane-wave compounding sequence with a 192-element linear array, paired with a B-mode reference image and a clinically verified diagnostic label.",
+   "contributors": [
+    "Hyeon-Min Bae (lead PI; KAIST, School of Electrical Engineering)",
+    "Seok-Hwan Oh (primary point of contact; KAIST / Barreleye Inc.)",
+    "Myeong-Gee Kim (KAIST / Barreleye Inc.)",
+    "Young-Min Kim (KAIST / Barreleye Inc.)",
+    "HyeonJik Lee (KAIST / Barreleye Inc.)",
+    "Hyuk-sool Kwon (clinical co-investigator; Seoul National University Bundang Hospital, SNUBH)"
+   ],
+   "institutions": [
+    "Barreleye Inc",
+    "Seoul National University Bundang Hospital"
+   ],
+   "created": "06/30/2026",
+   "keys": [],
+   "known_issues": "- demodulation_frequency = 6 MHz is empirically tuned to the post-attenuation echo spectrum; the probe nameplate centre frequency is 10 MHz. Treat both as starting points for frequency-dependent imaging research.\n- sound_speed = 1540 m/s is a conventional default.\n- ADC saturation sentinels (int16 ±32768 from front-end transmit blanking) are preserved as-is in raw_data to keep the tensor bit-faithful.",
+   "text": {
+    "description": "This dataset contains pre-beamformed RF channel-capture data from in-vivo breast ultrasound exams performed on a clinical, FDA-cleared scanner. Every acquisition is a 9-angle plane-wave compounding sequence with a 192-element linear array, paired with a B-mode reference image and a clinically verified diagnostic label. The intended research contribution is two-fold: (1) provide a clinically-grounded benchmark for sound-speed and attenuation imaging (Section 6.3 of the RFP) on real human breast tissue with biopsy-proven outcomes and (2) supply a high-quality plane-wave compounding corpus for generalized reconstruction research (Section 6.1: super-resolution, aberration correction, adaptive transmit design). Pathology and BI-RADS labels additionally enable benchmarking of ultrasound interpretation (Section 6.5).",
+    "intended_usage": "Quantitative imaging (sound-speed / attenuation estimation), generalized reconstruction (plane-wave compounding, aberration correction), and lesion interpretation (benign / malignant classification) on raw breast channel data with biopsy and radiology-proven labels.",
+    "characterization": "- Data collection method: Clinical, in-vivo, human.\n- Labeling method: Human-annotated, adjudicated by an experienced breast radiologist.\n  - *Malignant* — pathology-proven via core needle or surgical biopsy.\n  - *Benign* — either pathology-proven OR imaging-classified benign with 12-month follow-up showing consistent benignity.\n- Acquisition system:\n  - Scanner: clinical, FDA-cleared ultrasound scanner.\n  - Probe: 192-element linear array, pitch 0.01993 cm, centre frequency 10 MHz.\n  - ADC sampling: 62.5 MHz, exported as float32.\n  - Transmit: 9-angle plane-wave compounding at [-15, -10, -5, -2.5, 0, +2.5, +5, +10, +15]°.",
+    "subject_metadata": "Per-file metadata follows the HIPAA Safe-Harbor approach: only de-identified subject ID, sex, anatomy, binary label, BI-RADS, pathology subtype are stored. Free-text identifiers, exact age, exact lesion size, and exam dates are deliberately omitted from the HDF5 files.\n\n- Number of subjects: 35\n- Sex distribution: 100% female (35/35)\n- Age groups (decade-binned):\n\n\n\n\n\n\n\n\n\n\n- Case status: 23 benign (65.7%) / 12 malignant (34.3%)\n- BI-RADS distribution:\n\n\n\n\n\n\n\n\n\n\n\n- Lesion size (longest axis, cm): n=35, min 0.50, max 5.20, mean 1.36, median 1.00.\n\n\n\n\n\n\n\n\n- Histopathology subtypes:\n  - *Malignant (n=12):* IDC (8), DCIS (4)\n  - *Benign (n=23):* FA (8), IDP (3), FCC (1), Usual Ductal Hyperplasia (1), ADH (1), unspecified / NA (9)\n- Anatomical region: Breast (left and right; mixed lesion locations).\n- Scanner / probe model: Clinical FDA-cleared scanner with a 192-element linear 10 MHz probe."
+   },
+   "image": {
+    "source": "kaist-snubh-barreleye/assets/main.png",
+    "thumb": "images/kaist-snubh-barreleye-fa4aaf7-ad6e.jpg",
+    "preview": "images/kaist-snubh-barreleye-fa4aaf7-preview.jpg",
+    "preview_size": [
+     905,
+     900
+    ]
+   }
+  },
+  "mosaic-intelligence": {
+   "sha": "0b0405c85e4f00cfffa3488235b51c8ea73b0dd7",
+   "collection": null,
+   "pretty_name": "Mosaic Intelligence / NuevoSono IVUS",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "openh-rf",
+    "IVUS",
+    "tracked-ultrasound"
+   ],
+   "summary": "Nine in-vivo intravascular ultrasound (IVUS) acquisitions from a porcine study, each in the *zea* file format with per-frame lumen, intima-media and guidewire segmentation. Per-acquisition dimensions are in Acquisitions.",
+   "contributors": [
+    "Brian Boitnott (Mosaic Intelligence Labs; primary point of contact)",
+    "Ali Mackanic (Mosaic Intelligence Labs; primary point of contact)",
+    "Mosaic Intelligence Labs, in collaboration with NuevoSono"
+   ],
+   "institutions": [],
+   "created": "07/17/2026",
+   "keys": [
+    "data/image/coordinates",
+    "data/image/values",
+    "data/raw_data",
+    "data/segmentation/coordinates",
+    "data/segmentation/labels",
+    "data/segmentation/values",
+    "metadata/credit",
+    "metadata/text_report",
+    "probe/name",
+    "probe/probe_center_frequency",
+    "probe/probe_geometry",
+    "probe/type",
+    "scan/*"
+   ],
+   "known_issues": "- Untracked (15_*) acquisitions have no pullback_position, so the pullback trajectory panel is omitted during reconstruction.",
+   "text": {
+    "description": "Nine in-vivo intravascular ultrasound (IVUS) acquisitions from a porcine study, each in the *zea* file format with per-frame lumen, intima-media and guidewire segmentation. Per-acquisition dimensions are in Acquisitions.\n\nEach dataset is an IVUS acquisition collected in a porcine animal study. The source data consists of raw IVUS RF frames and a pre-computed (scan-converted) B-mode image. Six of the acquisitions have time-sampled linear encoder pullback positions of the IVUS probe at each frame. For each acquisition and for every frame, per-class segmentation masks are provided for the vessel lumen, intima-media, and guidewire.",
+    "intended_usage": "Intended for IVUS tracking and segmentation applications, including lesion detection and image-guided intervention.",
+    "characterization": "- Data Collection Method: Porcine (in-vivo animal study)\n- Labeling Method: derived tracking metadata, semi-automated labeling\n- Acquisition System: Single-element IVUS, center frequency 30 MHz, sampling rate 1 GHz",
+    "subject_metadata": "Animal study data — no human subjects."
+   },
+   "image": {
+    "source": "mosaic-intelligence/assets/main.png",
+    "thumb": "images/mosaic-intelligence-3dddb4e-ad6e.jpg",
+    "preview": "images/mosaic-intelligence-3dddb4e-preview.jpg",
+    "preview_size": [
+     900,
+     900
+    ]
+   }
+  },
+  "nv-raw2insights-us": {
+   "sha": "549d6be789ab93276404fd990dd3dd4b52b92db5",
+   "collection": null,
+   "pretty_name": "NV-Raw2Insights-US (simulated FSA, sound-speed / aberration / segmentation)",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "iq",
+    "openh-rf",
+    "beamforming",
+    "sound-speed-estimation",
+    "phase-aberration",
+    "segmentation",
+    "simulation"
+   ],
+   "summary": "NV-Raw2Insights-US is a simulated full-synthetic-aperture (FSA) ultrasound dataset for training and evaluating neural networks on sound-speed estimation, phase-aberration correction, tissue segmentation, and learned image reconstruction from raw pre-beamformed channel data.",
+   "contributors": [
+    "NVIDIA Corporation"
+   ],
+   "institutions": [
+    "NVIDIA Corporation"
+   ],
+   "created": "12/01/2025.",
+   "keys": [
+    "data/bmode_focused",
+    "data/image",
+    "data/raw_data",
+    "data/segmentation",
+    "data/sos_map",
+    "metadata/credit",
+    "metadata/subject/type",
+    "metrics/common_midpoint_phase_error",
+    "probe/name",
+    "probe/probe_geometry",
+    "scan/sound_speed"
+   ],
+   "known_issues": "- sos_map is a coarse 32 × 32 grid while the B-mode and segmentation are on the fine 507 × 456 grid; each carries its own coordinates for alignment.\n- Cysts that touch the edge of the B-mode frame are not included in the segmentation mask.\n- Some regions of gross reverberation artifact can be incorrectly segmented as cysts.",
+   "text": {
+    "description": "NV-Raw2Insights-US is a simulated full-synthetic-aperture (FSA) ultrasound dataset for training and evaluating neural networks on sound-speed estimation, phase-aberration correction, tissue segmentation, and learned image reconstruction from raw pre-beamformed channel data.\n\nEach sample is a single-frame FSA acquisition from a 180-element linear array simulated with k-Wave over a heterogeneous tissue phantom containing cysts. Every acquisition provides raw baseband IQ channel data alongside co-registered ground truth: a speed-of-sound map, a binary cyst segmentation mask, a DAS B-mode and a focused-transmit B-mode, and a per-sample phase-aberration value. All data are synthetic; no human or animal subjects are involved.\n\nThis is the zea-format (OpenH-RF) release; the same simulations are also published in a Hugging Face datasets/Arrow build at nvidia/NV-Raw2Insights-US.",
+    "intended_usage": "Developing and benchmarking methods that operate on raw ultrasound channel data: learned/adaptive beamforming, sound-speed estimation, phase-aberration correction, and tissue segmentation. Because the sound-speed map, segmentation mask, and aberration value are exact simulation ground truth, the dataset supports fully-supervised training of channel-data-to-insight models.",
+    "characterization": "- Data Collection Method: Synthetic — k-Wave acoustic simulation of a 180-element linear array over heterogeneous tissue phantoms with cysts.\n- Labeling Method: Synthetic — ground truth taken directly from the simulation parameters (sound-speed map, cyst segmentation, aberration).\n- Acquisition model: Full synthetic aperture (multi-static) — 180 single-element transmit events per frame, all 180 elements received; transmit centre frequency 6.5 MHz, baseband IQ sampled at 13.3 MHz, background sound speed 1540 m/s.",
+    "subject_metadata": "- Synthetic only — no human or animal subjects. Each sample is a k-Wave simulation over a digital tissue phantom containing cysts.\n- No PHI; subject/type is a simulation label, not a patient identifier."
+   },
+   "image": {
+    "source": "nv-raw2insights-us/assets/main.png",
+    "thumb": "images/nv-raw2insights-us-3908c72-ad6e.jpg",
+    "preview": "images/nv-raw2insights-us-3908c72-preview.jpg",
+    "preview_size": [
+     608,
+     608
+    ]
+   }
+  },
+  "oslo/A_cardiac": {
+   "sha": "86348d2d8dc476190d7f9e5e0ec55cca7181a42e",
+   "collection": "oslo",
+   "pretty_name": "USTB - In-vivo Cardiac (Verasonics P4-2)",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "openh-rf",
+    "cardiac",
+    "in-vivo"
+   ],
+   "summary": "Part of the UltraSound ToolBox (USTB) Channel Capture Collection (see the collection card).",
+   "contributors": [
+    "Ole Marius Hoel Rindal (primary contact)",
+    "Yucel Karabiyik",
+    "Sven Peter Nasholm",
+    "Andreas Austeng",
+    "University of Oslo (UiO), Department of Informatics"
+   ],
+   "institutions": [
+    "University of Oslo"
+   ],
+   "created": "06/23/2026 (packaging date; original acquisitions/simulations were produced between 2016 and 2023).",
+   "keys": [
+    "data/raw_data",
+    "probe/probe_geometry",
+    "scan/center_frequency",
+    "scan/demodulation_frequency",
+    "scan/focus_distances",
+    "scan/initial_times",
+    "scan/polar_angles",
+    "scan/sampling_frequency",
+    "scan/sound_speed",
+    "scan/t0_delays",
+    "scan/transmit_origins",
+    "scan/tx_apodizations"
+   ],
+   "known_issues": "Focused sector acquisition: lateral resolution and field of view follow the transmit geometry. Phased-array data is best reconstructed on a polar (sector) grid. Frame counts vary per acquisition.",
+   "text": {
+    "description": "Part of the UltraSound ToolBox (USTB) Channel Capture Collection (see the collection card).\n\nIn-vivo human cardiac channel-capture data acquired with a Verasonics Vantage 256 research scanner and a P4-2 phased-array probe. The collection contains parasternal long-axis and apical four-chamber views recorded with focused transmit beams (sector scan). The data is pre-beamformed RF channel data intended for research into generalized beamforming, adaptive imaging and cardiac reconstruction.",
+    "intended_usage": "Generalized reconstruction and adaptive beamforming of cardiac ultrasound (RFP task 6.1). Suitable for B-mode reconstruction, aperture-domain processing, and deep-learning beamforming research on in-vivo cardiac data. (OpenH-RF RFP task 6.1 Generalized Reconstruction).",
+    "characterization": "- Data Collection Method: clinical\n- Labeling Method: N/A (raw channel data; no annotations).\n- Acquisition system: probe(s) P4-2; element positions stored in /probe/probe_geometry (meters); center frequency, sampling frequency and sound speed stored per acquisition in /scan (see per-sample feature table).",
+    "subject_metadata": "Healthy adult volunteer(s). Anatomy: heart (parasternal long-axis, apical four-chamber). Scanner: Verasonics Vantage 256. Probe: P4-2 phased array (64 elements). Aggregate only; no per-subject identifiers are stored."
+   },
+   "image": {
+    "source": "oslo/A_cardiac/assets/main.png",
+    "thumb": "images/oslo-a-cardiac-804539e-ad6e.jpg",
+    "preview": "images/oslo-a-cardiac-804539e-preview.jpg",
+    "preview_size": [
+     1108,
+     900
+    ]
+   }
+  },
+  "oslo/B_carotid": {
+   "sha": "da265fd97570fdca6bc06fcc15a77faea61fb2b1",
+   "collection": "oslo",
+   "pretty_name": "USTB - In-vivo Carotid (Verasonics L7-4)",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "openh-rf",
+    "vascular",
+    "carotid",
+    "in-vivo"
+   ],
+   "summary": "Part of the UltraSound ToolBox (USTB) Channel Capture Collection (see the collection card).",
+   "contributors": [
+    "Ole Marius Hoel Rindal (primary contact)",
+    "Yucel Karabiyik",
+    "Sven Peter Nasholm",
+    "Andreas Austeng",
+    "University of Oslo (UiO), Department of Informatics"
+   ],
+   "institutions": [
+    "University of Oslo"
+   ],
+   "created": "06/23/2026 (packaging date; original acquisitions/simulations were produced between 2016 and 2023).",
+   "keys": [
+    "data/raw_data",
+    "probe/probe_geometry",
+    "scan/center_frequency",
+    "scan/demodulation_frequency",
+    "scan/focus_distances",
+    "scan/initial_times",
+    "scan/polar_angles",
+    "scan/sampling_frequency",
+    "scan/sound_speed",
+    "scan/t0_delays",
+    "scan/transmit_origins",
+    "scan/tx_apodizations"
+   ],
+   "known_issues": "Single/few-frame acquisitions; focused linear imaging.",
+   "text": {
+    "description": "Part of the UltraSound ToolBox (USTB) Channel Capture Collection (see the collection card).\n\nIn-vivo human carotid-artery channel-capture data acquired with a Verasonics Vantage 256 and an L7-4 linear-array probe, cross-sectional views, focused transmit imaging. Pre-beamformed RF channel data for vascular imaging and beamforming research.",
+    "intended_usage": "Generalized reconstruction and adaptive beamforming of vascular ultrasound (RFP task 6.1). (OpenH-RF RFP task 6.1 Generalized Reconstruction).",
+    "characterization": "- Data Collection Method: clinical\n- Labeling Method: N/A (raw channel data; no annotations).\n- Acquisition system: probe(s) L7-4; element positions stored in /probe/probe_geometry (meters); center frequency, sampling frequency and sound speed stored per acquisition in /scan (see per-sample feature table).",
+    "subject_metadata": "Healthy adult volunteer(s). Anatomy: carotid artery (cross-section). Scanner: Verasonics Vantage 256. Probe: L7-4 linear array (128 elements). Aggregate only; no per-subject identifiers."
+   },
+   "image": {
+    "source": "oslo/B_carotid/assets/main.png",
+    "thumb": "images/oslo-b-carotid-11dd00b-ad6e.jpg",
+    "preview": "images/oslo-b-carotid-11dd00b-preview.jpg",
+    "preview_size": [
+     580,
+     900
+    ]
+   }
+  },
+  "oslo/C_verasonics_phantom": {
+   "sha": "0a73e2cddb03ff1c4c07d7fb71f75be80b88393f",
+   "collection": "oslo",
+   "pretty_name": "USTB - Phantom (Verasonics L7-4 / P4)",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "openh-rf",
+    "phantom",
+    "cirs"
+   ],
+   "summary": "Part of the UltraSound ToolBox (USTB) Channel Capture Collection (see the collection card).",
+   "contributors": [
+    "Ole Marius Hoel Rindal (primary contact)",
+    "Yucel Karabiyik",
+    "Sven Peter Nasholm",
+    "Andreas Austeng",
+    "University of Oslo (UiO), Department of Informatics"
+   ],
+   "institutions": [
+    "University of Oslo"
+   ],
+   "created": "06/23/2026 (packaging date; original acquisitions/simulations were produced between 2016 and 2023).",
+   "keys": [
+    "data/raw_data",
+    "probe/probe_geometry",
+    "scan/center_frequency",
+    "scan/demodulation_frequency",
+    "scan/focus_distances",
+    "scan/initial_times",
+    "scan/polar_angles",
+    "scan/sampling_frequency",
+    "scan/sound_speed",
+    "scan/t0_delays",
+    "scan/transmit_origins",
+    "scan/tx_apodizations"
+   ],
+   "known_issues": "Mixed transmit schemes across files (CPWC / FI / STA / DW). Single-frame acquisitions for most phantoms. The reference reconstruction uses a single B-mode pipeline; per-scheme tuning may improve image quality.",
+   "text": {
+    "description": "Part of the UltraSound ToolBox (USTB) Channel Capture Collection (see the collection card).\n\nTissue-mimicking and table-top phantom channel-capture data acquired on a Verasonics Vantage 256 with L7-4 linear and P4 phased-array probes. The collection spans coherent plane-wave compounding (CPWC), focused imaging (FI), synthetic transmit aperture (STA) and diverging-wave (DW) sequences for resolution, contrast, dynamic-range and point-spread-function evaluation, including CIRS tissue-mimicking phantom targets.",
+    "intended_usage": "Generalized reconstruction, image-quality assessment (resolution, contrast, dynamic range), and beamforming research (RFP task 6.1). Several acquisitions provide multiple transmit schemes on the same target for cross-method comparison. (OpenH-RF RFP task 6.1 Generalized Reconstruction).",
+    "characterization": "- Data Collection Method: phantom\n- Labeling Method: Derived (known phantom geometry, e.g. CIRS Model 040GSE where applicable).\n- Acquisition system: probe(s) L7-4, P4-1, P4-2; element positions stored in /probe/probe_geometry (meters); center frequency, sampling frequency and sound speed stored per acquisition in /scan (see per-sample feature table).",
+    "subject_metadata": "No human or animal subjects. Targets: CIRS tissue-mimicking phantoms and lab phantoms (wire/point targets, hypo/hyperechoic inclusions, dynamic-range targets). Probes: L7-4 (128 el.), P4 phased array."
+   },
+   "image": {
+    "source": "oslo/C_verasonics_phantom/assets/main.png",
+    "thumb": "images/oslo-c-verasonics-phantom-dc83f67-ad6e.jpg",
+    "preview": "images/oslo-c-verasonics-phantom-dc83f67-preview.jpg",
+    "preview_size": [
+     1200,
+     841
+    ]
+   }
+  },
+  "oslo/D_alpinion_phantom": {
+   "sha": "9f47e6e0930431a0379a5c17d01517a2710ee404",
+   "collection": "oslo",
+   "pretty_name": "USTB - Phantom (Alpinion L3-8)",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "openh-rf",
+    "phantom",
+    "alpinion"
+   ],
+   "summary": "Part of the UltraSound ToolBox (USTB) Channel Capture Collection (see the collection card).",
+   "contributors": [
+    "Ole Marius Hoel Rindal (primary contact)",
+    "Yucel Karabiyik",
+    "Sven Peter Nasholm",
+    "Andreas Austeng",
+    "University of Oslo (UiO), Department of Informatics"
+   ],
+   "institutions": [
+    "University of Oslo"
+   ],
+   "created": "06/23/2026 (packaging date; original acquisitions/simulations were produced between 2016 and 2023).",
+   "keys": [
+    "data/raw_data",
+    "probe/probe_geometry",
+    "scan/center_frequency",
+    "scan/demodulation_frequency",
+    "scan/focus_distances",
+    "scan/initial_times",
+    "scan/polar_angles",
+    "scan/sampling_frequency",
+    "scan/sound_speed",
+    "scan/t0_delays",
+    "scan/transmit_origins",
+    "scan/tx_apodizations"
+   ],
+   "known_issues": "Single-frame acquisitions; two transmit schemes (FI, CPWC).",
+   "text": {
+    "description": "Part of the UltraSound ToolBox (USTB) Channel Capture Collection (see the collection card).\n\nPhantom channel-capture data acquired on an Alpinion E-Cube 12R research scanner with an L3-8 linear-array probe. Hypoechoic and hyperechoic targets imaged with focused (FI) and coherent plane-wave compounding (CPWC) sequences.",
+    "intended_usage": "Generalized reconstruction and image-quality assessment on a second hardware platform (RFP task 6.1); cross-vendor robustness studies. (OpenH-RF RFP task 6.1 Generalized Reconstruction).",
+    "characterization": "- Data Collection Method: phantom\n- Labeling Method: Derived (known phantom target types).\n- Acquisition system: probe(s) L3-8; element positions stored in /probe/probe_geometry (meters); center frequency, sampling frequency and sound speed stored per acquisition in /scan (see per-sample feature table).",
+    "subject_metadata": "No human or animal subjects. Targets: hypoechoic/hyperechoic phantom inclusions. Scanner: Alpinion E-Cube 12R. Probe: L3-8 linear array (128 elements)."
+   },
+   "image": {
+    "source": "oslo/D_alpinion_phantom/assets/main.png",
+    "thumb": "images/oslo-d-alpinion-phantom-3bd6f60-ad6e.jpg",
+    "preview": "images/oslo-d-alpinion-phantom-3bd6f60-preview.jpg",
+    "preview_size": [
+     760,
+     900
+    ]
+   }
+  },
+  "oslo/E_simulation": {
+   "sha": "0d671c2fa1227fbd8f5611046dbbac73d66cb30d",
+   "collection": "oslo",
+   "pretty_name": "USTB - Simulation (Field II)",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "openh-rf",
+    "simulation",
+    "field-ii",
+    "synthetic"
+   ],
+   "summary": "Part of the UltraSound ToolBox (USTB) Channel Capture Collection (see the collection card).",
+   "contributors": [
+    "Ole Marius Hoel Rindal (primary contact)",
+    "Yucel Karabiyik",
+    "Sven Peter Nasholm",
+    "Andreas Austeng",
+    "University of Oslo (UiO), Department of Informatics"
+   ],
+   "institutions": [
+    "University of Oslo"
+   ],
+   "created": "06/23/2026 (packaging date; original acquisitions/simulations were produced between 2016 and 2023).",
+   "keys": [
+    "data/raw_data",
+    "probe/probe_geometry",
+    "scan/center_frequency",
+    "scan/demodulation_frequency",
+    "scan/focus_distances",
+    "scan/initial_times",
+    "scan/polar_angles",
+    "scan/sampling_frequency",
+    "scan/sound_speed",
+    "scan/t0_delays",
+    "scan/transmit_origins",
+    "scan/tx_apodizations"
+   ],
+   "known_issues": "PICMUS calibration: 'PICMUS_numerical_calib_v2' was created in collaboration with our group as part of the PICMUS (Plane-wave Imaging Challenge in Medical UltraSound, IEEE IUS 2016) effort, and is therefore included here. The other PICMUS acquisitions (in-vivo carotid, experimental and simulated resolution/contrast) are deliberately excluded from this submission. Simulation framework: Field II (Jensen et al.).",
+   "text": {
+    "description": "Part of the UltraSound ToolBox (USTB) Channel Capture Collection (see the collection card).\n\nPhysics-based synthetic channel-capture data generated with the Field II ultrasound simulation framework. The collection covers point scatterers, cysts, speckle, dynamic-range targets and blocked-array (aperture-apodized) configurations, using linear (L7-4-like) and phased (P4-like) virtual probes with CPWC, FI and STA sequences. Because the scattering medium is fully defined, exact ground-truth scatterer positions and medium parameters are known. One numerical calibration acquisition (PICMUS_numerical_calib_v2) was created in collaboration with our group as part of the PICMUS effort; it is included here while the other PICMUS datasets are excluded (see Known Issues).",
+    "intended_usage": "Generalized reconstruction, beamformer development and validation with known ground truth (RFP task 6.1); resolution/contrast/dynamic-range characterization; training/validation of learned reconstruction methods. (OpenH-RF RFP task 6.1 Generalized Reconstruction).",
+    "characterization": "- Data Collection Method: synthetic\n- Labeling Method: Synthetic ground truth (known scatterer positions and medium parameters).\n- Acquisition system: probe(s) L7-4, P4-1; element positions stored in /probe/probe_geometry (meters); center frequency, sampling frequency and sound speed stored per acquisition in /scan (see per-sample feature table).",
+    "subject_metadata": "No human or animal subjects. Synthetic media simulated with Field II. Virtual probes: L7-4-like linear and P4-like phased arrays."
+   },
+   "image": {
+    "source": "oslo/E_simulation/assets/main.png",
+    "thumb": "images/oslo-e-simulation-85b7cf4-ad6e.jpg",
+    "preview": "images/oslo-e-simulation-85b7cf4-preview.jpg",
+    "preview_size": [
+     760,
+     900
+    ]
+   }
+  },
+  "oslo/F_motion": {
+   "sha": "dd2757d8e84dfebd5ffda495013d52bd369285f7",
+   "collection": "oslo",
+   "pretty_name": "USTB - Motion Estimation (SWE / ARFI, Verasonics L7-4)",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "openh-rf",
+    "elastography",
+    "shear-wave",
+    "arfi"
+   ],
+   "summary": "Part of the UltraSound ToolBox (USTB) Channel Capture Collection (see the collection card).",
+   "contributors": [
+    "Ole Marius Hoel Rindal (primary contact)",
+    "Yucel Karabiyik",
+    "Sven Peter Nasholm",
+    "Andreas Austeng",
+    "University of Oslo (UiO), Department of Informatics"
+   ],
+   "institutions": [
+    "University of Oslo"
+   ],
+   "created": "06/23/2026 (packaging date; original acquisitions/simulations were produced between 2016 and 2023).",
+   "keys": [
+    "data/raw_data",
+    "probe/probe_geometry",
+    "scan/center_frequency",
+    "scan/demodulation_frequency",
+    "scan/focus_distances",
+    "scan/initial_times",
+    "scan/polar_angles",
+    "scan/sampling_frequency",
+    "scan/sound_speed",
+    "scan/t0_delays",
+    "scan/transmit_origins",
+    "scan/tx_apodizations"
+   ],
+   "known_issues": "Push-track sequences contain many frames at a high frame rate; the B-mode reference reconstruction shows a single tracking frame. Displacement/velocity estimation requires frame-to-frame processing not included in the reference pipeline. The displacement estimation as implemented in the UltraSound ToolBox (USTB) can be provided/added for these motion datasets on request if needed.",
+   "text": {
+    "description": "Part of the UltraSound ToolBox (USTB) Channel Capture Collection (see the collection card).\n\nShear-wave elastography (SWE) and acoustic-radiation-force-impulse (ARFI) push-tracking phantom acquisitions on a Verasonics Vantage 256 with an L7-4 linear array. Each acquisition contains many high-frame-rate tracking frames following an acoustic push, suitable for tissue-motion and shear-wave-velocity estimation.",
+    "intended_usage": "Motion estimation (RFP task 6.4): shear-wave velocity estimation, ARFI displacement tracking, and high-frame-rate motion reconstruction. (OpenH-RF RFP task 6.4 Motion Estimation).",
+    "characterization": "- Data Collection Method: phantom\n- Labeling Method: Derived (elastography phantom of known/typical stiffness classes).\n- Acquisition system: probe(s) L7-4; element positions stored in /probe/probe_geometry (meters); center frequency, sampling frequency and sound speed stored per acquisition in /scan (see per-sample feature table).",
+    "subject_metadata": "No human or animal subjects. Elastography phantoms. Scanner: Verasonics Vantage 256. Probe: L7-4 linear array (128 elements)."
+   },
+   "image": {
+    "source": "oslo/F_motion/assets/main.png",
+    "thumb": "images/oslo-f-motion-6703346-ad6e.jpg",
+    "preview": "images/oslo-f-motion-6703346-preview.jpg",
+    "preview_size": [
+     877,
+     900
+    ]
+   }
+  },
+  "politorino": {
+   "sha": "5be1344b260466a5a6d5dda9dbbe87acc7e01bd6",
+   "collection": null,
+   "pretty_name": "High Frame Rate Fascicle Tracking - PoliTO",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "openh-rf",
+    "medical-imaging",
+    "beamforming",
+    "fascicle tracking"
+   ],
+   "summary": "The dataset comprises in-vivo human musculoskeletal raw ultrasound data during dynamic tasks. It includes the acquisition of the medial gastrocnemius on 5 healthy volunteers during heel raises and treadmill walking. The data is acquired with a Verasonics Vantage 256 research platform and a 128-element linear array probe (L11-5v) at 500 fps for 9.6 s per acquisition. Each subject was imaged during six task conditions: cyclical heel raises and drops at a fixed frequency provided by a metronome at 60 (hr1), 90 (hr2), and 120 bpm (hr3) and walking at 2 (w1), 4 (w2), and 5 (w3) km/h.",
+   "contributors": [
+    "E. Cesti",
+    "M. Carbonaro",
+    "M. Boccardo",
+    "F. Truscello",
+    "S. Seoni",
+    "G.L. Cerone",
+    "K.M. Meiburger",
+    "G. Bardoscia",
+    "B.J. Raiteri",
+    "A. Botter"
+   ],
+   "institutions": [],
+   "created": "12/2023",
+   "keys": [
+    "data/raw_data",
+    "data/raw_data/image_das",
+    "data/raw_data/image_fdmas",
+    "metadata/tracking_"
+   ],
+   "known_issues": "- The tracking data for three subjects (PAT01, PAT04, PAT05) were obtained on the reconstructed images after a horizontal flip. This is noted in the file and the provided code to view the tracking data automatically checks for this and flips the data, if needed.\n- The tracking data covers the first 9s out of the provided 9.6s of the raw data.\n- There is a small offset in depth between the reconstructed data used for the tracking and the raw data. The reconstruct.py code provides the correction at lines 233-240.",
+   "text": {
+    "description": "The dataset comprises in-vivo human musculoskeletal raw ultrasound data during dynamic tasks. It includes the acquisition of the medial gastrocnemius on 5 healthy volunteers  during heel raises and treadmill walking. The data is acquired with a Verasonics Vantage 256 research platform and a 128-element linear array probe (L11-5v) at 500 fps for 9.6 s per acquisition. Each subject was imaged during six task conditions: cyclical heel raises and drops at a fixed frequency provided by a metronome at 60 (hr1), 90 (hr2), and 120 bpm (hr3) and walking at 2 (w1), 4 (w2), and 5 (w3) km/h. We provide the raw data, the beamformed DAS and FDMAS images, and the automated fascicle tracking obtained with UltraTimTrack (https://github.com/timvanderzee/UltraTimTrack). The tracking data was obtained on the first 9s of sub-sampled .mp4 videos at three frame rates: 25 fps, 50 fps and 125 fps. The tracking data is provided for each frame rate and a Python code is provided to correctly visualize the data on the reconstructed images.  Data type: in-vivo",
+    "intended_usage": "This data was employed for an initial study evaluating fascicle tracking algorithms during different dynamic tasks : “Ultrasound-based methods to track skeletal muscle architecture in dynamic tasks: a comparative study” by Elena Cesti et. al to be published in IEEE Transactions on Neural Systems and Rehabilitation Engineering (2026 - under review and on first round of revisions in July 2026)",
+    "characterization": "- Data Collection Method: in-vivo human musculoskeletal\n- Labeling Method: derived fascicle tracking from UltraTimTrack\n- Acquisition system: 128-element linear array (L11-5v), sampling 31.25 MHz, center frequency 7.6 MHz",
+    "subject_metadata": "Five healthy subjects (2 men, 3 women; (mean ± SD) age: 25.6 ± 1.3 yr, height:  1.78 ± 0.06 m, weight: 67 ± 11 kg) were recruited. All data were acquired with the same Verasonics system and probe."
+   },
+   "image": {
+    "source": "politorino/assets/main.png",
+    "thumb": "images/politorino-3e2c7e6-ad6e.jpg",
+    "preview": "images/politorino-3e2c7e6-preview.jpg",
+    "preview_size": [
+     640,
+     900
+    ]
+   }
+  },
+  "resolvestroke/clinical": {
+   "sha": "0b24417ffa4dbf4963c43e5708bb471beb0b3c90",
+   "collection": "resolvestroke",
+   "pretty_name": "Resolve Stroke Clinical Transcranial CEUS (SCULPT, 20 acquisitions)",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "iq",
+    "openh-rf",
+    "3d",
+    "matrix-probe",
+    "contrast-enhanced",
+    "ceus",
+    "transcranial",
+    "clinical"
+   ],
+   "summary": "Contrast-enhanced ultrasound (CEUS) transcranial brain acquisitions of 10 human subjects (20 acquisitions), acquired with SYLVER, Resolve Stroke's ultrasound device, using a 32×32 matrix probe with diverging-wave transmits at 4 kHz frame rate. Each acquisition captures a microbubble contrast-agent bolus wash-in: microbubbles are injected, perfuse the brain vasculature through the temporal acoustic window, and gradually wash out.",
+   "contributors": [
+    "Aitana Waelbroeck",
+    "Carl Ferlay",
+    "Arthur Chavignon",
+    "Maxence Reberol (contact)",
+    "Vincent Hingot",
+    "Resolve Stroke, 29 Rue du Faubourg Saint-Jacques, 75014 Paris"
+   ],
+   "institutions": [],
+   "created": "07/09/2026",
+   "keys": [
+    "data/raw_data",
+    "metadata/annotations/label",
+    "metadata/subject/id",
+    "metadata/subject/type",
+    "probe/probe_geometry",
+    "scan/azimuth_angles",
+    "scan/center_frequency",
+    "scan/demodulation_frequency",
+    "scan/focus_distances",
+    "scan/initial_times",
+    "scan/polar_angles",
+    "scan/sampling_frequency",
+    "scan/sound_speed",
+    "scan/t0_delays",
+    "scan/tgc_gain_curve",
+    "scan/time_to_next_transmit",
+    "scan/transmit_origins",
+    "scan/tx_apodizations"
+   ],
+   "known_issues": "- raw_data has the hardware TGC baked in; scan/tgc_gain_curve is that (non-linear) applied curve. The reconstruction scripts divide by the curve before beamforming; a downstream user reconstructing directly must divide by the curve too.\n- sampling_frequency ≈ center_frequency because the data is DDC baseband IQ (see Dataset Characterization), not an RF acquisition.\n- Radial velocity maps are along-beam only; absolute speed requires the unknown local vessel directions.",
+   "text": {
+    "description": "Contrast-enhanced ultrasound (CEUS) transcranial brain acquisitions of 10 human subjects (20 acquisitions), acquired with SYLVER, Resolve Stroke's ultrasound device, using a 32×32 matrix probe with diverging-wave transmits at 4 kHz frame rate. Each acquisition captures a microbubble contrast-agent bolus wash-in: microbubbles are injected, perfuse the brain vasculature through the temporal acoustic window, and gradually wash out.\n\nFor each acquisition, five 1-second clips (4000 frames each, 20000 total) are extracted at intervals relative to the end-of-baseline marker:\n\n\n\n\n\n\n\n\n\nThe anatomical companion of every acquisition, a single wide-angle B-mode frame taken at the same probe placement, is in the sibling saddle/ dataset under the same name.",
+    "intended_usage": "Contrast-enhanced ultrasound flow/perfusion quantification, microbubble detection and tracking, power-Doppler and CEUS transcranial imaging, and matrix-probe diverging-wave beamforming research (RFP task group 6.2, Blood Flow).",
+    "characterization": "- Data collection method: 10 human subjects, 20 acquisitions (2 per subject: the other side and/or a second session), transcranial CEUS with microbubble contrast agent (bolus injection), acquired through the temporal acoustic window.\n- Labeling method: Automatic, no manual annotation. Per-frame clip labels (metadata/annotations/label, one of the five clip names above) are assigned from the acquisition time relative to the end-of-baseline marker. Per-voxel reference maps (mvi, radial velocities) are generated by SYLVER's processing pipeline from the complete bolus passage (see Computed References).\n- Acquisition system: SYLVER (Resolve Stroke's ultrasound device). 32×32 matrix probe, 0.50 mm pitch, 0.30 mm kerf; transmit center frequency ≈ 2.031 MHz, sound speed 1540 m/s. Diverging-wave transmits; receive sub-apertures flattened into 256 virtual elements. Channel data is DDC (baseband) IQ, so sampling_frequency (≈ 2.031 MHz) is the post-decimation IQ rate and equals demodulation_frequency.",
+    "subject_metadata": "- Type: Human subjects (metadata/subject/type = human)\n- Subject IDs: SP01–SP10 (anonymized, metadata/subject/id); each subject contributes 2 acquisitions (see the inventory above for side and session)\n- Anatomy: Brain (transcranial), left or right temporal acoustic window\n- Contrast agent: Microbubbles (bolus injection)"
+   },
+   "image": {
+    "source": "resolvestroke/clinical/assets/main.png",
+    "thumb": "images/resolvestroke-clinical-22885a6-ad6e.jpg",
+    "preview": "images/resolvestroke-clinical-22885a6-preview.jpg",
+    "preview_size": [
+     806,
+     900
+    ]
+   }
+  },
+  "resolvestroke/phantom_flow": {
+   "sha": "2862eb8349ca3dbadb8ba9c4da4fcd2e47f8af3f",
+   "collection": "resolvestroke",
+   "pretty_name": "Resolve Stroke Flow Phantom (CIRS 769 + ATS523A) On/Off",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "iq",
+    "openh-rf",
+    "3d",
+    "matrix-probe",
+    "contrast-enhanced",
+    "flow-phantom",
+    "ceus"
+   ],
+   "summary": "Contrast-enhanced ultrasound (CEUS) acquisition of a flow phantom (CIRS 769 + ATS523A) with microbubble contrast agent. Acquired with SYLVER, Resolve Stroke's ultrasound device, using a 32×32 matrix probe with diverging-wave transmits at 4 kHz frame rate. The acquisition captures a flow-on/flow-off bolus wash-in scenario: microbubbles are injected, flow through the phantom pipe, and gradually wash out.",
+   "contributors": [
+    "Aitana Waelbroeck",
+    "Carl Ferlay",
+    "Arthur Chavignon",
+    "Maxence Reberol (contact)",
+    "Vincent Hingot",
+    "Resolve Stroke, 29 Rue du Faubourg Saint-Jacques, 75014 Paris"
+   ],
+   "institutions": [],
+   "created": "06/15/2026",
+   "keys": [
+    "data/raw_data",
+    "metadata/annotations/label",
+    "probe/probe_geometry",
+    "scan/azimuth_angles",
+    "scan/center_frequency",
+    "scan/demodulation_frequency",
+    "scan/focus_distances",
+    "scan/initial_times",
+    "scan/polar_angles",
+    "scan/sampling_frequency",
+    "scan/sound_speed",
+    "scan/t0_delays",
+    "scan/tgc_gain_curve",
+    "scan/time_to_next_transmit",
+    "scan/transmit_origins",
+    "scan/tx_apodizations"
+   ],
+   "known_issues": "- raw_data has the hardware TGC baked in; scan/tgc_gain_curve is that (non-linear) applied curve. The reconstruction scripts divide by the curve before beamforming; a downstream user reconstructing directly must divide by the curve too.\n- sampling_frequency ≈ center_frequency because the data is DDC baseband IQ (see Dataset Characterization), not an RF acquisition.",
+   "text": {
+    "description": "Contrast-enhanced ultrasound (CEUS) acquisition of a flow phantom (CIRS 769 + ATS523A) with microbubble contrast agent. Acquired with SYLVER, Resolve Stroke's ultrasound device, using a 32×32 matrix probe with diverging-wave transmits at 4 kHz frame rate. The acquisition captures a flow-on/flow-off bolus wash-in scenario: microbubbles are injected, flow through the phantom pipe, and gradually wash out.\n\nFive 1-second clips (4000 frames each, 20000 total) are extracted at intervals relative to the end-of-baseline marker:",
+    "intended_usage": "Contrast-enhanced ultrasound flow quantification, microbubble detection and tracking, power-Doppler and CEUS flow imaging, and matrix-probe diverging-wave beamforming research (RFP task group 6.2, Blood Flow).",
+    "characterization": "- Data collection method: Phantom (CIRS 769 + ATS523A flow phantom with microbubble contrast agent)\n- Labeling method: Automatic, no manual annotation. The per-voxel tube mask comes from the known phantom geometry; the reference maps (mvi, radial velocities) are generated by SYLVER's processing pipeline from the complete bolus passage (see Computed References). Per-frame clip labels (metadata/annotations/label, one of the five clip names above) are assigned from the acquisition time relative to the end-of-baseline marker.\n- Acquisition system: SYLVER (Resolve Stroke's ultrasound device). 32×32 matrix probe, 0.50 mm pitch, 0.30 mm kerf; transmit center frequency ≈ 2.031 MHz, sound speed 1540 m/s. Diverging-wave transmits; receive sub-apertures flattened into 256 virtual elements. Channel data is DDC (baseband) IQ, so sampling_frequency (≈ 2.031 MHz) is the post-decimation IQ rate and equals demodulation_frequency.",
+    "subject_metadata": "- Type: Phantom (CIRS 769 + ATS523A flow phantom)\n- Contrast agent: Microbubbles (bolus injection)\n- Flow: On/off during acquisition"
+   },
+   "image": {
+    "source": "resolvestroke/phantom_flow/assets/main.png",
+    "thumb": "images/resolvestroke-phantom-flow-a0b134c-ad6e.jpg",
+    "preview": "images/resolvestroke-phantom-flow-a0b134c-preview.jpg",
+    "preview_size": [
+     900,
+     808
+    ]
+   }
+  },
+  "resolvestroke/phantom_mp": {
+   "sha": "23aa4fc8128c3bbbb13cfe32c765f546178ee31d",
+   "collection": "resolvestroke",
+   "pretty_name": "Resolve Stroke Multi-tissue Phantom (CIRS 040GSE)",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "iq",
+    "openh-rf",
+    "3d",
+    "matrix-probe",
+    "phantom"
+   ],
+   "summary": "Pre-beamformed channel-data acquisition of a multi-purpose, multi-tissue imaging phantom (CIRS 040GSE). Acquired with SYLVER, Resolve Stroke's ultrasound device, using a 32×32 matrix probe with diverging-wave transmits at 4 kHz frame rate. A single transmit insonifies a 3D volume, so each frame is a full volumetric capture of the static phantom (wire targets, cysts, and tissue-mimicking background). The file holds 1000 consecutive frames of the same scene.",
+   "contributors": [
+    "Aitana Waelbroeck",
+    "Carl Ferlay",
+    "Arthur Chavignon",
+    "Maxence Reberol (contact)",
+    "Vincent Hingot",
+    "Resolve Stroke, 29 Rue du Faubourg Saint-Jacques, 75014 Paris"
+   ],
+   "institutions": [],
+   "created": "01/23/2026",
+   "keys": [
+    "data/raw_data",
+    "probe/probe_geometry",
+    "scan/azimuth_angles",
+    "scan/center_frequency",
+    "scan/demodulation_frequency",
+    "scan/focus_distances",
+    "scan/initial_times",
+    "scan/polar_angles",
+    "scan/sampling_frequency",
+    "scan/sound_speed",
+    "scan/t0_delays",
+    "scan/tgc_gain_curve",
+    "scan/transmit_origins",
+    "scan/tx_apodizations"
+   ],
+   "known_issues": "- raw_data has the hardware TGC baked in; scan/tgc_gain_curve is that (non-linear) applied curve. The reconstruction script divides by the curve before beamforming; a downstream user reconstructing directly must divide by the curve too.\n- sampling_frequency ≈ center_frequency because the data is DDC baseband IQ (see Dataset Characterization), not an RF acquisition.\n- The proposed 3D phantom-geometry reference (known target positions for the CIRS 040GSE) is not yet included.",
+   "text": {
+    "description": "Pre-beamformed channel-data acquisition of a multi-purpose, multi-tissue imaging phantom (CIRS 040GSE). Acquired with SYLVER, Resolve Stroke's ultrasound device, using a 32×32 matrix probe with diverging-wave transmits at 4 kHz frame rate. A single transmit insonifies a 3D volume, so each frame is a full volumetric capture of the static phantom (wire targets, cysts, and tissue-mimicking background). The file holds 1000 consecutive frames of the same scene.",
+    "intended_usage": "Beamforming and reconstruction research (RFP task group 6.1, Generalized Reconstruction): resolution and contrast assessment, compressed sensing, super-resolution, and matrix-probe diverging-wave 3D beamforming on a phantom with known target structures.",
+    "characterization": "- Data collection method: Phantom (CIRS 040GSE multi-purpose, multi-tissue imaging phantom)\n- Labeling method: None (single static acquisition; no per-frame labels)\n- Acquisition system: SYLVER (Resolve Stroke's ultrasound device). 32×32 matrix probe, 0.50 mm pitch, 0.30 mm kerf; transmit center frequency ≈ 2.031 MHz, sound speed 1540 m/s. Diverging-wave transmits; receive sub-apertures flattened into 256 virtual elements. Channel data is DDC (baseband) IQ, so sampling_frequency (≈ 2.031 MHz) is the post-decimation IQ rate and equals demodulation_frequency.",
+    "subject_metadata": "- Type: Phantom (CIRS 040GSE multi-purpose, multi-tissue imaging phantom)\n- Contrast agent: None\n- Motion: None (static scene)"
+   },
+   "image": {
+    "source": "resolvestroke/phantom_mp/assets/main.png",
+    "thumb": "images/resolvestroke-phantom-mp-3429913-fc10.jpg",
+    "preview": "images/resolvestroke-phantom-mp-3429913-preview.jpg",
+    "preview_size": [
+     900,
+     808
+    ]
+   }
+  },
+  "resolvestroke/saddle": {
+   "sha": "2b8b9b42c74b8ddeae85ba3c65943a614a5a2c75",
+   "collection": "resolvestroke",
+   "pretty_name": "Resolve Stroke Saddle-Array Reference B-modes (Transcranial CEUS + Phantom)",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "iq",
+    "openh-rf",
+    "matrix-probe",
+    "diverging-wave",
+    "b-mode",
+    "transcranial",
+    "clinical",
+    "phantom"
+   ],
+   "summary": "Single-frame anatomical B-mode acquisitions from the \"saddle\" imaging sequence of Resolve Stroke's SYLVER ultrasound device, using a 32×32 matrix probe. Each raw acquisition contains, alongside the multi-thousand-frame contrast-enhanced ultrasound (CEUS) sequence, one wide-angle diverging-wave frame (the *saddle* sequence: x_ang −24°…+24° in nine steps, no elevation steering, cylindrical elevation focus) received on the full 1024-element aperture through four consecutive 256-element receive events per transmit.",
+   "contributors": [
+    "Aitana Waelbroeck",
+    "Carl Ferlay",
+    "Arthur Chavignon",
+    "Maxence Reberol (contact)",
+    "Vincent Hingot",
+    "Resolve Stroke, 29 Rue du Faubourg Saint-Jacques, 75014 Paris"
+   ],
+   "institutions": [],
+   "created": "07/09/2026",
+   "keys": [
+    "data/raw_data",
+    "probe/probe_geometry",
+    "scan/azimuth_angles",
+    "scan/center_frequency",
+    "scan/demodulation_frequency",
+    "scan/focus_distances",
+    "scan/initial_times",
+    "scan/polar_angles",
+    "scan/sampling_frequency",
+    "scan/sound_speed",
+    "scan/t0_delays",
+    "scan/tgc_gain_curve",
+    "scan/transmit_origins",
+    "scan/tx_apodizations"
+   ],
+   "known_issues": "- raw_data has the hardware TGC baked in; scan/tgc_gain_curve is that (non-linear) applied curve. reconstruct.py beamforms the stored IQ as-is (leaving the TGC in, which keeps deep structure bright); a user wanting true channel amplitudes must divide raw_data by the curve.\n- sampling_frequency ≈ center_frequency because the data is DDC baseband IQ (see Dataset Characterization), not an RF acquisition.",
+   "text": {
+    "description": "Single-frame anatomical B-mode acquisitions from the \"saddle\" imaging sequence of Resolve Stroke's SYLVER ultrasound device, using a 32×32 matrix probe. Each raw acquisition contains, alongside the multi-thousand-frame contrast-enhanced ultrasound (CEUS) sequence, one wide-angle diverging-wave frame (the *saddle* sequence: x_ang −24°…+24° in nine steps, no elevation steering, cylindrical elevation focus) received on the full 1024-element aperture through four consecutive 256-element receive events per transmit. Beamformed, this single frame gives a sector B-mode of the imaging plane: the structural reference view acquired at the same probe placement as the contrast (CEUS) recording.\n\nThis directory contains one such reference B-mode per dataset: 20 clinical transcranial acquisitions (SCULPT study) and 1 static matrix-probe imaging phantom (21 files total). It is the structural companion to the OpenH-RF Resolve Stroke clinical CEUS clip submission, and the two use the same anonymized subject codes.",
+    "intended_usage": "Matrix-probe diverging-wave beamforming research, anatomical B-mode reconstruction, and structural reference for the companion transcranial CEUS flow/perfusion datasets (OpenH-RF request-for-proposals task group 6.2, Blood Flow).",
+    "characterization": "- Data collection method: 10 human subjects, 20 acquisitions (2 per subject: different side and/or session), transcranial through the temporal acoustic window, plus 1 static imaging phantom (wire/point targets).\n- Labeling method: none (a single unlabeled anatomical frame per file).\n- Acquisition system: SYLVER (Resolve Stroke's ultrasound device). SN2672 32×32 matrix probe, 0.50 mm pitch, 0.30 mm kerf; transmit center frequency ≈ 2.031 MHz, sound speed 1540 m/s. The *saddle* sequence transmits 9 diverging waves steered x_ang −24°…+24° (6° steps), y_ang = 0, virtual source at −50 mm, with an elevation (saddle) focus at 120 mm. The system receives 256 channels at a time, so each transmit is fired four times in a row, once per 256-element receive sub-aperture; the four receptions are stacked into 1024 virtual elements (element index = aperture·256 + element, matching PyCompute's apElemPos ordering), giving the full probe on receive. Channel data is digital down-converted (DDC) baseband IQ, so sampling_frequency (≈ 2.031 MHz) is the post-decimation IQ rate and equals demodulation_frequency.",
+    "subject_metadata": "- Type: 10 human subjects (20 acquisitions) + 1 phantom\n- Subject IDs: SP01–SP10 (anonymized), PMP01 (phantom). Each subject contributes 2 files (different side and/or session).\n- Anatomy: Brain (transcranial), via the temporal acoustic window."
+   },
+   "image": {
+    "source": "resolvestroke/saddle/assets/main.png",
+    "thumb": "images/resolvestroke-saddle-d064fe9-ad6e.jpg",
+    "preview": "images/resolvestroke-saddle-d064fe9-preview.jpg",
+    "preview_size": [
+     900,
+     705
+    ]
+   }
+  },
+  "siemens-healthineers": {
+   "sha": "ab47e6f973d121c12e844e1a756652a64cd3a508",
+   "collection": null,
+   "pretty_name": "Siemens In-Vivo Raw Ultrasound Channel Data",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "iq",
+    "openh-rf",
+    "medical-imaging",
+    "beamforming",
+    "in-vivo"
+   ],
+   "summary": "This is an in-vivo full-synthetic-aperture (FSA) ultrasound raw channel-data dataset for research on sound speed estimation, phase aberration correction, and learned beamforming from pre-beamformed data. Each acquisition is a multi-frame FSA capture from a 180-element linear array: raw baseband IQ channel data alongside reference B-mode images. The dataset is a collection of volunteer scans including 15 adult subjects, 590 acquisitions of predominantly superficial anatomy acquired on a Siemens ACUSON Sequoia development scanner. Data type: in-vivo human.",
+   "contributors": [
+    "Rickard Loftman, PhD (Siemens Healthineers, Ultrasound)",
+    "Ismayil Guracar, MSEE (Siemens Healthineers, Ultrasound; contact)",
+    "Jane Bucholz, BHS (Medical Imaging); PgDip HS (Ultrasound); DMU (General); PgDip Public Health (Dist) (Siemens Healthineers, Ultrasound)",
+    "Craig Williams, PG Dip Medical Ultrasound, BSc (Hons) Diagnostic Radiography (Siemens Healthineers, Ultrasound)",
+    "Walter Simson, PhD (additional contributor)"
+   ],
+   "institutions": [],
+   "created": "07/06/2026 (data card). Acquisition period: June 2025 – May 2026.",
+   "keys": [
+    "custom/challenging",
+    "custom/contact",
+    "custom/iq_rms_source",
+    "data/image",
+    "data/raw_data",
+    "metadata/annotations/anatomy",
+    "metadata/annotations/label",
+    "metadata/subject/id",
+    "metadata/subject/type",
+    "probe/element_height",
+    "probe/element_width",
+    "probe/name",
+    "probe/probe_center_frequency",
+    "probe/probe_geometry",
+    "probe/type",
+    "scan/initial_times",
+    "scan/sampling_frequency",
+    "scan/sound_speed",
+    "scan/time_to_next_transmit"
+   ],
+   "known_issues": "- Time-axis length (n_ax = raw_data.shape[2]) varies per acquisition (native lengths range ~700–2270 samples); each file is stored at its own native length.\n- view_difficulty annotations exist for the first acquisition round only.",
+   "text": {
+    "description": "This is an in-vivo full-synthetic-aperture (FSA) ultrasound raw channel-data dataset for research on sound speed estimation, phase aberration correction, and learned beamforming from pre-beamformed data. Each acquisition is a multi-frame FSA capture from a 180-element linear array: raw baseband IQ channel data alongside reference B-mode images. The dataset is a collection of volunteer scans including 15 adult subjects, 590 acquisitions of predominantly superficial anatomy acquired on a Siemens ACUSON Sequoia development scanner. Data type: in-vivo human.",
+    "intended_usage": "Developing and benchmarking methods that operate on raw ultrasound channel data: learned/adaptive beamforming, and self-supervised representation learning on RF/IQ data. Subject IDs enable subject-wise splits. the reference split holds out Subject_13 and Subject_14 for validation.",
+    "characterization": "- Data Collection Method: healthy adult volunteers in a non-clinical research setting.\n- Labeling Method: human-annotated subject/anatomy metadata and per-frame quality tags (contact, challenging).\n- Acquisition system: Siemens ACUSON Sequoia development scanner, 10L4 180-element linear array (0.201 mm pitch, 36.2 mm aperture; elements 0.2 × 9 mm); transmit center frequency 6.5 MHz; baseband IQ sampled at 13.33 MHz. Full synthetic aperture multi-static acquisition: 180 single-element transmit events per frame, all 180 elements received.",
+    "subject_metadata": "Aggregate statistics only; files carry anonymized subject IDs, no PHI.\n\n- 15 adult volunteers in total (Subject_01–Subject_15).\n- Acquisitions per subject (590 total): Subject_01: 12, Subject_02: 6, Subject_03: 33, Subject_04: 44, Subject_05: 41, Subject_06: 47, Subject_07: 35, Subject_08: 51, Subject_09: 44, Subject_10: 32, Subject_11: 49, Subject_12: 36, Subject_13: 36, Subject_14: 52, Subject_15: 72.\n- Anatomies scanned (by acquisition): breast (284), thyroid (117), axilla (59), neck (29), abdomen (20), carotid (18), other/unlabeled (63).\n- All scans are B-mode-style views (predominantly superficial anatomy) on a single probe and system; no pathology labels are asserted."
+   },
+   "image": {
+    "source": "siemens-healthineers/assets/main.png",
+    "thumb": "images/siemens-healthineers-8b9d98c-ad6e.jpg",
+    "preview": "images/siemens-healthineers-8b9d98c-preview.jpg",
+    "preview_size": [
+     926,
+     900
+    ]
+   }
+  },
+  "stanford-murine": {
+   "sha": "2da42922ec058d5afce6e71a95505d3dfc50abcc",
+   "collection": null,
+   "pretty_name": "Stanford Murine Liver and Sound-Speed Phantom Ultrasound",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "openh-rf",
+    "beamforming",
+    "sound-speed-estimation",
+    "aberration-correction",
+    "murine-liver",
+    "phantom",
+    "verasonics"
+   ],
+   "summary": "This dataset contains pre-beamformed pulse-echo ultrasound channel data from murine livers and sound-speed phantoms. The data were acquired on a Verasonics Vantage 256 using multifocal, Hadamard-encoded, and full synthetic aperture (FSA) transmit sequences. The dataset supports research on beamforming, sound-speed estimation, and aberration correction; it is not intended for clinical diagnosis.",
+   "contributors": [
+    "Arsenii V. Telichko",
+    "Rehman Ali",
+    "Andrew Andrzejek",
+    "Thurston Brevett",
+    "Benjamin N. Frey",
+    "Brian Boitnott",
+    "Jihye Baek",
+    "Louise Zhuang",
+    "Hoda Hashemi",
+    "Jun Hong Park",
+    "Caelia Thomas",
+    "Jeremy Dahl (contact)"
+   ],
+   "institutions": [
+    "Stanford University"
+   ],
+   "created": "06/18/2025, the publication date of both source Figshare records.",
+   "keys": [
+    "data/raw_data",
+    "metadata/subject",
+    "probe/probe_geometry",
+    "scan/center_frequency",
+    "scan/demodulation_frequency",
+    "scan/focus_distances",
+    "scan/initial_times",
+    "scan/sampling_frequency",
+    "scan/sound_speed",
+    "scan/t0_delays",
+    "scan/tgc_gain_curve",
+    "scan/transmit_origins",
+    "scan/tx_apodizations"
+   ],
+   "known_issues": "- The demo MAT files store Receive/TGC profile index 1 but do not store the selected profile's TGC/Waveform. A profile index is not a gain curve, so the converter omits the optional scan/tgc_gain_curve field rather than inventing a unity curve. The RF samples already reflect acquisition-time TGC, but that gain cannot be calibrated or undone from these files alone.\n- Respiratory motion affected early in-vivo rat acquisitions. Later acquisitions were made shortly after euthanasia, as described by the source record and associated publication.",
+   "text": {
+    "description": "This dataset contains pre-beamformed pulse-echo ultrasound channel data from murine livers and sound-speed phantoms. The data were acquired on a Verasonics Vantage 256 using multifocal, Hadamard-encoded, and full synthetic aperture (FSA) transmit sequences. The dataset supports research on beamforming, sound-speed estimation, and aberration correction; it is not intended for clinical diagnosis.\n\nThe source data are available from Figshare:\n\n- Murine liver acquisitions\n- Sound-speed phantom and meat-layer acquisitions\n\nThe original Figshare releases were published under Apache 2.0; this converted release is CC BY 4.0.\n\nThe converted dataset is hosted at nvidia/OpenH-RF/stanford-murine.",
+    "intended_usage": "The data are intended for development and validation of:\n\n- pulse-echo ultrasound beamforming;\n- local and global sound-speed estimation;\n- aberration correction through tissue or meat layers; and\n- comparisons among multifocal, Hadamard-encoded, and FSA acquisition schemes.\n\nThe provided pipeline is a reference delay-and-sum B-mode reconstruction, not a prescribed preprocessing pipeline for model training.",
+    "characterization": "Data Collection Method\n\nThe collection combines in-vivo and post-mortem animal acquisitions with table-top phantom acquisitions:\n\n- The murine study contains liver scans from 20 Zucker rats: 4 lean controls and 16 obese animals used as a model of hepatic steatosis.\n- The phantom study contains an ATS 549 phantom and six agarose/graphite phantoms with varying n-propanol concentration. Many acquisitions include a 10–15 mm porcine or galline meat layer as a controlled aberrator.\n\nLabeling Method\n\nNo image, pixel-wise segmentation, or manual annotation labels are supplied. Rat-level sound-speed, fat-percentage, and histopathology measurements are derived from the source quantification workbooks when available. Phantom sound speeds were measured independently with a through-transmission setup.\n\nAcquisition System\n\nAll acquisitions use a Verasonics Vantage 256 research scanner. The converted demo covers:\n\n\n\n\n\n\n\nEach output file bundles three tracks named multifocal, hadamard, and synthetic_aperture. Transmit delays, transmit apodization, focal distances, origins, receive initial times, probe geometry, acquisition sound speed, and sampling frequencies are read from the corresponding MAT file. For the rat acquisitions, the Verasonics sound-speed setting is 1540 m/s; this is retained in scan/sound_speed for reconstruction. It is distinct from the post-acquisition liver sound-speed measurements described below.",
+    "subject_metadata": "The source murine cohort contains 4 lean Zucker rats (2 male and 2 female) and 16 obese Zucker rats (8 male and 8 female), beginning at 13 weeks of age. The obese animals were fed a high-fat diet for up to eight weeks. Converted rat files store the rat identifier and, when present in the source workbooks, sex, fat percentage, measured liver sound speed, weight, diet duration, and histopathology-derived values.\n\nValues with standard DataSpec fields are stored under metadata/subject:\n\n\n\n\n\n\n\nOther workbook measurements are scalar float32 datasets under custom/rat_quantification/, each with unit and description attributes. These include the ground-truth sound-speed mean and standard deviation, sequence-specific local and global sound-speed estimates, liver-lobe sound-speed measurements when available, diet duration, fat-percentage uncertainty, water temperature, and quantitative histopathology scores. The workbook's non-fat percentage is omitted because it is exactly 100 - metadata/subject/fat_percentage for every rat. These measurements are scalars rather than homogeneous sos_map images because the source provides no spatial coordinates for these rat-level measurements.\n\nThe phantom data contain no human subjects. Phantom identifiers describe the probe, material configuration, meat layer, and acquisition session. The source records report independently measured phantom and meat-layer sound speeds and temperature-dependent uncertainties."
+   },
+   "image": {
+    "source": "stanford-murine/assets/main.png",
+    "thumb": "images/stanford-murine-8498136-ad6e.jpg",
+    "preview": "images/stanford-murine-8498136-preview.jpg",
+    "preview_size": [
+     582,
+     318
+    ]
+   }
+  },
+  "strasbourg-basel": {
+   "sha": "705f83937b077f08e6c8411b2db9db6e76a9b92d",
+   "collection": null,
+   "pretty_name": "BoneSRF Robot-Tracked Fractured-Femur Phantom Dataset",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "openh-rf",
+    "tracked-ultrasound",
+    "robot-tracked",
+    "probe-pose",
+    "phantom",
+    "bone",
+    "fracture",
+    "beamforming",
+    "ct",
+    "segmentation"
+   ],
+   "summary": "BoneSRF (Bone Surface Reflection) is an ultrasound channel-data dataset for bone-surface and fracture-reflection research. It contains three 3D-printed, fractured femur phantoms, scanned with a handheld point-of-care probe, inverted back to pre-beamformed RF and packaged in the OpenH-RF zea format.",
+   "contributors": [
+    "Sidaty El Hadramy (IHU Strasbourg; Department of Biomedical Engineering, University of Basel)",
+    "Philippe C. Cattin (IHU Strasbourg; Department of Biomedical Engineering, University of Basel)",
+    "Juan Verde (IHU Strasbourg; Department of Biomedical Engineering, University of Basel)"
+   ],
+   "institutions": [
+    "University of Basel"
+   ],
+   "created": "Clarius acquisitions: 19/06/2026 (phantom1_distal) and 25/06/2026 (phantom1_proximal). The other seven sweeps carry no recorded acquisition date, see Known Issues. Converted to the zea format in 2026.",
+   "keys": [
+    "custom/ct/nrrd_header",
+    "custom/ct/spacing",
+    "custom/ct/volume",
+    "custom/ct_segmentation/labelmap",
+    "custom/ct_segmentation/segment_*",
+    "metadata/probe_pose"
+   ],
+   "known_issues": "- Fracture patterns are not documented per phantom. The location, type (transverse / oblique / comminuted / hairline) and displacement of each phantom's fracture are not recorded. The CT segmentation in each file is ground truth for the physical phantom geometry.\n- Acquisition dates are incomplete. Only phantom1_distal (19/06/2026) and phantom1_proximal (25/06/2026) have a recorded original Clarius acquisition date; the other seven sweeps do not carry one in the file or in the source capture.\n- No CT-to-ultrasound registration.",
+   "text": {
+    "description": "BoneSRF (Bone Surface Reflection) is an ultrasound channel-data dataset for bone-surface and fracture-reflection research. It contains three 3D-printed, fractured femur phantoms, scanned with a handheld point-of-care probe, inverted back to pre-beamformed RF and packaged in the OpenH-RF zea format.\n\nEach phantom was swept three times (distal, proximal, wholebone), giving nine zea HDF5 files. Every scan is robot-tracked: the probe was mounted on a robotic arm and its pose recorded separately. Each file also carries that phantom's CT scan and multi-label segmentation.\n\nThe channel data here is not a direct per-element sensor recording. A Clarius handheld probe does not expose its raw per-element channel data, only its own internally beamformed RF output. Every raw_data array is therefore a numerical estimate: the per-element channel data consistent with the probe's known per-scanline focused acquisition geometry (transmit delays, apodization, walking sub-aperture) that would reproduce the real Clarius output if beamformed the same way. It is recovered by a conjugate-gradient least-squares (CGLS) inversion of a zea DASOperator built from that geometry, using the real beamformed phantom scans as the inversion target.\n\nThis is phantom data, not simulated, clinical or in-vivo. It is intended for full-matrix-capture-style beamforming and image-reconstruction research at a bone-tissue interface, and as an example of recovering pre-beamformed data from beamformed-only ultrasound exports.\n\nHow the data was generated\n\n1. Acquisition. Each phantom was scanned with a Clarius L20HD3 linear array, producing the probe's own beamformed RF output. This is the physically acquired data, not simulated.\n2. Inversion. The beamformed RF is inverted back into pre-beamformed, per-element channel data with das-inverse (clarius branch), a CGLS solver over a zea.inverse.DASOperator forward model of the probe's focused, walking-sub-aperture transmit sequence (invert_clarius_beamformed.py). The result is not sensor-captured, but numerically consistent with the real beamformed acquisition it was inverted from.\n3. Packaging. The inverted channel data, transmit-sequence metadata, probe geometry, per-frame probe pose, and the phantom's CT + segmentation are written out as one zea HDF5 file per scan, matching the OpenH-RF format spec.\n\nProbe tracking\n\nThe probe was mounted on a robotic arm and its pose recorded separately by a trakSTAR electromagnetic tracking system with a fixed fCal image-to-probe calibration. The pose stream is stored per frame in each file's metadata (metadata/probe_pose: translation, rotation, timestamps), so metadata/probe_pose[i] corresponds to raw_data[i]. The raw tracking capture is not shipped, only the recovered, aligned pose stream.\n\nThe three phantoms\n\nEach phantom is a 3D-printed femur, modeled from a CC BY 4.0–licensed femur bone dataset, with a different simulated fracture pattern. Each printed femur is immersed in ultrasound-coupling gel and scanned by a robotic arm, which gives repeatable probe trajectories rather than a freehand scan. Each phantom is scanned three times, at three positions along the bone:\n\n- distal: a sweep over the distal region of the femur\n- proximal: a sweep over the proximal region of the femur\n- wholebone: a sweep covering the full length of the femur",
+    "intended_usage": "Full-matrix-capture-style beamforming research on recovered (not directly sensed) channel data at a bone-tissue interface: delay-and-sum reconstruction, adaptive and aberration-correction beamforming benchmarks, and robot/EM-tracked probe-pose fusion. It also serves as a reference for recovering pre-beamformed data from other beamformed-only scanners.",
+    "characterization": "- Data Collection Method: phantom (3D-printed, bone-mimicking femur, immersed in ultrasound-coupling gel); scanned with a Clarius handheld-probe-class linear array mounted on and moved by a robotic arm; raw channel data recovered via CGLS inversion of the probe's beamformed RF output (not a direct per-element recording); probe pose independently tracked via a trakSTAR EM tracking system, fCal-calibrated.\n- Labeling Method: a CT scan of each 3D-printed phantom and a multi-label segmentation of it (authored in 3D Slicer) are stored inside each of that phantom's three files, under custom/ct/ and custom/ct_segmentation/. See CT reference imaging. There are no annotations on the RF data itself.\n- Acquisition system: Clarius L20HD3, 192-element linear array, 0.130 mm pitch (24.8 mm aperture), 10 MHz center frequency, 30 MHz sampling frequency, 1540 m/s sound speed, ~5.1 cm imaging depth (1984–2016 axial samples depending on scan), single fixed transmit focus at 25.3–25.8 mm (focus_distances is constant across all 192 transmits within a scan), 192 focused transmits per frame (one per lateral scanline, no steering), Hanning-windowed walking sub-aperture per scanline with 47 to 97 of 192 elements active per transmit (mean 84, narrowest at the array edges).\n\nThe CT and segmentation data inside the files are released under the same CC BY 4.0 terms as the channel data. The femur geometry behind the 3D-printed phantoms comes from a CC BY 4.0–licensed bone model dataset.",
+    "subject_metadata": "3D-printed, bone-mimicking musculoskeletal phantoms (bone surface reflection targets); no human or animal subject. Scanned with a robot-mounted Clarius L20HD3 linear array at 10 MHz / ~5.1 cm depth / single transmit focus."
+   },
+   "image": {
+    "source": "strasbourg-basel/assets/reference_bmode.png",
+    "thumb": "images/strasbourg-basel-71d5182-ad6e.jpg",
+    "preview": "images/strasbourg-basel-71d5182-preview.jpg",
+    "preview_size": [
+     177,
+     369
+    ]
+   }
+  },
+  "technion/bladder": {
+   "sha": "d36f9ec1f98c8f64ef498e4742e61dee6a79e29f",
+   "collection": null,
+   "pretty_name": "Technion Bladder Pre-Beamformed Channel Data",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "iq",
+    "openh-rf",
+    "beamforming",
+    "bladder",
+    "3d"
+   ],
+   "summary": "Real, in-vivo human pre-beamformed ultrasound channel data for bladder imaging: per-element I/Q recorded before receive beamforming on a 64-element phased array — a sector scan of 180 transmit beams steered over ±45.13° (≈90°), one image line per transmit (steering angles in scan.polar_angles). 1,508 frames across 14 sweeps from seven subjects. Acquired on a GE research system in tissue-harmonic mode; the harmonic echo is demodulated to I/Q at 3.44 MHz and band-pass filtered. No paired image is supplied — the B-mode is reproduced from the channel data by the released beamformer.",
+   "contributors": [
+    "Sanketh Vedula (primary contact)",
+    "Ortal Senouf",
+    "Dean Zadok",
+    "Alex M. Bronstein (PI)",
+    "Technion – Israel Institute of Technology"
+   ],
+   "institutions": [
+    "Israel Institute of Technology"
+   ],
+   "created": "Source data 2018; converted to the OpenH-RF (zea) format 07/16/2026.",
+   "keys": [
+    "data/raw_data",
+    "metadata/credit",
+    "probe/probe_geometry",
+    "scan/center_frequency",
+    "scan/polar_angles",
+    "scan/sampling_frequency",
+    "scan/sound_speed"
+   ],
+   "known_issues": "- No paired image target (unlike the cardiac set); the B-mode is derived from the channel data, not supplied.\n- Transmit fundamental (1.6 MHz) not stored — only the 3.44 MHz demodulation frequency is in the files, so center_frequency equals the demodulation frequency.",
+   "text": {
+    "description": "Real, in-vivo human pre-beamformed ultrasound channel data for bladder imaging: per-element I/Q recorded before receive beamforming on a 64-element phased array — a sector scan of 180 transmit beams steered over ±45.13° (≈90°), one image line per transmit (steering angles in scan.polar_angles). 1,508 frames across 14 sweeps from seven subjects. Acquired on a GE research system in tissue-harmonic mode; the harmonic echo is demodulated to I/Q at 3.44 MHz and band-pass filtered. No paired image is supplied — the B-mode is reproduced from the channel data by the released beamformer.",
+    "intended_usage": "Primary: generalized reconstruction (§6.1) — learned receive beamforming and image reconstruction from raw channel data. The quasi-static bladder is also suited to multi-line-transmission (MLT) emulation and high-frame-rate research, and to anatomy/cohort interpretation (§6.5).",
+    "characterization": "- Data Collection Method: in-vivo human (research platform) — GE Vivid S70 scanner with raw per-element channel access, tissue-harmonic mode.\n- Labeling Method: N/A — no per-frame image label; the zea.Pipeline in pipeline.yaml reconstructs a B-mode from the channel data for validation.\n- Acquisition system: GE Vivid S70 scanner; GE 3Sc-RS 64-element phased-array probe, 0.30 mm pitch; sector scan, 180 transmit beams steered over ±45.13° (≈90.25° FOV), one image line per transmit. Per proposal: 2.56-cycle 1.6 MHz transmit, no transmit apodization, tissue-harmonic mode, harmonic echo demodulated to I/Q at 3.44 MHz and filtered, ~18 fps; transversal plane with slow longitudinal probe sweep to decorrelate frames.",
+    "subject_metadata": "Seven in-vivo human volunteers, 14 sweeps, 1,508 frames. (The proposal's \"six\" was an undercount; verified from the acquisitions to be seven distinct volunteers.) No phantom is included in this collection — the calibration phantom is a separate submission (../phantom/). No PHI stored: only anonymized subject.id, subject.type = human, and annotations.anatomy = bladder. Age and sex were not recorded for these acquisitions."
+   },
+   "image": {
+    "source": "technion/bladder/assets/bmode.png",
+    "thumb": "images/technion-bladder-a199f49-ad6e.jpg",
+    "preview": "images/technion-bladder-a199f49-preview.jpg",
+    "preview_size": [
+     779,
+     550
+    ]
+   }
+  },
+  "technion/cardiac": {
+   "sha": "1af40efd4833ef030d801d3ece9bd7a2eb86e423",
+   "collection": null,
+   "pretty_name": "Technion Cardiac Pre-Beamformed Channel Data",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "iq",
+    "openh-rf",
+    "beamforming",
+    "cardiac",
+    "3d"
+   ],
+   "summary": "Real, in-vivo human pre-beamformed ultrasound channel data for cardiac imaging: per-element I/Q recorded before receive beamforming on a 64-element phased array — a sector scan of 140 transmit beams steered over ±37.5°, one image line per transmit (steering angles in scan.polar_angles). Each frame is paired with its conventional delay-and-sum reconstruction (stored as beamformed_data), making this a ready-made input→target set for learned reconstruction / beamforming. 777 frames across 25 cine loops from six subjects (a–f).",
+   "contributors": [
+    "Sanketh Vedula (primary contact)",
+    "Ortal Senouf",
+    "Dean Zadok",
+    "Alex M. Bronstein (PI)",
+    "Technion – Israel Institute of Technology"
+   ],
+   "institutions": [
+    "Israel Institute of Technology"
+   ],
+   "created": "Acquired 2018; converted to the OpenH-RF (zea) format 07/16/2026.",
+   "keys": [
+    "data/raw_data",
+    "metadata/credit",
+    "probe/probe_geometry",
+    "scan/center_frequency",
+    "scan/polar_angles",
+    "scan/sampling_frequency",
+    "scan/sound_speed"
+   ],
+   "known_issues": "- Axial sample rate not stored. The consolidated source .mat files do not carry the acquisition header, so sampling_frequency (6.0 MHz) is a best estimate and the reconstructed depth scale is approximate. This applies both to the raw→image reconstruction and to the paired beamformed_data target (exact in value, approximate in depth axis).\n- Sector-angle convention. Lines are stored as ±37.5° centred about boresight, the physically correct convention for a phased array.",
+   "text": {
+    "description": "Real, in-vivo human pre-beamformed ultrasound channel data for cardiac imaging: per-element I/Q recorded before receive beamforming on a 64-element phased array — a sector scan of 140 transmit beams steered over ±37.5°, one image line per transmit (steering angles in scan.polar_angles). Each frame is paired with its conventional delay-and-sum reconstruction (stored as beamformed_data), making this a ready-made input→target set for learned reconstruction / beamforming. 777 frames across 25 cine loops from six subjects (a–f).",
+    "intended_usage": "Primary: generalized reconstruction (§6.1) — learning to map raw per-element channel data to a focused image (learned receive/transmit beamforming, super-resolution, clutter suppression), trained and evaluated against the paired delay-and-sum target. Secondary: motion estimation across the cardiac cine loops (§6.4) and anatomy/cohort interpretation (§6.5).",
+    "characterization": "- Data Collection Method: in-vivo human (research platform) — GE Vivid S70 scanner with raw per-element channel access.\n- Labeling Method: derived ground truth — the paired beamformed_data is the conventional delay-and-sum reconstruction of each frame.\n- Acquisition system: GE Vivid S70 scanner; GE 3Sc-RS 64-element phased-array probe, 0.30 mm pitch; sector scan, 140 acquisition lines over a ~75° sector (±37.5°); 2.5 MHz transmit; apical four-chamber view (A4C).",
+    "subject_metadata": "Six subjects (a–e main set, f patient set), 777 frames across 25 cine loops. In-vivo human; no PHI stored (only subject.id a1…f2, subject.type = human, anatomy = cardiac, view = apical four-chamber (A4C)). Age and sex were not recorded for these acquisitions."
+   },
+   "image": {
+    "source": "technion/cardiac/assets/bmode.png",
+    "thumb": "images/technion-cardiac-237b099-ad6e.jpg",
+    "preview": "images/technion-cardiac-237b099-preview.jpg",
+    "preview_size": [
+     637,
+     523
+    ]
+   }
+  },
+  "technion/phantom": {
+   "sha": "af779c2247b61bd067bc9bd2d8262d5241291a4a",
+   "collection": null,
+   "pretty_name": "Technion Phantom Pre-Beamformed Channel Data",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "iq",
+    "openh-rf",
+    "beamforming",
+    "phantom",
+    "3d"
+   ],
+   "summary": "Pre-beamformed ultrasound channel data from a tissue-mimicking phantom, acquired on the same 64-element phased-array sector scheme as the in-vivo collection (180 transmit beams steered over ±45.13°, one image line per transmit), for calibration and verification. Contains resolvable point targets and an anechoic cyst — a clean reference for validating beamforming and reconstruction. 12 frames, one acquisition.",
+   "contributors": [
+    "Sanketh Vedula (primary contact)",
+    "Ortal Senouf",
+    "Dean Zadok",
+    "Alex M. Bronstein (PI)",
+    "Technion – Israel Institute of Technology"
+   ],
+   "institutions": [
+    "Israel Institute of Technology"
+   ],
+   "created": "Source data 2018; converted to the OpenH-RF (zea) format 07/16/2026.",
+   "keys": [
+    "data/raw_data",
+    "metadata/credit",
+    "probe/probe_geometry",
+    "scan/center_frequency",
+    "scan/polar_angles",
+    "scan/sampling_frequency",
+    "scan/sound_speed"
+   ],
+   "known_issues": "- Same scan scheme and probe as the in-vivo bladder collection (GE tissue-harmonic); acquired as its calibration reference. GAMMEX 403GS LE.",
+   "text": {
+    "description": "Pre-beamformed ultrasound channel data from a tissue-mimicking phantom, acquired on the same 64-element phased-array sector scheme as the in-vivo collection (180 transmit beams steered over ±45.13°, one image line per transmit), for calibration and verification. Contains resolvable point targets and an anechoic cyst — a clean reference for validating beamforming and reconstruction. 12 frames, one acquisition.",
+    "intended_usage": "Calibration and end-to-end verification of the beamforming/reconstruction pipeline (point-target resolution, cyst contrast). Phantom tier (×1).",
+    "characterization": "- Data Collection Method: phantom — tissue-mimicking phantom (Gammex 403GS LE, Gammex Inc., Middleton, WI, USA), acquired on the same scanner/probe as the in-vivo collection for calibration.\n- Labeling Method: N/A (calibration target; known phantom geometry).\n- Acquisition system: GE Vivid S70 scanner; GE 3Sc-RS 64-element phased-array probe, 0.30 mm pitch; sector scan, 180 transmit beams steered over ±45.13° (≈90.25° FOV), one image line per transmit; IQ demodulated at 3.44 MHz.",
+    "subject_metadata": "N/A — inanimate phantom (GAMMEX 403GS LE); subject.type = phantom."
+   },
+   "image": {
+    "source": "technion/phantom/assets/bmode.png",
+    "thumb": "images/technion-phantom-5f3adda-ad6e.jpg",
+    "preview": "images/technion-phantom-5f3adda-preview.jpg",
+    "preview_size": [
+     779,
+     550
+    ]
+   }
+  },
+  "tel-aviv": {
+   "sha": "af6f550fd74fe744fee02f05a81bbf07359a58ed",
+   "collection": null,
+   "pretty_name": "Ilovitsh Lab Mice Tumors",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "openh-rf"
+   ],
+   "summary": "This dataset provides ultrasound data captured via a motorized 1D transducer array. It captures both in-vivo tumors in mice and in-silico water-bead phantoms, and was originally acquired as part of our work on implicit neural representations (INR) [1]. The primary task for this released dataset is the segmentation of tumors (in mice) and water beads (in phantoms) from multi-angle ultrasound acquisitions.",
+   "contributors": [
+    "Tal Grutman (Ilovitsh Lab, Tel Aviv University)",
+    "Tali Ilovitsh (Ilovitsh Lab, Tel Aviv University)"
+   ],
+   "institutions": [
+    "Tel Aviv University"
+   ],
+   "created": "16/06/2026",
+   "keys": [],
+   "known_issues": "3D position data is not provided.",
+   "text": {
+    "description": "This dataset provides ultrasound data captured via a motorized 1D transducer array. It captures both in-vivo tumors in mice and in-silico water-bead phantoms, and was originally acquired as part of our work on implicit neural representations (INR) [1]. The primary task for this released dataset is the segmentation of tumors (in mice) and water beads (in phantoms) from multi-angle ultrasound acquisitions.\n\nData was acquired using a motorized 1D array transducer with 128 elements (IP104, Sonic Concepts) operated by a Vantage 256 system (Verasonics Inc.). For the in-vivo data, 5 breast cancer tumor-bearing mice were scanned under anesthesia. Each volume was sampled across a 180° rotation at 1.25° intervals, yielding 144 angular frames per acquisition. At each angle, five plane waves were steered linearly between -5° and 5°.\n\nEach beamformed B-mode image was semi-manually annotated by a non-professional using MedSAM [2]. Volumetric comparison of these segmentation masks against manual measurements produced a mean volumetric error of 6.8% ± 1.5%.",
+    "intended_usage": "Segmentation of tumors in mice and water-bead phantoms.",
+    "characterization": "- Data collection method: Phantom (agarose with water beads) and Animal (in-vivo mice).\n- Labeling method: Semi-automatic, labelled with MedSAM [2].\n- Acquisition system: 128-element phased array (IP104, Sonic Concepts) with a 0.22 mm pitch, 13.5 mm elevation aperture, and center frequency of 3.5 MHz. Controlled by Vantage 256 (Verasonics Inc.) and a motorized rotary (RTY-IP100). Sampling rate 14 MHz.",
+    "subject_metadata": "5 tumor-bearing female FVB/NHanHsd mice (injected with Met-1 mouse breast carcinoma cells). 2 phantoms containing 3 water gel beads in an agarose mixture."
+   },
+   "image": {
+    "source": "tel-aviv/assets/main.png",
+    "thumb": "images/tel-aviv-9244164-ad6e.jpg",
+    "preview": "images/tel-aviv-9244164-preview.jpg",
+    "preview_size": [
+     512,
+     704
+    ]
+   }
+  },
+  "tue-aaa": {
+   "sha": "221261198f671d6edda74224c06c498e46b33604",
+   "collection": null,
+   "pretty_name": "TU/e PULS/e — Abdominal Aortic Aneurysm (C5-2v) channel data",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "openh-rf",
+    "beamforming",
+    "motion-estimation",
+    "abdominal-aortic-aneurysm",
+    "curved-array"
+   ],
+   "summary": "This dataset contains ultrasound channel data acquired in vivo from patients with abdominal aortic aneurysms (AAA). The dataset consists of ultrafast acquisitions obtained using a curved array ultrasound transducer operating in diverging wave transmission mode with a Verasonics system. The data capture raw radio frequency (RF) channel signals at high frame rates, enabling access to the full spatiotemporal information.",
+   "contributors": [
+    "Hans-Martin Schwab (contact)",
+    "PULS/e group, Department of Biomedical Engineering, Eindhoven University of Technology"
+   ],
+   "institutions": [
+    "Eindhoven University of Technology"
+   ],
+   "created": "July 2026",
+   "keys": [
+    "metadata/credit",
+    "metadata/subject"
+   ],
+   "known_issues": null,
+   "text": {
+    "description": "This dataset contains ultrasound channel data acquired in vivo from patients with abdominal aortic aneurysms (AAA). The dataset consists of ultrafast acquisitions obtained using a curved array ultrasound transducer operating in diverging wave transmission mode with a Verasonics system. The data capture raw radio frequency (RF) channel signals at high frame rates, enabling access to the full spatiotemporal information.",
+    "intended_usage": "- Advanced beamforming\n- Motion estimation",
+    "characterization": "- Data collection method: clinical\n- Acquisition system: Verasonics Vantage, C5-2v curved array, 128 elements, center frequency 3.6 MHz\n- Transmit sequence: 15 steered diverging waves (polar angles −12° … +12°)",
+    "subject_metadata": "Patients are dominantly male (13 M / 2 F), aged 66–87, and scanned in the Netherlands."
+   },
+   "image": {
+    "source": "tue-aaa/assets/main.png",
+    "thumb": "images/tue-aaa-82e6264-ad6e.jpg",
+    "preview": "images/tue-aaa-82e6264-preview.jpg",
+    "preview_size": [
+     960,
+     832
+    ]
+   }
+  },
+  "tue-cardiac": {
+   "sha": "a720882bb2a67da1927612a5b92006ed0d1d1531",
+   "collection": null,
+   "pretty_name": "TU/e Cardiac RF Multi-Transmit",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "openh-rf",
+    "echocardiography",
+    "cardiac",
+    "plax",
+    "beamforming",
+    "harmonic-imaging",
+    "plane-wave-imaging",
+    "synthetic-aperture",
+    "refocus"
+   ],
+   "summary": "This dataset contains pre-beamformed radio-frequency (RF) channel data from in-vivo human cardiac ultrasound acquisitions of 12 distinct adult healthy volunteers, aged 26–33 years. The operator attempted a parasternal long-axis (PLAX) view for every participant. Each participant file contains eight separately acquired 100-frame tracks (3s,33Hz) that vary the transmit encoding: focused fundamental, focused pulse-inversion harmonic, wide fundamental, wide pulse-inversion harmonic, plane wave, diverging wave, Hadamard-coded aperture, and random binary-coded aperture.",
+   "contributors": [
+    "Simon Penninga (author; contact)",
+    "Ruud van Sloun (author)",
+    "Biomedical Diagnostics Lab, Eindhoven University of Technology (TU/e), the Netherlands"
+   ],
+   "institutions": [
+    "Eindhoven University of Technology"
+   ],
+   "created": "The recordings were acquired in 2026.",
+   "keys": [
+    "data/raw_data",
+    "metadata/annotations/anatomy",
+    "metadata/annotations/label",
+    "metadata/annotations/view",
+    "metadata/subject/id",
+    "metadata/subject/type",
+    "probe/element_width",
+    "probe/probe_center_frequency",
+    "probe/probe_geometry",
+    "probe/type",
+    "scan/center_frequency",
+    "scan/demodulation_frequency",
+    "scan/initial_times",
+    "scan/sampling_frequency",
+    "scan/sound_speed",
+    "scan/t0_delays",
+    "scan/tgc_gain_curve",
+    "scan/time_to_next_transmit",
+    "scan/tx_apodizations",
+    "scan/waveforms_one_way",
+    "scan/waveforms_two_way"
+   ],
+   "known_issues": "- A good PLAX view is not always available for all recordings.\n- Some transmit types, like random apodization recordings, do not give a good quality B-mode. They are not intended to have the best quality, but for comparison.\n- The two harmonic tracks are pulse-inversion-accumulated nonlinear measurements and should not be treated as linear equivalents of the fundamental tracks.\n- Accumulated harmonic data may lack per-transmit timing arrays; the measured frame rate is documented instead.\n- Hadamard and random tracks require REFoCUS decoding before conventional beamforming.",
+   "text": {
+    "description": "This dataset contains pre-beamformed radio-frequency (RF) channel data from in-vivo human cardiac ultrasound acquisitions of 12 distinct adult healthy volunteers, aged 26–33 years. The operator attempted a parasternal long-axis (PLAX) view for every participant. Each participant file contains eight separately acquired 100-frame tracks (3s,33Hz) that vary the transmit encoding: focused fundamental, focused pulse-inversion harmonic, wide fundamental, wide pulse-inversion harmonic, plane wave, diverging wave, Hadamard-coded aperture, and random binary-coded aperture.\n\nThe data were acquired on a Verasonics Vantage 256 research platform with a Philips S5-1 phased-array probe. The contribution is intended to support generalized reconstruction, transmit-encoding research, REFoCUS recovery, compressed sensing, and comparisons of fundamental and second-harmonic imaging.",
+    "intended_usage": "Intended research uses include:\n\n- raw-channel-to-B-mode reconstruction and beamforming;\n- REFoCUS recovery of synthetic-transmit-aperture data;\n- sparse or compressed transmit-sequence reconstruction;\n- comparison of focused, wide, plane-wave, diverging, and coded transmissions;\n- comparison of fundamental and pulse-inversion harmonic acquisitions; and\n- development and evaluation of ultrasound inverse-problem methods.\n\nThe dataset must not be used as a clinically validated diagnostic product.",
+    "characterization": "- Data collection method: in-vivo human cardiac ultrasound on a research platform.\n- Anatomy and view: heart; attempted parasternal long-axis (PLAX) view.\n- Cohort: 12 adult healthy volunteers, aged 26–33 years, recruited from among researcher colleagues. No known pathologies were reported.\n- Acquisition protocol: the eight modes were acquired sequentially in the fixed order shown below. The probe was kept as steady as possible. Before each recording, the volunteer was instructed to breathe out.\n- Operator: No ultrasound training or prior experience.\n- Acquisition system: Verasonics Vantage 256 with a Philips S5-1 phased-array probe.\n- Probe: phased-array, 80 active elements, nominal probe center frequency 3.125 MHz, and 128% fractional bandwidth.\n- Receive sampling: 15.625 MHz; 2,304 axial samples; raw int16 RF with one real channel. For pulse inversion imaging, the two acquisitions are summed in buffer.\n- Nominal sound speed: 1,540 m/s.\n- Frame rate: approximately 33 frames/s for each track.\n- Coordinate convention: x = lateral, y = elevation, z = axial/depth."
+   },
+   "image": {
+    "source": "tue-cardiac/assets/subject-002_wide_harm_frame-000.png",
+    "thumb": "images/tue-cardiac-bd6b355-ad6e.jpg",
+    "preview": "images/tue-cardiac-bd6b355-preview.jpg",
+    "preview_size": [
+     1200,
+     848
+    ]
+   }
+  },
+  "tue-carotid": {
+   "sha": "4149ca121d424ef165e610166b5c777217e90050",
+   "collection": null,
+   "pretty_name": "TU/e carotid 2023",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "openh-rf",
+    "carotid",
+    "in-vivo"
+   ],
+   "summary": "The dataset includes carotid artery scans from 10 subjects. Each file includes 150 frames, at least one cardiac cycle. The acquisition scheme it consists of 128 line scanning interleaved with 21 plane waves.",
+   "contributors": [
+    "Wessel van Nierop",
+    "Tristan Stevens",
+    "Oisín Nolan",
+    "Simon Penninga",
+    "Beatrice Federici",
+    "Vincent van der Schaft",
+    "Ben Luijten",
+    "Ruud van Sloun"
+   ],
+   "institutions": [],
+   "created": "Nov 2023",
+   "keys": [
+    "data/raw_data",
+    "probe/name",
+    "probe/probe_center_frequency",
+    "probe/probe_geometry",
+    "scan/azimuth_angles",
+    "scan/center_frequency",
+    "scan/demodulation_frequency",
+    "scan/focus_distances",
+    "scan/initial_times",
+    "scan/polar_angles",
+    "scan/sampling_frequency",
+    "scan/sound_speed",
+    "scan/t0_delays",
+    "scan/time_to_next_transmit",
+    "scan/transmit_origins",
+    "scan/tx_apodizations"
+   ],
+   "known_issues": null,
+   "text": {
+    "description": "The dataset includes carotid artery scans from 10 subjects. Each file includes 150 frames, at least one cardiac cycle. The acquisition scheme it consists of 128 line scanning interleaved with 21 plane waves.\n\nIncluded views:\n\n- Bifurcation cross section\n- Longitudinal bifurcation\n- Cross section 2cm from bifurcation\n- Cross section 1cm from bifurcation\n- Longitudinal section 2cm from bifurcation\n- Longitudinal section 1cm from bifurcation\n- Longitudinal section\n\nThe acquisitions were performed with a Verasonics 256. The acquisitions were performed with a linear probe (Verasonics L11-5v). The same operator performed all acquisitions.",
+    "intended_usage": "Image-quality / beamforming has both plane-wave (21) and focused acquisitions (128).",
+    "characterization": "- Data Collection Method: In-vivo Human Data\n- Labeling Method: acquisitions per view\n- Acquisition system: see file",
+    "subject_metadata": "None"
+   },
+   "image": {
+    "source": "tue-carotid/assets/main.png",
+    "thumb": "images/tue-carotid-e01439e-ad6e.jpg",
+    "preview": "images/tue-carotid-e01439e-preview.jpg",
+    "preview_size": [
+     772,
+     772
+    ]
+   }
+  },
+  "tumunich": {
+   "sha": "08632aa3186d7c786a970a62c41afad62dfa07a3",
+   "collection": null,
+   "pretty_name": "Robotic Tracked Ultrasound (Verasonics L11-5gH, arm, CIRS 054GS and CIRS 074 thyroid phantoms)",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "openh-rf",
+    "3d",
+    "robotic",
+    "freehand"
+   ],
+   "summary": "Robotically tracked freehand ultrasound of three tissue-mimicking phantoms, acquired with a Verasonics Vantage NXT 64 and an L11-5gH linear probe held by a KUKA LBR robot:",
+   "contributors": [
+    "Felix Dülmer (primary contact)",
+    "Mohammad Farid Azampour",
+    "Rüdiger Göbl",
+    "Oliver Zettinig",
+    "Nassir Navab",
+    "CAMP (Computer Aided Medical Procedures), Technical University of Munich (TUM)"
+   ],
+   "institutions": [
+    "Technical University of Munich"
+   ],
+   "created": "07/16/2026",
+   "keys": [
+    "custom/sweep_index",
+    "data/image",
+    "data/image/coordinates",
+    "data/raw_data",
+    "metadata/annotations",
+    "metadata/annotations/anatomy",
+    "metadata/annotations/view",
+    "metadata/probe_pose/rotation",
+    "metadata/probe_pose/translation",
+    "probe/*",
+    "probe/lens_sound_speed",
+    "probe/lens_thickness",
+    "scan/*"
+   ],
+   "known_issues": null,
+   "text": {
+    "description": "Robotically tracked freehand ultrasound of three tissue-mimicking phantoms, acquired with a Verasonics Vantage NXT 64 and an L11-5gH linear probe held by a KUKA LBR robot:\n\n- a Blue Phantom Gen II PICC, PIV and Arterial Line Vascular Access training model (BPA304-HP) — an upper-extremity arm phantom with a nine-vessel system (cephalic, basilic, medial cubital, radial and ulnar veins plus brachial, radial and ulnar arteries) in self-healing tissue-mimicking material;\n- a CIRS Model 054GS General Purpose Ultrasound Phantom;\n- a CIRS Model 074 Thyroid Ultrasound Training Phantom — a slightly enlarged thyroid gland in an anthropomorphic neck of Zerdine® hydrogel, with the trachea, common carotid artery and internal jugular vein as internal landmarks and one cyst plus one isoechoic stiff lesion per lobe.\n\nEach frame is a multi-angle plane-wave acquisition of raw pre-beamformed channel data, and every frame carries the measured robot end-effector pose, so the sweeps can be compounded into 3D. Multiple tracked sweeps were recorded from each phantom: the sweeps belonging to one scan area are concatenated into a single track within that file (multi-angle acquisition, except the synth aperture dataset). The phantom was not moved between the scans: they are overlapping and tracking information is calibrated with respect to each other. For the multi-angle data, individual sweeps are always recorded between two defined poses with varying out-of-plane rotation (around the x-axis). The first sweep refers to -15 degree, with every following sweep raising that angle by 5 degree until it reaches 15 degree (in total 7 scans). For the two transverse scans in the CIRS phantom, we only recorded -15 to +10 degree, due to the limited scan area of the robot. For the two transverse scans in the thyroid phantom, we only recorded -10 to +10 degree, due to the limited scan area of the robot. custom/sweep_index identifies the originating sweep per frame. This is phantom data (no human or animal subjects). The intended contribution is a raw-channel-data benchmark for tracked freehand reconstruction and beamforming.",
+    "intended_usage": "Primary task: robotic tracked ultrasound acquisition — compounding the per-frame robot poses with the tracked sweeps for freehand 3D reconstruction. The raw channel data also supports advanced beamforming research.",
+    "characterization": "- Data Collection Method: phantom\n- Labeling Method: per-file annotations of anatomy and imaging plane in metadata/annotations, constant within a file and broadcast over its frames; no per-frame labels. A co-registered robot pose stream is provided per frame.\n- Acquisition system: Verasonics Vantage NXT 64; L11-5gH linear array, 128 elements, 0.30 mm pitch, 7.6 MHz center frequency, 76.8% fractional bandwidth; 30.3 MHz receive sampling; 1540 m/s assumed sound speed. Transmit: 7 plane-wave angles (−18° … +18° in 6° steps), each acquired with three walking 64-element mux sub-apertures (21 acquisitions per frame). Imaging depth: 50 mm for the arm phantom and 60 mm for the CIRS phantom.",
+    "subject_metadata": "- Subjects: 3 tissue-mimicking phantoms (no human/animal subjects).\n- Phantom models:\n  - Blue Phantom Gen II PICC, PIV and Arterial Line Vascular Access training model (BPA304-HP) — upper-extremity arm phantom, nine-vessel system, self-healing tissue-mimicking material.\n  - CIRS Model 054GS (General Purpose Ultrasound Phantom).\n  - CIRS Model 074 (Thyroid Ultrasound Training Phantom) — thyroid gland in an anthropomorphic neck, Zerdine® hydrogel, trachea/carotid/jugular landmarks, one cyst and one isoechoic stiff lesion per lobe.\n- Sweeps: multiple tracked freehand sweeps per phantom.\n- Probe model: Verasonics L11-5gH."
+   },
+   "image": {
+    "source": "tumunich/assets/hero.png",
+    "thumb": "images/tumunich-2af8113-ad6e.jpg",
+    "preview": "images/tumunich-2af8113-preview.jpg",
+    "preview_size": [
+     575,
+     900
+    ]
+   }
+  },
+  "twente-cavitation": {
+   "sha": "d9a3ecc6790b5a9d4ce2e735235cb7e2bc716791",
+   "collection": null,
+   "pretty_name": "Twente Passive Cavitation Detection of Flowing Microbubbles",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "openh-rf",
+    "cavitation"
+   ],
+   "summary": "The collected data is for cavitation mapping of microbubbles, insonified with focused ultrasound at various pressures and flowrates. This data applicable to therapeutic ultrasound and local drug delivery in any part of the human body. The used sensor hardware is a Verasonics research system with an L11-4v transducer for recording the bubble response during the treatment. Insonification is done using a single element transducer at 2.25MHz. The insonification is done with a 1000 cycles long pulse at 2.25MHz, where the first and last 2 microseconds are used for ramping up and down the pressure.",
+   "contributors": [
+    "Hermen de Roo",
+    "Michel Versluis",
+    "Guillaume Lajoinie (contact)"
+   ],
+   "institutions": [],
+   "created": "Data recorded on 01/19/2026. Dataset created on 07/09/2026.",
+   "keys": [
+    "data/raw_data",
+    "probe/element_width",
+    "probe/probe_center_frequency",
+    "probe/probe_geometry",
+    "scan/center_frequency",
+    "scan/demodulation_frequency",
+    "scan/initial_times",
+    "scan/sampling_frequency",
+    "scan/sound_speed",
+    "scan/t0_delays",
+    "scan/tgc_gain_curve",
+    "scan/time_to_next_transmit",
+    "scan/tx_apodizations",
+    "transmit_only"
+   ],
+   "known_issues": null,
+   "text": {
+    "description": "The collected data is for cavitation mapping of microbubbles, insonified with focused ultrasound at various pressures and flowrates. This data applicable to therapeutic ultrasound and local drug delivery in any part of the human body. The used sensor hardware is a Verasonics research system with an L11-4v transducer for recording the bubble response during the treatment. Insonification is done using a single element transducer at 2.25MHz. The insonification is done with a 1000 cycles long pulse at 2.25MHz, where the first and last 2 microseconds are used for ramping up and down the pressure. The pulse repetition frequency used is 20Hz, repeated 400 times.",
+    "intended_usage": "The dataset contains data over a large pressure range, from very low pressures up to the very high pressures used in therapeutic ultrasound. With this data one can quantify the treatment threshold and treatment effects over this wide range. The dataset also includes data for different levels of perfusion by varying the flowrate, from which the effect of perfusion on treatment efficacy can be studied. The data is intended to be processed with passive cavitation detection algorithms.",
+    "characterization": "- Data Collection Method: phantom\n- Labeling Method: N/A\n- Acquisition system: Verasonics Vantage 256, L11-4v transducer. 128 elements, 7.24MHz center frequency, 27.778 MHz sampling rate",
+    "subject_metadata": "Only one phantom was used. This is a phantom made of PVCp with a single flow channel ~200 micrometer diameter. The used scanner is a Verasonics Vantage 256 with a L11-4v transducer."
+   },
+   "image": {
+    "source": "twente-cavitation/assets/main.png",
+    "thumb": "images/twente-cavitation-38174fe-ad6e.jpg",
+    "preview": "images/twente-cavitation-38174fe-preview.jpg",
+    "preview_size": [
+     387,
+     577
+    ]
+   }
+  },
+  "twente-microbubblesim": {
+   "sha": "899fa4eed61423b32e9be4db09c509264908bdba",
+   "collection": null,
+   "pretty_name": "Waveform-Specific Synthetic Microbubble RF Dataset",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "microbubbles",
+    "synthetic-data",
+    "openh-rf"
+   ],
+   "summary": "This synthetic 3-D ultrasound dataset contains nonlinear radiofrequency (RF) responses from microbubble contrast agents for cardiovascular-flow imaging. It was generated to study the effect of ultrasound transmit-waveform shape on RF signals and deep-learning methods for microbubble super-resolution. It contains exclusively simulated data.",
+   "contributors": [
+    "Rienk Zorgdrager (PhD candidate, University of Twente; primary contact)",
+    "Anass Hameddine (PhD candidate, University of Twente; primary contact)",
+    "Michel Versluis (Professor, physical and medical acoustics, University of Twente)",
+    "Guillaume Lajoinie (Associate Professor, Physics of Fluids Group, University of Twente)"
+   ],
+   "institutions": [
+    "University of Twente"
+   ],
+   "created": "07/12/2026",
+   "keys": [
+    "custom/bubble_R0",
+    "custom/bubble_initial_r0",
+    "custom/bubble_p_dB",
+    "custom/bubble_p_db",
+    "custom/bubble_r0",
+    "custom/probe_nominal_bandwidth_lower_frequency",
+    "custom/probe_nominal_bandwidth_upper_frequency",
+    "custom/pulse_names",
+    "custom/track_0_pulse_waveform",
+    "custom/track_0_t_peak",
+    "custom/track_i_t_peak",
+    "data/raw_data",
+    "probe/element_height",
+    "probe/element_width",
+    "probe/probe_geometry"
+   ],
+   "known_issues": "- The transmit setup is an unfocused plane wave by design: steering angle is zero, no finite focus distance is used (infinite focus), transmit delays are zero, and apodization is unity for every transmit element. These are intentional simulation settings rather than missing calibration fields.\n- The HDF5 files store only the official nominal bandwidth endpoints (1.0–4.0 MHz). The measured transfer-function −6 dB bounds (approximately 1.52–3.70 MHz) and corresponding 83.4% fractional bandwidth are documented in this README but are not stored as HDF5 data fields.",
+   "text": {
+    "description": "This synthetic 3-D ultrasound dataset contains nonlinear radiofrequency (RF) responses from microbubble contrast agents for cardiovascular-flow imaging. It was generated to study the effect of ultrasound transmit-waveform shape on RF signals and deep-learning methods for microbubble super-resolution. It contains exclusively simulated data.\n\n\nThe 12 different driving-pulse waveforms used in this simulated dataset.",
+    "intended_usage": "The dataset is intended for studying the effect of transmit waveforms on deep-learning methods for microbubble super-resolution imaging.",
+    "characterization": "- Data collection method: Synthetic.\n- Ground truth: Simulated 3-D microbubble positions are stored as zea custom elements (bubble_x, bubble_y, and bubble_z).\n- Bubble populations: Monodisperse bubbles with a radius of 2.4 micrometres and 5% standard deviation, and a polydisperse SonoVue population.\n- Acquisition system: An experimentally calibrated virtual ATL P4-1 transducer with 96 elements, realistic 3-D plane-wave pressure fields, a 62.5 MHz RF sampling rate, and 12 transmit waveforms. The overall probe dimensions are 0.02854 m × 0.016 m; each element is 0.000245 m wide and 0.016 m high. Its official nominal operating band is 1.0e6–4.0e6 Hz.\n- Simulation scale: Up to 27.5 microbubbles/cm³, with 250 random bubble distributions per population.\n- Bubble-response model: The implementation is a modified private derivative of the simulator described in Zorgdrager et al. (2025). It uses a custom, parallelized radial microbubble-response solver based on the Rayleigh–Plesset equation and adds 3-D realistic pressure-field calculation and coupling for the calibrated virtual ATL P4-1. The exact source-code version was not separately recorded; the dataset was generated with the internal label private dataset-generation release 2026-07-12. The solver source is private and is not distributed with this dataset.",
+    "subject_metadata": "This fully synthetic dataset contains no human or animal subjects, protected health information, age, sex, pathology, consent records, or clinical scanner identifiers."
+   },
+   "image": {
+    "source": "twente-microbubblesim/assets/main_image_with_GT.png",
+    "thumb": "images/twente-microbubblesim-898791a-ad6e.jpg",
+    "preview": "images/twente-microbubblesim-898791a-preview.jpg",
+    "preview_size": [
+     380,
+     900
+    ]
+   }
+  },
+  "twente-vortexflow": {
+   "sha": "830e906480854e51c895ce0557a386af25e75ecf",
+   "collection": null,
+   "pretty_name": "Flow Phantom Ultrasound Channel/Optical Data (Physics of Fluids, University of Twente)",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "openh-rf",
+    "flow",
+    "phantom",
+    "blood-flow"
+   ],
+   "summary": "Pre-beamformed ultrasound channel-capture data acquired with a curved-array transducer (GEC1-6D, 192 elements, 3.4 MHz center frequency) from a flow phantom, accompanied with simultaneously recorded camera images. The phantom contains a flow chamber through which a water with optical and acoustical scatterers is pumped at controlled flow rates. Six acquisitions are provided, spanning three pump voltage levels (80 V, 120 V, 160 V) and two transmit voltage levels (3.4 V, 7.1 V), each capturing two transmit types: a short imaging pulse and a chirp waveform.",
+   "contributors": [
+    "Rienk Zorgdrager (ORCiD: 0009-0001-2537-117X)",
+    "Guillaume Lajoinie",
+    "Michel Versluis",
+    "Physics of Fluids Group, Faculty of Science and Technology, University of Twente"
+   ],
+   "institutions": [
+    "University of Twente"
+   ],
+   "created": "07/01/2026",
+   "keys": [
+    "probe/probe_geometry",
+    "scan/sampling_frequency",
+    "scan/sound_speed",
+    "scan/t0_delays",
+    "scan/tgc_gain_curve",
+    "scan/tx_apodizations"
+   ],
+   "known_issues": "- The ultrasound recordings made with the chirp contain clipped reflections at the interface between walls and the water.\n- The speed of sound differs between the water and the medical gelatin (1449.30 +- 3.37 m/s).\n- A chirp compression algorithm is not provided.\n- The center frequency of the chirp is determined as the mean of the input frequency for the associated cycle in the Verasonics. This may therefore only be considered a very rough estimation.\n- An image registration algorithm is not provided, but the camera pixel size can be estimated using the geometry of the flow chamber.",
+   "text": {
+    "description": "Pre-beamformed ultrasound channel-capture data acquired with a curved-array transducer (GEC1-6D, 192 elements, 3.4 MHz center frequency) from a flow phantom, accompanied with simultaneously recorded camera images. The phantom contains a flow chamber through which a water with optical and acoustical scatterers is pumped at controlled flow rates. Six acquisitions are provided, spanning three pump voltage levels (80 V, 120 V, 160 V) and two transmit voltage levels (3.4 V, 7.1 V), each capturing two transmit types: a short imaging pulse and a chirp waveform. Each acquisition contains 750 frames of single plane-wave RF channel data. The intended task is blood-flow imaging and Doppler processing (RFP task group 6.2).\n\nPhantom\nThe front and the back of the flow chamber are made from medical-grade gelatin to facilitate ultrasound transmission. A cylinder with a diameter of 6 mm is placed inside the flow chamber which generates a von Kármán vortex street. The distance between the walls of the flow chamber is about 3 cm. A schematic of the setup is shown in Figure 1.\n\n\nThe elevation focus of the transducer is aligned with the optical light sheet, see Figure 2.\n\n\nContrast\nOptical scattering was facilitated by hollow glass beads (mean particle size: 9-13 micrometer, Manufacturer: Sigma-Aldrich, PubChem Substance ID: 24867590). The acoustical scatter was enhanced by adding in-house produced microbubbles. The microbubble size distribution is shown in Figure 3.\n\n\nAcquisition parameters\nThe acquisition settings for all six datasets are summarized in Table 1.\n\nTable 1. Acquisition parameters per dataset.",
+    "intended_usage": "Suitable for research in:\n- Ultrasound localization microscopy (ULM) / super-resolution flow imaging\n- Validation/verification of ultrasound flow imaging techniques using optical references\n- Fluid dynamics using ultrasound\n- Chirp compression and coded-excitation beamforming\n- Beamforming quality comparison across transmit voltage levels (SNR studies)",
+    "characterization": "- Data Collection Method: Phantom / table-top (flow phantom, no human subjects)\n- Labeling Method: No manual labels; ground-truth flow rate is implicit in camera images. Note that the measured velocity may differ from the pump output in Table 1 due to changes in geometry and flow profiles in the flow chamber.\n- Acquisition system:\n  - Transducer: GEC1-6D curved array, 192 elements, 3.4 MHz center frequency, 95% bandwidth, 35 µm element width, 66 mm elevation focus, 0.0568 m radius\n  - Transmit: diverging wave (no transmit delays, so the diverging nature is induced by the curvature of the surface)\n  - Sampling rate: ~19.2 MHz\n  - Sound speed used: 1509.6 m/s (water-based phantom)\n  - Data type: raw RF (n_ch = 1, float32)\n  - System: Verasonics Vantage 256",
+    "subject_metadata": "This is a phantom dataset (no human or animal subjects). Flow rates are controlled by pump voltage (80 V, 120 V, 160 V), see Table 1."
+   },
+   "image": {
+    "source": "twente-vortexflow/assets/main.png",
+    "thumb": "images/twente-vortexflow-ef516c3-ad6e.jpg",
+    "preview": "images/twente-vortexflow-ef516c3-preview.jpg",
+    "preview_size": [
+     1200,
+     525
+    ]
+   }
+  },
+  "ubc/module_A": {
+   "sha": "4b13119d1ee1c4fa34b3375a84df0971cc757d4b",
+   "collection": null,
+   "pretty_name": "UBC Module A Corrected Synthetic-Channel S-WAVE Phantom Dataset",
+   "license": "cc-by-4.0",
+   "tags": [
+    "openh-rf",
+    "zea",
+    "ultrasound",
+    "rf",
+    "elastography",
+    "phantom",
+    "synthetic-data",
+    "3d"
+   ],
+   "summary": "This submission contains eight 3-D Shear-Wave Absolute Vibro-Elastography (S-WAVE) acquisitions of CIRS model 039 Shear Wave Liver Fibrosis Phantom samples. The source scanner export contains beamformed 64-line RF rather than measured pre-beamforming channel capture. Accordingly, every submitted zea raw_data frame (stored at /tracks/track_0/data/raw_data) is explicitly labeled in-silico/synthetic: a dense point-scatterer field is estimated from one corrected source line-RF frame and forward-simulated through a documented 64-transmit, 128-receive-element model.",
+   "contributors": [
+    "Zongze Li (dataset-preparation contact)",
+    "Yu Chung Lee",
+    "Qi Zeng",
+    "Wanwen Chen",
+    "Zijian Wu",
+    "Yuxin Chen",
+    "Patrick Boyan Chen",
+    "Michael Frew",
+    "Tajwar Abrar Aleef",
+    "Hamid Moradi",
+    "Mohammad Honarvar",
+    "Septimiu E. Salcudean",
+    "Robert Rohling",
+    "The University of British Columbia (UBC), Department of Electrical and Computer Engineering and School of Biomedical Engineering"
+   ],
+   "institutions": [
+    "University of British Columbia"
+   ],
+   "created": "09/01/2026 for this corrected zea-beamformable synthetic-channel package. The source phantom acquisitions predate this packaging.",
+   "keys": [
+    "custom/labels/factory_elasticity_kpa",
+    "custom/simulation/scatterer_positions",
+    "custom/source_provenance/*",
+    "custom/source_provenance/source_event_indices",
+    "custom/source_provenance/source_native_line_rf",
+    "custom/source_provenance/source_timing",
+    "data/image/values",
+    "data/raw_data",
+    "probe/probe_geometry",
+    "scan/polar_angles",
+    "scan/t0_delays"
+   ],
+   "known_issues": "- The measured source is beamformed line RF. The submitted 128-channel data are deterministic forward simulations conditioned on that source.\n- The simulation preserves source-derived spatial and temporal contrast but cannot recover proprietary scanner receive processing or true measured element-level noise/coupling.\n- The stored image is a reference only and is deliberately excluded from the reconstruction path.\n- Mechanical excitation frequencies (40, 50, and 60 Hz) are simultaneous.",
+   "text": {
+    "description": "This submission contains eight 3-D Shear-Wave Absolute Vibro-Elastography (S-WAVE) acquisitions of CIRS model 039 Shear Wave Liver Fibrosis Phantom samples. The source scanner export contains beamformed 64-line RF rather than measured pre-beamforming channel capture. Accordingly, every submitted zea raw_data frame (stored at /tracks/track_0/data/raw_data) is explicitly labeled in-silico/synthetic: a dense point-scatterer field is estimated from one corrected source line-RF frame and forward-simulated through a documented 64-transmit, 128-receive-element model.\n\nThe files are physically delay-consistent and reconstruct with zea-native scanline delay-and-sum. They are not recovered or measured scanner channel data, and they must not be represented as such.",
+    "intended_usage": "The package supports raw-to-B-mode reconstruction tests, ultrasound beamforming research, synthetic-channel modeling, per-plane RF analysis, and 3-D placement using the retained motor-plane geometry. The original proposal described derived S-WAVE elasticity estimates or maps; those products are not available in this release due to missing data. /custom/labels/factory_elasticity_kpa is the CIRS factory-rated nominal stiffness, not a derived S-WAVE estimate.",
+    "characterization": "- Data Collection Method: physical phantom source acquisition followed by a deterministic in-silico channel simulation.\n- Labeling Method: CIRS factory-rated nominal phantom elasticity.\n- Acquisition System: Ultrasonix/Sonix with 4DEC9-5/10 end-firing 3-D probe.\n- Submitted Data Tier: phantom / simulation.\n- Simulation Framework: custom deterministic NumPy/SciPy forward simulator; files and reconstruction were validated with zea 0.1.4.\n\nAcquisition and simulation details:\n\n- Source system: Ultrasonix/Sonix with 4DEC9-5/10 end-firing 3-D probe.\n- Source content: 20 motor planes × 25 retained temporal RF frames × 64 beamformed scan lines × 5,196 axial samples per case.\n- Corrected RF ordering: the 108 stored 16-line events per plane contain two complete setup images at events 0-3 and 4-7, followed by four sector-major groups of 25 temporal frames. Temporal frame k is assembled from raw events [8+k, 33+k, 58+k, 83+k].\n- Temporal frames: all corrected source frames 0-24 are retained; none are deleted or wrapped.\n- Cases / nominal stiffnesses: 1.83, 2.8, 6.2, 6.39, 7.79, 11.63, 17.47, and 21.23 kPa.\n- Source line-RF sampling frequency: 40 MHz.\n- Source temporal sampling: 250 Hz (4 ms between retained RF frames within a plane); 20 motor planes span approximately 27.78° from first to last centre.\n- Simulated channel sampling frequency: 20 MHz.\n- Transmit/demodulation center frequency: 4 MHz.\n- Sound speed used by simulation and reconstruction: 1,540 m/s.\n- Probe geometry: 128 elements on a 10.0-mm-radius convex arc with 0.17-mm pitch and 6.5-mm elevation height.\n- Sector: 64 focused lines spanning 124.68°; the manufacturer-listed 149° value is the extended-sector capability, not the normal sector used here.\n- Transmit focus: 30 mm; modeled transmit aperture: F/1.5.\n- Simulated inter-transmit interval: 250 microseconds; the final interval in each one-frame file is zero because no later transmit is stored in that file.\n- Scatterers: 256 per source line (16,384 per output frame), with deterministic frame-specific sub-line and sub-sample jitter.\n- Channel trace: 3,546 samples (177.3 microseconds), including a final exact-zero tail of 400 samples (20 microseconds).\n- Quantization: int16, scaled to an absolute peak of 26,000; no sample reaches int16 full scale.",
+    "subject_metadata": "The source consists of eight phantom acquisitions only, one for each listed factory-rated stiffness. There are no human or animal subjects and no subject demographics. The phantom model is CIRS model 039 Shear Wave Liver Fibrosis Phantom."
+   },
+   "image": {
+    "source": "ubc/module_A/assets/module_A.png",
+    "thumb": "images/ubc-module-a-b593879-ad6e.jpg",
+    "preview": "images/ubc-module-a-b593879-preview.jpg",
+    "preview_size": [
+     1200,
+     650
+    ]
+   }
+  },
+  "ubc/module_C": {
+   "sha": "67cfd48fb26b9475dd2c05f36539d267757404e4",
+   "collection": null,
+   "pretty_name": "UBC Module C Fetal Phantom",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "b-mode",
+    "beamforming",
+    "fetal-imaging",
+    "phantom",
+    "synthetic",
+    "multimodal",
+    "timeseries",
+    "video",
+    "openh-rf"
+   ],
+   "summary": "This dataset contains 3,845 two-dimensional ultrasound frames from two sessions with the Kyoto Kagaku Fetus Ultrasound Examination Phantom “SPACE FAN-ST.” Each frame contains synthetic RF channel data, preserved beamformed IQ, a source-derived B-mode reference, and relative-time links to NDI tracking, BK scanner viewport video, and Intel RealSense video.",
+   "contributors": [
+    "Zongze Li (dataset-preparation contact)",
+    "Yu Chung Lee",
+    "Qi Zeng",
+    "Wanwen Chen",
+    "Zijian Wu",
+    "Yuxin Chen",
+    "Patrick Boyan Chen",
+    "Michael Frew",
+    "Tajwar Abrar Aleef",
+    "Hamid Moradi",
+    "Mohammad Honarvar",
+    "Septimiu E. Salcudean",
+    "Robert Rohling",
+    "The University of British Columbia (UBC), Department of Electrical and Computer Engineering and School of Biomedical Engineering"
+   ],
+   "institutions": [
+    "University of British Columbia"
+   ],
+   "created": "- Physical phantom acquisition: 06/12/2026.\n- Release preparation: 09/08/2026.",
+   "keys": [
+    "custom/session_calibration/image_t_tracker",
+    "custom/simulation/scatterer_magnitudes",
+    "custom/simulation/scatterer_positions",
+    "custom/simulation/simulation_settings",
+    "custom/source_provenance",
+    "custom/source_provenance/imaging_depth_m",
+    "custom/source_provenance/source_beamformed_iq",
+    "custom/source_provenance/source_bmode_normalized",
+    "custom/synchronization",
+    "custom/synchronization/*",
+    "custom/synchronization/source_valid_axial_samples",
+    "data/image/coordinates",
+    "data/image/values",
+    "data/raw_data",
+    "metadata/credit",
+    "metadata/probe_pose/rotation",
+    "metadata/probe_pose/timestamps",
+    "metadata/probe_pose/translation",
+    "probe/probe_geometry",
+    "scan/azimuth_angles",
+    "scan/focus_distances",
+    "scan/initial_times",
+    "scan/t0_delays",
+    "scan/tgc_gain_curve",
+    "scan/transmit_origins",
+    "scan/tx_apodizations"
+   ],
+   "known_issues": "- Synthetic provenance: Already beamformed IQ cannot recover original element-level receive signals. RF and source-derived B-mode share source information; similarity is not independent physical validation.\n- Unverified acquisition geometry: The synthetic geometry is assumed. Scanner transmit law, receive aperture, RF time-zero, and proprietary compound/multibeam processing are unavailable.\n- Display approximation: Scan conversion uses a 31.1-mm display aperture, ±14.96° scanline range, virtual apex, and 4% black border.",
+   "text": {
+    "description": "This dataset contains 3,845 two-dimensional ultrasound frames from two sessions with the Kyoto Kagaku Fetus Ultrasound Examination Phantom “SPACE FAN-ST.” Each frame contains synthetic RF channel data, preserved beamformed IQ, a source-derived B-mode reference, and relative-time links to NDI tracking, BK scanner viewport video, and Intel RealSense video.\n\nThe RF channels were simulated from already beamformed and compounded BK3500 IQ using a custom scatterer model and assumed transmit/receive geometry. They are not measured pre-beamforming channels. Modalities have temporal synchronization only; no validated spatial registration is supplied.",
+    "intended_usage": "Research uses include synthetic RF-to-B-mode reconstruction, denoising, super-resolution, fetal-phantom scan-plane assessment, and temporally aligned multimodal learning. The dataset is for research and technical evaluation, not clinical diagnosis. Source-derived reference images are not independent physical ground truth for the simulated channels.",
+    "characterization": "- Collection: Phantom ultrasound and simultaneous room-camera and tracking recordings, followed by deterministic synthetic-channel generation.\n- Acquisition system: BK3500 ultrasound; NDI Tool-2 tracked-marker poses; NDI Tool-1 reference-tool poses; Intel RealSense RGB, left/right infrared, and encoded depth video.\n- Labels: Source indices, synchronization validity flags, and simulation provenance. No manual fetal-structure segmentations or verified phantom configuration labels are supplied.\n- Simulation framework: Custom NumPy/SciPy scatterer forward model using four-point fractional delays, pulse filtering, frame-specific noise, and int16 quantization. Session 1 preserves its original amplitudes and shared random draws, with scatterer depths evaluated on each frame's source IQ axial grid. Session 2 uses fixed deterministic positions and reflectivity draws for the session, with frame amplitudes derived from its IQ envelope. No two-channel proxy data are included as equivalent RF measurements.\n\nUltrasound and synthetic-channel parameters\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe element geometry and dimensions are simulation assumptions, not measured probe specifications. The relationship between the recorded 98-mm focus and the proprietary scanner transmit law is unknown.",
+    "subject_metadata": "- Subject type: Phantom; no human patient or animal subject.\n- Phantom: Kyoto Kagaku Fetus Ultrasound Examination Phantom “SPACE FAN-ST.”\n- Stable HDF5 subject ID: Kyoto-Kagaku-SPACE-FAN-ST in both sessions.\n- Sessions: session_01 and session_02, recorded separately from subject ID.\n- Anatomical region: Fetal ultrasound training phantom within an abdominal model.\n- Demographics/pathology: Not applicable. No verified phantom configuration label."
+   },
+   "image": {
+    "source": "ubc/module_C/assets/main.png",
+    "thumb": "images/ubc-module-c-6947fa2-ad6e.jpg",
+    "preview": "images/ubc-module-c-6947fa2-preview.jpg",
+    "preview_size": [
+     248,
+     704
+    ]
+   }
+  },
+  "ulmshare": {
+   "sha": "fff6c6826325bd8e62aae7599a479cb56cecfdcc",
+   "collection": null,
+   "pretty_name": "ULMShare (in vivo mouse transcranial ULM)",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "iq",
+    "openh-rf",
+    "ulm",
+    "super-resolution",
+    "microbubbles",
+    "in-vivo",
+    "mouse",
+    "brain"
+   ],
+   "summary": "Pre-beamformed, plane-wave IQ channel data from transcranial ultrasound localization microscopy (ULM) of the mouse brain, converted from the public ULMShare release into the zea format. Each acquisition is a contrast-enhanced (microbubble) plane-wave sequence over the intact skull of an anesthetized mouse; compounding the transmits gives a Power-Doppler movie of the cerebral microvasculature, and localizing and tracking individual microbubbles across frames gives a super-resolved density map of the vessels.",
+   "contributors": [
+    "Brice Rauby",
+    "Nin Ghigo",
+    "Gerardo Ramos-Palacios",
+    "Alexis Leconte",
+    "Stephen A. Lee",
+    "Alice Wu",
+    "Paul Xing",
+    "Oleksandra Gulenko",
+    "Louis Caron",
+    "Antoine Malescot",
+    "Eric Martineau",
+    "Jonathan Porée",
+    "Maxime Gasse",
+    "Ravi L. Rungta",
+    "Abbas F. Sadikot",
+    "Jean Provost"
+   ],
+   "institutions": [
+    "Polytechnique"
+   ],
+   "created": "08/21/2026 (zea conversion). The underlying acquisitions were recorded between March 2022 and March 2025.",
+   "keys": [
+    "custom/density_map",
+    "custom/mouse_animal_protocol_id",
+    "data/raw_data",
+    "metadata/credit",
+    "metadata/subject/weight",
+    "probe/probe_center_frequency",
+    "probe/probe_geometry",
+    "scan/azimuth_angles",
+    "scan/center_frequency",
+    "scan/demodulation_frequency",
+    "scan/focus_distances",
+    "scan/initial_times",
+    "scan/polar_angles",
+    "scan/sampling_frequency",
+    "scan/sound_speed",
+    "scan/t0_delays",
+    "scan/tgc_gain_curve",
+    "scan/transmit_origins",
+    "scan/tx_apodizations"
+   ],
+   "known_issues": "- The metadata of mice 55 56 and 57 should not mark them as air puff. Only mice 58, and 59 acq 1 and 3 have should be marked air puff.\n- The metadata should include a brain anatomy label.\n- zea version for the files is not up-to-date.\n- Some of the acquisitions are missing a subset of the channels for the first 400 transmits or so. This is also present in the original ULMShare dataset and does not significantly affect results.",
+   "text": {
+    "description": "Pre-beamformed, plane-wave IQ channel data from transcranial ultrasound localization microscopy (ULM) of the mouse brain, converted from the public ULMShare release into the zea format. Each acquisition is a contrast-enhanced (microbubble) plane-wave sequence over the intact skull of an anesthetized mouse; compounding the transmits gives a Power-Doppler movie of the cerebral microvasculature, and localizing and tracking individual microbubbles across frames gives a super-resolved density map of the vessels.\n\nThis is in vivo animal data, not phantom or simulated. It is a conversion of the upstream release, which holds 99 acquisitions from 61 mice (approximately 30 TB of original-source raw data, distinct from the stored HF release below) recorded between March 2022 and March 2025 at the Provost Ultrasound Lab (Polytechnique Montréal) and partner sites.",
+    "intended_usage": "Ultrasound localization microscopy: microbubble detection and localization, frame-to-frame tracking, super-resolved vascular density and velocity mapping, and clutter filtering / tissue suppression.",
+    "characterization": "- Data Collection Method: in vivo animal (mouse), contrast-enhanced.\n- Labeling Method: none. A reference ULM density map rendered by the original authors is stored alongside the acquisitions as a density_map custom element — a visualization, not a ground-truth label.\n- Acquisition system: Verasonics Vantage 256. See files for further acquisition details.",
+    "subject_metadata": "Aggregate only; the subjects are mice, so no PHI applies. Subject attributes are counted per mouse (n = 61); probe and imaging plane per acquisition (n = 99).\n\n- Subjects: 61 mice, 99 acquisitions.\n- Sex: 36 female, 22 male, 3 unrecorded.\n- Strain: C57BL/6J (48), C57BL/6N (13).\n- Age: 22–216 days (recorded for 56 of 61).\n- Weight: 11.3–31.0 g (recorded for 55 of 61).\n- Anatomy: whole-brain transcranial, through the intact skull. An imaging plane is named for 23 of 99 acquisitions: striatum, hippocampus, midbrain, pons, cerebellum.\n- Pathology: none — all animals are healthy.\n- Probe model: L22-14v (77), GEL818iD (15), L22-14vX (7).\n- Sites: McGill University (43 mice), ICM / Paris Brain Institute (12), Université de Montréal (6)."
+   },
+   "image": {
+    "source": "ulmshare/assets/main.png",
+    "thumb": "images/ulmshare-c3c9677-ad6e.jpg",
+    "preview": "images/ulmshare-c3c9677-preview.jpg",
+    "preview_size": [
+     500,
+     329
+    ]
+   }
+  },
+  "unc-liver": {
+   "sha": "e625bdd2dd3110116260a13ba65c3e4f2d6f2ef3",
+   "collection": null,
+   "pretty_name": "fullwave-abdominal-wall: Fullwave Abdominal Wall Simulation (UNC / NC State / Stanford)",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "openh-rf",
+    "synthetic-aperture",
+    "curvilinear",
+    "sound-speed-estimation",
+    "aberration-correction",
+    "simulation"
+   ],
+   "summary": "Full-wave nonlinear acoustic simulations of transabdominal liver imaging through anatomically realistic numerical phantoms of the human abdominal wall. Each acquisition pairs full synthetic aperture (multistatic) RF channel data with the exact ground-truth material maps that generated it: speed of sound, density, absorption and the coefficient of nonlinearity, plus a per-pixel tissue segmentation.",
+   "contributors": [
+    "Gianmarco Pinton (primary point of contact; Lampe Joint Department of Biomedical Engineering, UNC Chapel Hill and NC State University)",
+    "University of North Carolina at Chapel Hill",
+    "NC State University",
+    "Stanford University",
+    "The underlying phantoms and simulations are described in Zhuang et al. (2026)."
+   ],
+   "institutions": [
+    "NC State University",
+    "University of North Carolina",
+    "Stanford University"
+   ],
+   "created": "03/19/2024.",
+   "keys": [
+    "data/*/coordinates",
+    "data/attenuation_map/values",
+    "data/beamformed_data/values",
+    "data/density_map/values",
+    "data/nonlinearity_map/values",
+    "data/phantom_region_map/values",
+    "data/raw_data",
+    "data/segmentation/labels",
+    "data/segmentation/values",
+    "data/sos_map/values",
+    "probe/probe_geometry",
+    "scan/center_frequency",
+    "scan/demodulation_frequency",
+    "scan/focus_distances",
+    "scan/initial_times",
+    "scan/polar_angles",
+    "scan/sampling_frequency",
+    "scan/sound_speed",
+    "scan/t0_delays",
+    "scan/transmit_origins",
+    "scan/tx_apodizations"
+   ],
+   "known_issues": "- fs / f0 = 14.436 / 3.7 = 3.90, marginally below the ×4 heuristic often applied to RF. This is the simulator's native rate (101.1 MHz decimated by 7) and still satisfies Nyquist for the −6 dB bandwidth of a 70%-fractional-bandwidth 3.7 MHz pulse (band edge ≈ 5.0 MHz, Nyquist 7.2 MHz). No aliasing is present.\n- segmentation is derived, not stored. The simulator's own integer segmentation is a *per-volume region index* whose index-to-tissue mapping differs between phantom volumes, so those indices are not comparable across acquisitions.",
+   "text": {
+    "description": "Full-wave nonlinear acoustic simulations of transabdominal liver imaging through anatomically realistic numerical phantoms of the human abdominal wall. Each acquisition pairs full synthetic aperture (multistatic) RF channel data with the exact ground-truth material maps that generated it: speed of sound, density, absorption and the coefficient of nonlinearity, plus a per-pixel tissue segmentation.\n\nThe phantoms were segmented from Visible Human Project cryosection photography at 0.33 mm isotropic resolution and interpolated to 0.0825 mm. Wave propagation was simulated with Fullwave 2, which models reverberation, aberration and nonlinear propagation. The transducer modelled is a curvilinear C5-2v (Verasonics).\n\nThis is simulated data. Its distinguishing property is that the ground truth is exact rather than estimated: the sound-speed and attenuation maps are the simulation inputs, not a reconstruction, which makes it directly usable for training and quantitative evaluation of sound-speed estimation and aberration-correction methods.",
+    "intended_usage": "- Speed-of-sound estimation: exact per-pixel ground-truth sound speed, randomised per tissue per simulation so the mapping is not memorisable from anatomy alone.\n- Aberration correction: measured RMS arrival-time aberration is 138.9 ± 78.4 ns across the dataset.\n- Reverberation / clutter suppression: the abdominal wall produces realistic diffuse reverberation (decay in the expected −12 to −10 dB/cm range).\n- Advanced beamforming: the multistatic full synthetic aperture matrix supports retrospective synthesis of any transmit sequence (focused, plane wave, diverging).\n- Tissue segmentation from channel data.",
+    "characterization": "- Data Collection Method: synthetic (Fullwave 2 numerical simulation)\n- Labeling Method: synthetic ground truth (simulation inputs)\n- Acquisition system: simulated Verasonics C5-2v curvilinear array: 128 elements, 49.57 mm radius of curvature, 0.508 mm arc pitch, 3.7 MHz transmit centre frequency, 70% fractional bandwidth, 14.436 MHz sampling. Transmit pulse is a two-cycle Gaussian-enveloped sine at 0.1 MPa. No lens or matching layer is modelled.",
+    "subject_metadata": "Aggregate only; no PHI. All phantoms derive from one Visible Human Project cadaveric subject (female), so the dataset represents a single anatomy sampled at many slice positions and orientations, with randomised abdominal wall thickness (5–71 mm, mean 41.0 mm, SD 8.9 mm) and randomised per-tissue acoustic properties.\n\nTissue composition varies by volume type; across the phantom volumes reported in the source publication, subcutaneous fat and muscle predominate (fat 56.5 ± 8.3%, muscle 22.2 ± 7.7%, connective 20.7 ± 4.2%, blood 0.6 ± 0.5% for wall-dominated volumes)."
+   },
+   "image": {
+    "source": "unc-liver/assets/main.png",
+    "thumb": "images/unc-liver-ee7ddf6-ad6e.jpg",
+    "preview": "images/unc-liver-ee7ddf6-preview.jpg",
+    "preview_size": [
+     935,
+     900
+    ]
+   }
+  },
+  "unc-openpros": {
+   "sha": "ab6bc7b0f234dc665f9a501ecc21c73250ea6c3b",
+   "collection": null,
+   "pretty_name": "OpenPros Limited-View Prostate USCT",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "openh-rf",
+    "prostate",
+    "usct",
+    "speed-of-sound",
+    "full-waveform-inversion",
+    "simulation"
+   ],
+   "summary": "OpenPros is a large-scale benchmark for limited-view prostate ultrasound computed tomography (USCT). Each example pairs simulated full-waveform RF data from transabdominal and transrectal acquisition paths with an anatomically realistic two-dimensional speed-of-sound (SOS) map. The source OpenPros phantoms are derived from expert-annotated clinical MRI/CT anatomy and experimental measurements of ex vivo prostate specimens; the RF measurements in this package are simulated rather than acquired in vivo.",
+   "contributors": [
+    "Hanchen Wang",
+    "Yixuan Wu",
+    "Yinan Feng",
+    "Peng Jin",
+    "Luoyuan Zhang",
+    "Shihang Feng",
+    "James Wiskin",
+    "Baris Turkbey",
+    "Peter A. Pinto",
+    "Bradford J. Wood",
+    "Songting Luo",
+    "Yinpeng Chen",
+    "Emad Boctor",
+    "Youzuo Lin (corresponding author)",
+    "The affiliations include the University of North Carolina at Chapel Hill, Johns Hopkins University, the National Institutes of Health, the Pennsylvania State University, QT Imaging, Iowa State University, and Google DeepMind. Source repository: ; dataset website: ."
+   ],
+   "institutions": [
+    "University of North Carolina",
+    "Johns Hopkins University",
+    "National Institutes of Health",
+    "Pennsylvania State University",
+    "Iowa State University"
+   ],
+   "created": "05/18/2025 (initial public release of OpenPros).",
+   "keys": [],
+   "known_issues": "- focus_distances, t0_delays, tx_apodizations, and related transmit fields are compatibility placeholders because the simulation uses external point sources rather than a conventional focused array transmission.",
+   "text": {
+    "description": "OpenPros is a large-scale benchmark for limited-view prostate ultrasound computed tomography (USCT). Each example pairs simulated full-waveform RF data from transabdominal and transrectal acquisition paths with an anatomically realistic two-dimensional speed-of-sound (SOS) map. The source OpenPros phantoms are derived from expert-annotated clinical MRI/CT anatomy and experimental measurements of ex vivo prostate specimens; the RF measurements in this package are simulated rather than acquired in vivo. The intended research task is quantitative SOS reconstruction from limited-angle ultrasound data.",
+    "intended_usage": "- Training and evaluating limited-angle prostate USCT reconstruction methods.\n- Reconstructing quantitative two-dimensional SOS maps from full-waveform data.\n- Benchmarking learned, physics-guided, and operator-learning inverse methods.\n- Studying robustness to noise and generalization across prostate specimens or patient-level anatomies.\n- Reproducing inference with the pretrained OpenPros InversionNet baseline.",
+    "characterization": "- Data collection method: Synthetic FDTD wave-propagation simulations through anatomically realistic digital prostate phantoms.\n- Ground-truth method: SOS maps derived from expert-annotated MRI/CT anatomy, measured ex vivo prostate SOS values, and literature tissue properties.\n- Anatomy: Prostate and surrounding male pelvic anatomy, including tissue heterogeneity and, depending on the slice, bony structures and lesions.\n- Acquisition geometry: Limited-view configuration with 10 sources and 161 receivers on the abdominal/body-surface side and another 10 sources and 161 receivers on the transrectal side.\n- Excitation: 1 MHz peak-frequency Ricker wavelet.\n- Sampling: 10 MHz (dt = 1e-7 s), 1,000 samples, or 100 microseconds per waveform.\n- Image grid: 401 axial by 161 lateral samples at 0.375 mm spacing, covering approximately 150 mm by 60 mm.",
+    "subject_metadata": "The converted release identifies its content as a simulation and stores composite subject IDs such as 1_prostate_00, combining patient-level anatomy 3_01 with prostate-level index prostate_00. The release uses four patient-level anatomy IDs (3_01 through 3_04) and 62 prostate indices shared across acquisition positions."
+   },
+   "image": {
+    "source": "unc-openpros/assets/main.png",
+    "thumb": "images/unc-openpros-8c74378-ad6e.jpg",
+    "preview": "images/unc-openpros-8c74378-preview.jpg",
+    "preview_size": [
+     322,
+     802
+    ]
+   }
+  },
+  "us4us": {
+   "sha": "435ba6dee3c2c828f187338f3a3fdcf49a75e745",
+   "collection": null,
+   "pretty_name": "us4us Ring-Array USCT (forearm, breast phantom, water)",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "openh-rf",
+    "zea",
+    "usct",
+    "tomography",
+    "ring-array",
+    "attenuation",
+    "forearm"
+   ],
+   "summary": "Raw RF data acquired with the us4us Ltd. us4R system and a Draminski ring probe.",
+   "contributors": [
+    "Ziemowit Klimonda (PI)",
+    "Piotr Jarosik",
+    "Jakub Rozbicki",
+    "Piotr Karwat",
+    "Marcin Lewandowski",
+    "us4us Ltd. (https://us4us.eu/)"
+   ],
+   "institutions": [],
+   "created": "09/07/2026",
+   "keys": [
+    "data/raw_data"
+   ],
+   "known_issues": "* The following probe elements should be considered damaged: [367, 409, 457, 764, 775, 776, 368, 390, 470, 739, 792].",
+   "text": {
+    "description": "Raw RF data acquired with the us4us Ltd. us4R system and a Draminski ring probe.\n\nIntended for ultrasound tomographic reconstruction.\n\nAcquisitions were performed on:\n- the left and right human forearms of 8 healthy volunteers,\n- a Yezitronix B-RG-1.2 breast phantom,\n- a single reference slice from water only.\n\nThe forearm and phantom acquisitions comprise consecutive slices spaced 9 mm apart in depth (half of the probe elevation).\n\nEach slice was recorded using 1024 subsequent single-element transmissions, and received by a 512-element aperture located opposite the transmitting element.",
+    "intended_usage": "Ultrasound computed tomography image reconstruction.",
+    "characterization": "* Data Collection Method: phantom, healthy adult human volunteers.\n  * Labeling Method: N/A.\n  * Acquisition system:\n      - ring probe:\n          - probe radius: 130mm,\n          - number of elements: 1024,\n          - center frequency: 2MHz,\n          - sampling rate: 8125000.0,\n      - us4R research system + host PC,\n      - custom positioning system for subject spatial control.\n  * Tx/Rx scheme:\n      - the scheme consisted of 1024 transmit-receive events,\n      - each event consisted of a single probe element transmitting a short pulse (1 period at 2 MHz excitation), while 512 probe elements were used for reception,\n      - the 1024 transmit events were performed sequentially, with each probe element transmitting once,\n      - for each transmission, the center of the receiving aperture was positioned on the opposite side of the probe relative to the transmitting element,\n      - for example, for the 0th transmission, the 0th probe element transmitted, and the receiving aperture consisted of probe elements 256–767.",
+    "subject_metadata": "The dataset contains data from:\n  * breast phantom Yezitronix B-RG-1.2,\n  * both forearms of 8 healthy human volunteers (2 females and 6 males, age range [20, 55]),\n  * water only (reference data)."
+   },
+   "image": {
+    "source": "us4us/assets/main.png",
+    "thumb": "images/us4us-bd4cf1c-ad6e.jpg",
+    "preview": "images/us4us-bd4cf1c-preview.jpg",
+    "preview_size": [
+     900,
+     900
+    ]
+   }
+  },
+  "vanderbilt": {
+   "sha": "48fbb0ac7ca503e41f69a45022c551b5bc01a044",
+   "collection": null,
+   "pretty_name": "Vanderbilt / Multi-Frame Focused Transmit Echocardiography Channel Dataset",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "openh-rf",
+    "echocardiography",
+    "cardiac",
+    "harmonic-imaging",
+    "phased-array"
+   ],
+   "summary": "This multi-frame focused transmit echocardiography channel dataset contains over 2000 frames of fundamental and harmonic data acquired with the P4-2v probe on a Verasonics Vantage 128. This dataset was originally acquired to visualize the left atrial appendage in patients following transesophageal echocardiography. Some patients have atrial fibrillation, which can cause blood clots to form in the appendage.",
+   "contributors": [
+    "Brett Byram (PI)",
+    "Christopher Khan",
+    "Ying-Chun (Preston) Pan",
+    "Zoe Marshall",
+    "Vanderbilt University"
+   ],
+   "institutions": [
+    "Vanderbilt University"
+   ],
+   "created": "07/11/2026",
+   "keys": [
+    "custom/legacy_metadata/imaging_view_name",
+    "custom/legacy_metadata/notes",
+    "data/raw_data",
+    "metadata/imaging_view_name",
+    "metadata/notes"
+   ],
+   "known_issues": "As mentioned in Subject Metadata, view names should only be used as a reference for interpreting the image and should not be used to train a view classification task.",
+   "text": {
+    "description": "This multi-frame focused transmit echocardiography channel dataset contains over 2000 frames of fundamental and harmonic data acquired with the P4-2v probe on a Verasonics Vantage 128. This dataset was originally acquired to visualize the left atrial appendage in patients following transesophageal echocardiography. Some patients have atrial fibrillation, which can cause blood clots to form in the appendage.\n\nEach dataset follows the naming convention of subject_id_view_number_sequence_type. subject_id is a six-digit random number. view_number distinguishes between multiple views acquired on the same subject. sequence_type is either Focused_Uncoded_TX or Harmonic_Focused_Uncoded_TX.",
+    "intended_usage": "This dataset could be useful for training a domain-adaptive network, as it captures a wide range of in vivo image quality. It might also be useful for training a model that converts fundamental to harmonic data — note that the harmonic and fundamental data are not matched (see Dataset Characterization). It contains view names provided by the physician at the time of acquisition, but these views were often slightly modified to accommodate the patient (see Subject Metadata). It could also be useful for identifying thrombus in the left atrial appendage, as ~10% of the dataset came from patients with a thrombus (see Subject Metadata).",
+    "characterization": "- Data Collection Method: clinical\n- Labeling Method: human-annotated\n- Acquisition System: Verasonics Vantage 128, P4-2v (64 elements). Fundamental: 2.72 MHz; Harmonic: 2.08 MHz transmit / 4.16 MHz receive. Sampling rate: 10.88 MHz.\n- Frame rate: Fundamental: 25 Hz (32 frames). Harmonic: 10 Hz (32 frames).\n- Note that the fundamental and harmonic sequences are not matched or interleaved: the harmonic sequence was executed immediately after the fundamental sequence within the same Verasonics setup file.",
+    "subject_metadata": "- imaging_view_name: one of {'apical two chamber', 'apical four chamber', 'parasternal short axis', 'parasternal long axis', 'subxiphoid', 'N/A'}. Because acquisition occurred while patients were recovering from anesthesia, sonographers often deviated from standard view geometry to maximize image quality; as a result, these datasets should not be used to train a view classification network. The 'N/A' label marks acquisitions that didn't approximate any standard view at all — in these cases, abandoning the standard geometry entirely was the only way to obtain reasonable image quality.\n- Notes: unstructured free-text on patient condition and acquisition quality. Common content includes left atrial appendage occlusion devices (Watchman, Amulet, or Conformal), presence of thrombus, comorbidities such as COPD, and patient motion during acquisition."
+   },
+   "image": {
+    "source": "vanderbilt/assets/main.png",
+    "thumb": "images/vanderbilt-0eb0f9b-ad6e.jpg",
+    "preview": "images/vanderbilt-0eb0f9b-preview.jpg",
+    "preview_size": [
+     1200,
+     849
+    ]
+   }
+  },
+  "waterloo-carotid": {
+   "sha": "0415055d49ce9f26768782e495b6e5d4ecb2554a",
+   "collection": null,
+   "pretty_name": "UW-CarotidRF",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "openh-rf",
+    "medical-imaging",
+    "in-vivo",
+    "carotid-artery",
+    "beamforming",
+    "vector-doppler",
+    "vector-flow-imaging"
+   ],
+   "summary": "Raw RF frames (plane wave) and vector flow profiles of the human carotid arteries, acquired in vivo by the LITMUS research group at the University of Waterloo with a programmable research scanner configured for high-frame-rate vector flow imaging. The dataset holds longitudinal images of the common carotid artery and cross-sectional images of the internal carotid artery, recorded to study carotid hemodynamics at baseline and during physiological maneuvers (Valsalva maneuver, head-down tilt, and supine postures).",
+   "contributors": [
+    "Hassan Nahas",
+    "Jason Y. -H. Hsu",
+    "Theresa Gu",
+    "Adrian J. Y. Chee",
+    "Alfred C. H. Yu",
+    "LITMUS, University of Waterloo"
+   ],
+   "institutions": [
+    "University of Waterloo"
+   ],
+   "created": "07/16/2026",
+   "keys": [
+    "data/color_doppler",
+    "data/image",
+    "data/power_doppler",
+    "data/raw_data",
+    "data/vector_velocity_x",
+    "data/vector_velocity_z",
+    "metadata/annotations/anatomy",
+    "metadata/annotations/label",
+    "metadata/annotations/view",
+    "metadata/credit",
+    "metadata/subject/age",
+    "metadata/subject/id",
+    "metadata/subject/sex",
+    "metadata/subject/type",
+    "probe/name",
+    "probe/probe_geometry",
+    "probe/type",
+    "scan/*"
+   ],
+   "known_issues": "- Acquisitions made with US4R-lite include x2 receive multiplexing, so the full frame is constructed from two transmissions (receiving the first 64 channels first, then the second 64 channels).\n- Participants may overlap with other UWaterloo submissions.\n- Due to hardware, some acquisitions may have elevated Doppler noise on the right side of the image.\n- Some acquisitions may have not hit the target view optimally, leading to poor flow detection.\n- Due to the reduced PRF with the US4R-lite, some internal carotid artery acquisitions may contain sporadic/minor aliasing.",
+   "text": {
+    "description": "Raw RF frames (plane wave) and vector flow profiles of the human carotid arteries, acquired in vivo by the LITMUS research group at the University of Waterloo with a programmable research scanner configured for high-frame-rate vector flow imaging. The dataset holds longitudinal images of the common carotid artery and cross-sectional images of the internal carotid artery, recorded to study carotid hemodynamics at baseline and during physiological maneuvers (Valsalva maneuver, head-down tilt, and supine postures).",
+    "intended_usage": "Developing, benchmarking, and evaluating methods for ultrasound image reconstruction, motion estimation, clutter filtering, multi-angle Doppler processing, and vector flow imaging (VFI) in carotid artery imaging.",
+    "characterization": "- Data Collection Method: In vivo imaging of human carotid arteries (Common Carotid Artery and Internal Carotid Artery).\n- Labeling Method: Categorized by target artery (Anatomy), view direction (Longitudinal or Cross-sectional), and physiological condition/maneuver (Baseline, Valsalva Maneuver, Valsalva Maneuver – Supine, Valsalva Maneuver – Head Down Tilt, Head Down Tilt).\n- Acquisition system: Raw RF data was acquired from programmable research scanners (US4R/US4R-Lite, US4US, Warsaw, Poland) equipped with an L14-5 linear array transducer.",
+    "subject_metadata": ""
+   },
+   "image": {
+    "source": "waterloo-carotid/assets/main.png",
+    "thumb": "images/waterloo-carotid-c890b49-ad6e.jpg",
+    "preview": "images/waterloo-carotid-c890b49-preview.jpg",
+    "preview_size": [
+     839,
+     663
+    ]
+   }
+  },
+  "waterloo-femoralvein": {
+   "sha": "5044e44369c90426c1709a32a125ff0bd6cde510",
+   "collection": null,
+   "pretty_name": "UW-FemVeinRF",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "openh-rf",
+    "medical-imaging",
+    "in-vivo",
+    "femoral-vein",
+    "beamforming",
+    "vector-doppler",
+    "dealiasing",
+    "vector-flow-imaging"
+   ],
+   "summary": "Raw RF frames (plane wave) and vector flow profiles of the human femoral vein, acquired by the VORTEX research group at the University of Waterloo with a programmable research scanner configured for high-frame-rate vector flow imaging. The data was collected to study venous hemodynamics under muscular contraction and head-up tilt.",
+   "contributors": [
+    "Hassan Nahas",
+    "Jeremy N. Cohen",
+    "Eudoxia Zafiris",
+    "Skye H.T. Ling",
+    "Alfred C.H. Yu",
+    "Jason S. Au",
+    "VORTEX, University of Waterloo"
+   ],
+   "institutions": [
+    "University of Waterloo"
+   ],
+   "created": "08/20/2026",
+   "keys": [
+    "data/color_doppler",
+    "data/image",
+    "data/power_doppler",
+    "data/raw_data",
+    "data/vector_velocity_x",
+    "data/vector_velocity_x_deal",
+    "data/vector_velocity_z",
+    "data/vector_velocity_z_deal",
+    "metadata/annotations/anatomy",
+    "metadata/annotations/label",
+    "metadata/annotations/view",
+    "metadata/credit",
+    "metadata/subject/age",
+    "metadata/subject/id",
+    "metadata/subject/sex",
+    "metadata/subject/type",
+    "probe/name",
+    "probe/probe_geometry",
+    "probe/type",
+    "scan/*"
+   ],
+   "known_issues": "- Participants may overlap with other UWaterloo submissions.\n- Due to hardware, some acquisitions may have elevated or spikey Doppler noise on the left side of the image.\n- Some acquisitions may have not hit the target view optimally, leading to poor flow detection.\n- Dealiased velocity vector fields rely on speckle tracking which may be more sensitive to noise in low Doppler power conditions.",
+   "text": {
+    "description": "Raw RF frames (plane wave) and vector flow profiles of the human femoral vein, acquired by the VORTEX research group at the University of Waterloo with a programmable research scanner configured for high-frame-rate vector flow imaging. The data was collected to study venous hemodynamics under muscular contraction and head-up tilt.",
+    "intended_usage": "Developing, benchmarking, and evaluating methods for ultrasound image reconstruction, motion estimation, clutter filtering, multi-angle Doppler processing, and vector flow imaging (VFI) in venous imaging.",
+    "characterization": "- Data Collection Method: In vivo imaging of human femoral veins.\n- Labeling Method: Label contains target vessel (Anatomy), view direction (Longitudinal), and physiological condition (Contraction + head up tilt).\n- Acquisition system: Raw RF data was acquired from programmable research scanners (US4R, US4US, Warsaw, Poland) equipped with an AL2442 linear array transducer.",
+    "subject_metadata": ""
+   },
+   "image": {
+    "source": "waterloo-femoralvein/assets/main.png",
+    "thumb": "images/waterloo-femoralvein-f29b42d-ad6e.jpg",
+    "preview": "images/waterloo-femoralvein-f29b42d-preview.jpg",
+    "preview_size": [
+     469,
+     627
+    ]
+   }
+  },
+  "waterloo-muscle": {
+   "sha": "ffe9d8ed268480c1c8a7bff409118a8235258ce2",
+   "collection": null,
+   "pretty_name": "UW-MuscleRF",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "openh-rf",
+    "medical-imaging",
+    "in-vivo",
+    "muscle",
+    "beamforming",
+    "sound-speed-estimation"
+   ],
+   "summary": "18,720 raw RF frames (plane wave; 580,320 frame-transmits) with associated speed-of-sound (SoS) measurements, acquired in vivo by LITMUS at the University of Waterloo with a programmable research scanner configured for high-frame-rate imaging. Images were collected with a rigorous protocol based on landmarking according to bone markers to ensure image consistency. This data was collected as part of the following study:",
+   "contributors": [
+    "Hassan Nahas",
+    "Di Xiao",
+    "Pat de la Torre",
+    "Adrian J.Y. Chee",
+    "Marina Mourtzakis",
+    "Alfred C.H. Yu",
+    "LITMUS, University of Waterloo"
+   ],
+   "institutions": [
+    "University of Waterloo"
+   ],
+   "created": "07/12/2026",
+   "keys": [
+    "custom/baecke_leisure_index",
+    "custom/baecke_score",
+    "custom/baecke_sport_index",
+    "custom/baecke_work_index",
+    "custom/estimated_global_speed_of_sound",
+    "custom/participant_bmi",
+    "custom/participant_weight",
+    "custom/through_tx_speed_of_sound",
+    "data/image",
+    "data/raw_data",
+    "scan/*"
+   ],
+   "known_issues": "- Scan.sound_speed uses default 1540 m/s used for computing tx delays as was done during acquisition. This is different from the estimated global speed of sound which is currently stored as a custom element.\n- Some of the participants here have been recruited for other UWaterloo datasets.\n- The US4R-lite scanner used here is capable of 128 Tx/64 Rx. To fully collect all 128 channels in the L14-5 probe used here, the scanner transmits twice, receiving on the first 64 channels, then the second 64 channels to form a full RF frame.",
+   "text": {
+    "description": "18,720 raw RF frames (plane wave; 580,320 frame-transmits) with associated speed-of-sound (SoS) measurements, acquired in vivo by LITMUS at the University of Waterloo with a programmable research scanner configured for high-frame-rate imaging. Images were collected with a rigorous protocol based on landmarking according to bone markers to ensure image consistency. This data was collected as part of the following study:\n\nD. Xiao, P. De La Torre, M. Saif El Nasr, A. J. Y. Chee, M. Mourtzakis, and A. C. H. Yu, “LivePulse-Echo Speed-of-Sound Estimation for Quality Assessment of Large Muscles in Humans,”Ultrasound in Medicine & Biology, vol. 51, no. 11, pp. 1925–1935, Nov. 2025.",
+    "intended_usage": "Developing and benchmarking methods for ultrasound image reconstruction and sound speed estimation in muscle tissue using plane wave imaging.",
+    "characterization": "- Data Collection Method: In vivo imaging\n- Labeling Method: Global speed of sound estimation for each image + Through transmission speed of sound using Olympus probe for calf.\n\nThe algorithm for global speed of sound estimation can be found here:\n\nD. Xiao, P. D. l. Torre and A. C. H. Yu, \"Real-Time Speed-of-Sound Estimation In Vivo via Steered Plane Wave Ultrasound,\" in IEEE Transactions on Ultrasonics, Ferroelectrics, and Frequency Control, vol. 71, no. 6, pp. 673-686, June 2024, doi: 10.1109/TUFFC.2024.3395490.\n\n\n- Acquisition system: Raw RF data was acquired from the US4R-Lite research scanner (US4US, Warsaw, Poland), equipped with an L14-5 linear array. For a subset of acquisitions, a through-transmission SoS estimation was made using a custom setup consisting of two single-element Olympus transducers (C567; Olympus; Tokyo, Japan).",
+    "subject_metadata": ""
+   },
+   "image": {
+    "source": "waterloo-muscle/assets/main.png",
+    "thumb": "images/waterloo-muscle-2f42116-ad6e.jpg",
+    "preview": "images/waterloo-muscle-2f42116-preview.jpg",
+    "preview_size": [
+     381,
+     801
+    ]
+   }
+  },
+  "weillcornell": {
+   "sha": "cdf43df0bc493331de8f8b3ecbd0698b78722ecb",
+   "collection": null,
+   "pretty_name": "Weill Cornell QUS Phantom Dataset",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "openh-rf",
+    "quantitative-ultrasound",
+    "phantom",
+    "raw-channel-data"
+   ],
+   "summary": "Pre-beamformed RF channel data from three homogeneous tissue-mimicking phantoms, acquired for quantitative ultrasound (QUS). Next to the raw RF, each acquisition carries the phantom's model-derived theoretical backscatter coefficient (BSC), direct per-frame Nakagami maps, and 20-frame pooled Nakagami references, so single-frame QUS estimators can be trained and evaluated against targets stored in the same file.",
+   "contributors": [
+    "Shangke Liu (contact)",
+    "Tipu Sultan",
+    "Cameron Hoerig",
+    "Jonathan Mamou",
+    "Biomedical Ultrasound Research Laboratory (BURL), Weill Cornell Medicine"
+   ],
+   "institutions": [],
+   "created": "Not specified by the contributors.",
+   "keys": [
+    "metadata/subject/id",
+    "metadata/subject/type"
+   ],
+   "known_issues": "- Acquisition timestamps, PRF, explicit TGC curves, and emitted waveforms are unavailable; do not use these frames for calibrated temporal or flow analysis.\n- Repeated frames are strongly correlated.\n- BSC targets are model-derived references, not independent experimental BSC measurements; there are three unique phantom curves.\n- Pooled Nakagami maps are lower-variance statistical references, not independent physical ground truth.\n- Nakagami omega depends on gain, attenuation, beam sensitivity, and RF amplitude scale; it is not system-independent.",
+   "text": {
+    "description": "Pre-beamformed RF channel data from three homogeneous tissue-mimicking phantoms, acquired for quantitative ultrasound (QUS). Next to the raw RF, each acquisition carries the phantom's model-derived theoretical backscatter coefficient (BSC), direct per-frame Nakagami maps, and 20-frame pooled Nakagami references, so single-frame QUS estimators can be trained and evaluated against targets stored in the same file.",
+    "intended_usage": "1. Reconstruct B-mode from one frame of raw RF.\n2. Predict the phantom's theoretical BSC curve from one RF frame. This is a material-model target, not a local experimentally estimated BSC curve.\n3. Predict pooled Nakagami m or omega from one RF frame. Use the supplied direct per-frame map as the single-frame baseline.\n\nFor Nakagami predictions, report MAE/RMSE and map correlation against the pooled reference. For BSC predictions, report the frequency range and unit and state whether evaluation uses linear BSC or a specified dB conversion.",
+    "characterization": "- Data collection method: phantom — three homogeneous tissue-mimicking phantoms (15m, 18m, 60m), each scanned by two operators (SK, TP) at 20 probe placements\n- Labeling method: derived — BSC from the phantom material model; Nakagami maps estimated from the RF\n- Acquisition system: Verasonics Vantage 256, GE9LD linear array, 192 elements, 0.23 mm pitch, 5.2083 MHz center frequency, 20.8333 MHz RF sampling\n- Transmit sequence: one normal-incidence plane wave per frame; 1540 m/s sound speed",
+    "subject_metadata": "No human or animal subjects. metadata/subject/type is phantom and metadata/subject/id names the phantom (phantom_15m, phantom_18m, phantom_60m)."
+   },
+   "image": {
+    "source": "weillcornell/assets/main.png",
+    "thumb": "images/weillcornell-80599f1-ad6e.jpg",
+    "preview": "images/weillcornell-80599f1-preview.jpg",
+    "preview_size": [
+     1200,
+     601
+    ]
+   }
+  },
+  "weizmann-sampl": {
+   "sha": "9db704ddfff9fe46396755209d83a6b331d11e5d",
+   "collection": null,
+   "pretty_name": "Weizmann SAMPL Thyroid Clinical Scans",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "channel-data",
+    "beamforming",
+    "thyroid",
+    "clinical",
+    "zea"
+   ],
+   "summary": "The data set consists of clinical ultrasound channel data acquired with a Verasonics Vantage 128 system and an L11-5v linear array probe, imaging the thyroid gland of 30 adult healthy volunteers. The scans were carried out by a senior radiologist who specializes in ultrasound thyroid imaging. The purpose of the scans is to provide a complete set of channel data of a thyroid gland scan of the full anatomy.",
+   "contributors": [
+    "Yonina C. Eldar (SAMPL Lab, Weizmann Institute of Science)",
+    "Adi Wegerhoff (SAMPL Lab, Weizmann Institute of Science)",
+    "Ditza Auerbach (SAMPL Lab, Weizmann Institute of Science)"
+   ],
+   "institutions": [
+    "Weizmann Institute of Science"
+   ],
+   "created": "07/07/2026",
+   "keys": [
+    "custom/lens_correction",
+    "data/raw_data",
+    "metadata/subject/id",
+    "metadata/subject/type",
+    "probe/element_width",
+    "probe/lens_sound_speed",
+    "probe/lens_thickness",
+    "probe/probe_bandwidth_percent",
+    "probe/probe_center_frequency",
+    "probe/probe_geometry",
+    "scan/azimuth_angles",
+    "scan/center_frequency",
+    "scan/demodulation_frequency",
+    "scan/focus_distances",
+    "scan/initial_times",
+    "scan/polar_angles",
+    "scan/sampling_frequency",
+    "scan/sound_speed",
+    "scan/t0_delays",
+    "scan/tgc_gain_curve",
+    "scan/time_to_next_transmit",
+    "scan/transmit_origins",
+    "scan/tx_apodizations"
+   ],
+   "known_issues": "- decimSampleRate, quadDecim, and demodFrequency are absent from the raw Verasonics workspace (BaselineWorkspace.mat) and were instead sourced from this session's recalibration checkpoint files, where they were confirmed constant.\n- The default beamforming grid in pipeline.yaml (grid_size_x=300, grid_size_z=400) is coarser than the half-wavelength Nyquist rate for this probe/frequency; this only affects the resolution of the example reconstruction images, not the released raw channel data.",
+   "text": {
+    "description": "The data set consists of clinical ultrasound channel data acquired with a Verasonics Vantage 128 system and an L11-5v linear array probe, imaging the thyroid gland of 30 adult healthy volunteers. The scans were carried out by a senior radiologist who specializes in ultrasound thyroid imaging. The purpose of the scans is to provide a complete set of channel data of a thyroid gland scan of the full anatomy.",
+    "intended_usage": "General-purpose ultrasound channel-data foundation model pretraining and evaluation — in particular DAS beamforming/reconstruction, inverse speed of sound imaging. Suitable as a base for future downstream tasks (e.g. thyroid segmentation, nodule detection) if paired with additional annotations from the B-mode images.",
+    "characterization": "- Data Collection Method: clinical\n- Labeling Method: N/A — no annotations included\n- Acquisition system: Verasonics Vantage 128 system, L11-5v linear array probe, center frequency 7.6 MHz (76.8% fractional bandwidth), element width 0.27 mm, aperture width 38.1 mm; RF sampling frequency 31.25 MHz, demodulation frequency 7.8125 MHz, assumed sound speed 1540 m/s.",
+    "subject_metadata": "- number of subjects: 30,\n- age range: 18-65,\n- 20 Female , 10 Male\n- Thyroid gland\n- healthy volunteers with incidental pathology (e.g. cysts, nodules) in some cases\n- Verasonics vantage 128 system, L11-5v linear array probe"
+   },
+   "image": {
+    "source": "weizmann-sampl/assets/main.png",
+    "thumb": "images/weizmann-sampl-505cd9a-ad6e.jpg",
+    "preview": "images/weizmann-sampl-505cd9a-preview.jpg",
+    "preview_size": [
+     377,
+     525
+    ]
+   }
+  },
+  "wpi": {
+   "sha": "9d73b0b678d4ceceb73dd23bedd4008ac4337b1d",
+   "collection": null,
+   "pretty_name": "eSAF Rotational 3D US Raw Channel Data (Medical FUSION Lab, WPI)",
+   "license": "cc-by-4.0",
+   "tags": [
+    "ultrasound",
+    "rf",
+    "openh-rf",
+    "3d",
+    "beamforming",
+    "elevational-saf"
+   ],
+   "summary": "Rotational 3D ultrasound acquisitions of point, pair and off-axis targets, captured with an elevation-focused 1D linear array rotated 180° about its axial axis (1° steps). Each acquisition stores the raw per-element channel RF of a single normal plane-wave transmit at every rotation angle, i.e. the data before in-plane beamforming, which enables flexible offline beamforming and elevational Synthetic Aperture Focusing (eSAF). Every file also carries the eSAF-reconstructed 3D volume as a paired label.",
+   "contributors": [
+    "Ryo Murakami (contact)",
+    "Medical FUSION Laboratory, Worcester Polytechnic Institute"
+   ],
+   "institutions": [
+    "Worcester Polytechnic Institute"
+   ],
+   "created": "06/15/2026",
+   "keys": [
+    "custom/saf_bmode",
+    "custom/saf_bmode/coordinates",
+    "custom/saf_bmode/values",
+    "data/raw_data",
+    "metadata/credit",
+    "metadata/probe_pose",
+    "metadata/probe_pose/rotation",
+    "metadata/probe_pose/sampling_frequency",
+    "metadata/probe_pose/translation",
+    "metadata/subject/type",
+    "probe/*",
+    "probe/probe_geometry",
+    "scan/center_frequency",
+    "scan/demodulation_frequency",
+    "scan/initial_times",
+    "scan/polar_angles",
+    "scan/sampling_frequency",
+    "scan/sound_speed",
+    "scan/t0_delays"
+   ],
+   "known_issues": "- Paired SAF label — on-axis targets (r0 = 0) do not narrow, by design. eSAF refocuses the *rotational elevation smear*; a target sitting on the rotation axis has essentially no smear, so its saf_bmode label volume is not sharper than the input (arc-FWHM gain ≈ 1). This is expected physics, not a defect — the 40 on-axis cases (median gain 1.00×) are included so the pair covers the degenerate no-smear case.",
+   "text": {
+    "description": "Rotational 3D ultrasound acquisitions of point, pair and off-axis targets, captured with an elevation-focused 1D linear array rotated 180° about its axial axis (1° steps). Each acquisition stores the raw per-element channel RF of a single normal plane-wave transmit at every rotation angle, i.e. the data before in-plane beamforming, which enables flexible offline beamforming and elevational Synthetic Aperture Focusing (eSAF). Every file also carries the eSAF-reconstructed 3D volume as a paired label.\n\nThe release is mostly simulated (Field II): a grid of 10 probe types × 19 targets spanning depths where the elevational beam thickness (the artifact eSAF corrects) varies. It is complemented by 5 measured phantom rotational scans with the physical Japan Probe 68-element array (same geometry as the simulation) at 10–45 mm depth. No human or animal subjects.",
+    "intended_usage": "Advanced beamforming and elevational resolution recovery for rotational 3D US (eSAF), elevation-PSF / aperture-growth studies, and a reproducible raw-channel-data benchmark for rotational synthetic-aperture reconstruction.",
+    "characterization": "- Data Collection Method: synthetic and phantom.\n  - *Simulated (190):* Field II (MATLAB, xdc_focused_array + calc_scat_multi), scatterers rotated about the axial axis with the transducer fixed. 10 probe types vary lateral aperture (n_el 32/68/128, pitch 0.1/0.2/0.3 mm), elevation height H (4/8/12 mm) and elevation focus R (25/45/90 mm or unfocused), encoded in the probe name (tall_elev_H12 = H 12 mm; baseline_R45_H8 = R 45 mm, H 8 mm) and in probe/*.\n  - *Measured (5):* rotational scans of the Japan Probe 68-element array on a wire/point phantom with a Galil-controlled 180° rotation, acquired as 7-angle CPWC, time-tag-synced to the motor angles and reduced to the centre (0°) plane wave per angle to match the simulation schema.\n- Labeling Method: synthetic ground truth. Target positions are exact, and each file's description attribute records probe and target, e.g. probe=tall_elev_H12 target=point_z020_r6 r0=6.0mm z=20.0mm. The paired eSAF volume (custom/saf_bmode) is the label.\n- Acquisition system: Japan Probe JP_Linear_68 (baseline): 68 elements, pitch 0.2 mm, element width 0.15 mm, element height 8 mm, elevational lens focus 45 mm; center frequency 10 MHz; sampling 40 MHz; sound speed 1490 m/s; one normal plane-wave transmit per rotation angle; 180° rotation in 1° steps. Parameters match the paper simulation.",
+    "subject_metadata": "No human or animal subjects / no PHI. Each file stores metadata/subject/type: simulated phantom for the Field II simulations, phantom for the measured experiment__* scans. Creator attribution is stored per file in metadata/credit."
+   },
+   "image": {
+    "source": "wpi/assets/main.png",
+    "thumb": "images/wpi-74f76fa-ad6e.jpg",
+    "preview": "images/wpi-74f76fa-preview.jpg",
+    "preview_size": [
+     900,
+     900
+    ]
+   }
+  }
+ }
+}

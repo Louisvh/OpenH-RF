@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenH-RF | Open ultrasound channel data</title>
+  <meta name="description" content="OpenH-RF is an openly licensed dataset of pre-beamformed (channel capture) medical ultrasound data. Browse every contributed dataset by acquisition type, imaging target and included HDF5 keys.">
+  <meta name="keywords" content="ultrasound, channel data, RF data, beamforming, open dataset, foundation models, zea, OpenH-RF, Open-H">
+  <meta name="author" content="Open-H Consortium">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#131416">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Open-H Consortium">
+  <meta property="og:title" content="OpenH-RF: open ultrasound channel data">
+  <meta property="og:description" content="An openly licensed dataset of pre-beamformed medical ultrasound measurements for raw-to-insight foundation models.">
+  <meta property="og:url" content="https://open-h.github.io/OpenH-RF/">
+  <meta property="og:image" content="https://open-h.github.io/OpenH-RF/assets/img/header.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="assets/img/logo/logo-glow-transparent.svg" type="image/svg+xml">
+  <!-- Follow the desktop color scheme, as on the release placeholder. -->
+  <link rel="stylesheet" href="assets/css/site.css">
+  <script defer src="assets/js/svg.js"></script>
+  <script defer src="assets/js/site.js"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    "name": "OpenH-RF",
+    "description": "An openly licensed dataset of pre-beamformed (channel capture) medical ultrasound measurements stored in the zea HDF5 format. A machine-readable index of every contributed dataset is available as JSON.",
+    "url": "https://open-h.github.io/OpenH-RF/",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "isAccessibleForFree": true,
+    "creator": { "@type": "Organization", "name": "Open-H Consortium" },
+    "distribution": [
+      {
+        "@type": "DataDownload",
+        "encodingFormat": "application/json",
+        "name": "Dataset index (JSON)",
+        "contentUrl": "https://open-h.github.io/OpenH-RF/data/datasets.json"
+      },
+      {
+        "@type": "DataDownload",
+        "encodingFormat": "application/x-hdf5",
+        "name": "Full dataset on Hugging Face",
+        "contentUrl": "https://huggingface.co/datasets/nvidia/OpenH-RF"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <!--
+    The dataset tables on this page are rendered client-side from data/datasets.json
+    (https://open-h.github.io/OpenH-RF/data/datasets.json): one record per dataset with its
+    facets and data card links, a "files" object with the HDF5 keys, shapes, dtypes and
+    attributes of its files, and a "measured" object with the totals, ranges and histograms
+    of every HDF5 file in the dataset, taken at one revision of the Hub repo
+    ("measured.source" at the top level names it). A record's id is its
+    folder in the nvidia/OpenH-RF Hugging Face repo.
+  -->
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#" aria-label="OpenH-RF overview">
+        <img class="brand-mark" src="assets/img/logo/logo-glow-transparent.svg" alt="" width="231" height="180">
+        <span class="brand-text">OpenH-RF</span>
+      </a>
+      <nav class="topnav" aria-label="Primary">
+        <a href="#" data-nav="home">Overview</a>
+        <a href="#explorer" data-nav="explorer">Explore</a>
+        <a href="#stats" data-nav="stats">Statistics</a>
+      </nav>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false" title="Dark theme" hidden>
+        <span class="sr-only">Dark theme</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+
+  <div id="view-home">
+
+    <section class="hero">
+      <div class="container center hero-heading">
+        <h1 class="hero-title">
+          <a href="#authors" title="Show the full author list">
+            <img class="hero-logo" src="assets/img/logo/logo-glow-transparent.svg" alt="" width="231" height="180">
+            OpenH-RF
+          </a>
+        </h1>
+        <details class="hero-authors" id="authors">
+          <summary title="Click to show or hide the full author list">
+            By the <span class="consortium-name">OpenH-RF Consortium</span>
+            <span class="authors-caret" aria-hidden="true"></span>
+          </summary>
+          <!-- build.py puts the author list here, from scripts/authors.csv. -->
+          <!-- authors -->
+          <p class="authors-marks">
+            <sup>*</sup>Equal contribution as first authors.
+            <sup>†</sup>Equal contribution as senior authors.
+            <sup>§</sup>Core team.
+          </p>
+          <button class="authors-close authors-hint" type="button">click to hide full author list <span class="authors-caret" aria-hidden="true"></span></button>
+        </details>
+        <p class="hero-lead">
+          The largest, openly licensed dataset of medical ultrasound channel capture data.
+        </p>
+      </div>
+      <div class="container">
+        <div class="hero-examples">
+          <div class="hero-track">
+            <div class="hero-set">
+              <img src="assets/img/examples.webp" srcset="assets/img/examples@2x.webp 2x" width="1235" height="397"
+                alt="A mosaic of B-mode images from 26 of the datasets: clinical scans, phantoms and simulations.">
+              <img class="rf" src="assets/img/examples-rf.webp" alt="The same mosaic as raw channel data.">
+            </div>
+            <div class="hero-set hero-copy" aria-hidden="true">
+              <img src="assets/img/examples.webp" srcset="assets/img/examples@2x.webp 2x" width="1235" height="397" alt="">
+              <img class="rf" src="assets/img/examples-rf.webp" alt="">
+            </div>
+          </div>
+          <!-- Hidden for now: remove "hidden" to show the B-mode/RF toggle again. -->
+          <div class="segmented hero-mode" role="group" aria-label="Banner images" hidden>
+            <button type="button" aria-pressed="true" data-banner="bmode">B-mode</button>
+            <button type="button" aria-pressed="false" data-banner="rf">RF</button>
+          </div>
+        </div>
+      </div>
+      <div class="container narrow center">
+        <div class="hero-links">
+          <a class="btn btn-dark" href="https://huggingface.co/datasets/nvidia/OpenH-RF" target="_blank" rel="noopener">
+            <img class="icon hf-icon" src="assets/img/huggingface.svg" alt="" width="24" height="24">
+            Dataset
+          </a>
+          <a class="btn btn-dark" href="https://github.com/open-h/OpenH-RF" target="_blank" rel="noopener">
+            <svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+            Code
+          </a>
+          <span class="btn btn-dark" aria-disabled="true">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l6 6v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2zm7 1.5V9h5.5L13 3.5zM8 12v2h8v-2H8zm0 4v2h8v-2H8z"/></svg>
+            arXiv <small class="btn-soon">coming soon!</small>
+          </span>
+          <a class="btn btn-primary btn-explore" href="#explorer">
+            Explore datasets <span aria-hidden="true">→</span>
+          </a>
+        </div>
+        <div class="hero-orgs">
+          <a class="org-logo" href="https://www.tue.nl/en/research/" target="_blank" rel="noopener"><img src="assets/img/logos/tue.svg" alt="Eindhoven University of Technology"></a>
+          <a class="org-logo" href="https://med.stanford.edu/" target="_blank" rel="noopener"><img src="assets/img/logos/stanford.svg" alt="Stanford University"></a>
+          <a class="org-logo" href="https://www.nvidia.com/en-us/" target="_blank" rel="noopener"><img src="assets/img/logos/nvidia.svg" alt="NVIDIA"></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section tight">
+      <div class="container narrow">
+        <h2 class="section-title">About</h2>
+        <div class="prose">
+          <p>
+            OpenH-RF is a collaborative initiative led by
+            <a href="https://med.stanford.edu/ultrasound.html" target="_blank" rel="noopener">Stanford University</a>,
+            <a href="https://www.tue.nl/en/research/research-groups/signal-processing-systems/biomedical-diagnostics" target="_blank" rel="noopener">Eindhoven University of Technology (TU/e)</a>
+            and <a href="https://www.nvidia.com/" target="_blank" rel="noopener">NVIDIA</a> to build a large-scale,
+            openly licensed dataset of pre-beamformed (channel capture) medical ultrasound measurements.
+            <em>The goal:</em> train general-purpose foundation models capable of multi-task
+            <em>raw-to-insight</em> inference across echocardiography, general, fetal and transcranial imaging,
+            blood flow measurement and ultrasound inverse problems.
+          </p>
+          <p>
+            The initial release of the dataset contains <strong>19,336</strong> real and synthetic channel capture measurements, spanning a wide variety of acquisition types, targets and downstream tasks,
+            including reconstruction, flow, quantitative imaging, motion estimation and interpretation tasks, contributed by <strong>38 institutions</strong> across academia and industry. Released under
+            <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener"><strong>CC BY 4.0</strong></a>.
+          </p>
+          <p>
+            The OpenH-RF format is implemented using the <a href="https://zea.readthedocs.io/en/latest/getting-started.html" target="_blank" rel="noopener">zea</a>
+            ultrasound toolbox. Each HDF5 file holds the raw per-element channel data together with the full
+            transmit and receive geometry needed to beamform it, and, where available, derived images, maps,
+            labels and auxiliary signals.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" aria-label="OpenH-RF in numbers">
+      <div class="container">
+        <div class="kpis" id="kpis" aria-live="polite"></div>
+
+        <div class="card">
+          <header class="card-head">
+            <h3 class="card-title">Dataset contents</h3>
+            <p class="card-sub">Clicking a segment opens the datasets with those properties.</p>
+          </header>
+          <div id="corpus-shape"></div>
+        </div>
+        <p class="section-more">
+          <a class="btn btn-ghost" href="#stats">More statistics <span aria-hidden="true">→</span></a>
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Browse the datasets</h2>
+            <p class="section-lead">Select any bar to open the explorer filtered to it. Bars group datasets by the values on their data cards; Acquisitions and Size add up every file of those datasets, and a dataset spanning several values counts fully under each.</p>
+          </div>
+          <div class="segmented" role="group" aria-label="Measure">
+            <button type="button" aria-pressed="true" data-measure="count">Datasets</button>
+            <button type="button" aria-pressed="false" data-measure="acquisitions">Acquisitions</button>
+            <button type="button" aria-pressed="false" data-measure="bytes">Size</button>
+          </div>
+        </div>
+
+        <div class="facet-grid">
+          <article class="card">
+            <header>
+              <h3 class="card-title">By transmit scheme</h3>
+            </header>
+            <div class="bars" id="bars-acquisition"></div>
+          </article>
+          <article class="card">
+            <header>
+              <h3 class="card-title">By target</h3>
+            </header>
+            <div class="bars" id="bars-targets"></div>
+          </article>
+        </div>
+
+        <article class="card facet-wide">
+          <header>
+            <h3 class="card-title">By included keys</h3>
+            <p class="card-sub">HDF5 data products and metadata groups beyond <code>scan/</code> and <code>probe/</code>. Every dataset includes <code>data/raw_data</code>.</p>
+          </header>
+          <div class="bars keys" id="bars-key_products"></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title">Gallery</h2>
+          <a class="btn btn-primary" href="#explorer">Open the explorer <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="gallery" id="gallery"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container narrow">
+        <h2 class="section-title">Get the data</h2>
+        <div class="prose">
+          <p>
+            The dataset is on Hugging Face at
+            <a href="https://huggingface.co/datasets/nvidia/OpenH-RF" target="_blank" rel="noopener">nvidia/OpenH-RF</a>.
+            The files can be streamed using 
+            <a href="https://zea.readthedocs.io/en/latest/getting-started.html" target="_blank" rel="noopener">zea</a>.
+          </p>
+          <p>
+            You can use the zea app to inspect and preview the data in each dataset. For GPU-enabled installation instructions,  <a href="https://zea.readthedocs.io/en/latest/installation.html" target="_blank" rel="noopener">see here</a>. For a minimal install:
+          </p>
+        </div>
+        <div id="get-data"></div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <h2 class="section-title center">Contributing institutions</h2>
+        <ul class="institutions" id="institutions"></ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container narrow">
+        <h2 class="section-title center">Steering committee</h2>
+        <div class="committee">
+          <div class="person"><span class="person-role">AI lead</span><a class="org-logo" href="https://www.tue.nl/en/research/" target="_blank" rel="noopener"><img src="assets/img/logos/tue.svg" alt="Eindhoven University of Technology"></a><a class="person-name" href="https://www.tue.nl/en/research/researchers/ruud-van-sloun/" target="_blank" rel="noopener">Ruud J.G. van Sloun</a></div>
+          <div class="person"><span class="person-role">Ultrasound lead</span><a class="org-logo" href="https://med.stanford.edu/" target="_blank" rel="noopener"><img src="assets/img/logos/stanford.svg" alt="Stanford University"></a><a class="person-name" href="https://profiles.stanford.edu/jeremy-dahl" target="_blank" rel="noopener">Jeremy Dahl</a></div>
+          <div class="person"><span class="person-role">Industry lead</span><a class="org-logo" href="https://www.nvidia.com/en-us/" target="_blank" rel="noopener"><img src="assets/img/logos/nvidia.svg" alt="NVIDIA"></a><a class="person-name" href="https://waltersimson.com/" target="_blank" rel="noopener">Walter Simson</a></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="view-stats" class="stats-page" hidden>
+    <div class="container">
+      <h1 class="section-title">Statistics</h1>
+
+      <section class="stats-section" id="stats-glance">
+        <div class="kpis" id="stats-kpis"></div>
+        <div class="card"><div class="strips" id="stats-strips"></div></div>
+      </section>
+
+      <section class="stats-section" id="stats-datasets">
+        <h2>Datasets</h2>
+        <div class="charts" id="datasets-charts"></div>
+        <div class="charts wide" id="files-charts"></div>
+      </section>
+
+      <section class="stats-section" id="stats-acquisition">
+        <h2>Acquisition</h2>
+        <div class="charts" id="acquisition-charts"></div>
+        <div class="charts three" id="frequency-charts"></div>
+        <div class="charts" id="timing-charts"></div>
+        <div class="charts" id="hardware-charts"></div>
+      </section>
+
+      <section class="stats-section" id="stats-metadata">
+        <h2>Metadata</h2>
+        <div id="metadata-charts"></div>
+      </section>
+
+      <section class="stats-section" id="stats-shape">
+        <h2>Tensor shape</h2>
+        <div class="charts four" id="shape-charts"></div>
+      </section>
+
+      <section class="stats-section" id="stats-storage">
+        <h2>Storage</h2>
+        <div class="charts" id="storage-charts"></div>
+      </section>
+    </div>
+  </div>
+
+  <div id="view-explorer" class="explorer" hidden>
+    <h1 class="sr-only">Explore the datasets</h1>
+    <div class="summary-bar">
+      <div class="summary-inner">
+        <div class="search-wrap">
+          <label for="x-search" class="sr-only">Search datasets</label>
+          <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <input type="search" id="x-search" class="input" placeholder="Search datasets, institutions, probes, systems, keys…" autocomplete="off">
+        </div>
+        <p class="summary" id="x-summary" aria-live="polite"></p>
+        <div class="summary-actions">
+          <button type="button" id="x-filters-open" class="btn btn-small btn-ghost filters-open" aria-haspopup="dialog">Filters (0)</button>
+          <button type="button" id="x-script" class="btn btn-small btn-primary script-toggle" aria-expanded="false" aria-controls="x-script-panel"><span class="script-show"><span class="wide-only">Generate download </span>script</span><span class="script-hide"><span class="wide-only">Hide download </span>script</span></button>
+        </div>
+      </div>
+    </div>
+    <div class="script-panel" id="x-script-panel" hidden>
+      <div class="script-inner">
+        <div class="code-block"><button type="button" class="copy-btn">Copy</button><pre><code id="x-script-code"></code></pre></div>
+        <div class="script-actions">
+          <button type="button" id="x-script-hide" class="btn btn-small btn-ghost">Hide download script</button>
+          <a class="btn btn-small btn-primary" id="x-script-save" role="link" aria-disabled="true">Save as .py</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="explorer-grid">
+      <aside class="sidebar" id="x-sidebar" aria-label="Filters">
+        <div id="x-facets">
+          <p class="hint">Select ✓ to include a value or ✕ to exclude it.</p>
+          <button type="button" id="x-reset" class="btn btn-small btn-ghost facets-reset">Reset</button>
+          <div id="x-groups"></div>
+        </div>
+      </aside>
+
+      <div class="results">
+        <div class="active-filters" id="x-active" tabindex="-1"></div>
+
+        <details class="shape-band" id="x-shape" open>
+          <summary>Shape of selection</summary>
+          <div class="shape-hists">
+            <p class="shape-key" id="x-shape-key"><span><span class="key-swatch selection"></span>Selection</span><span><span class="key-swatch all"></span>All datasets</span></p>
+            <div id="x-shape-hists"></div>
+          </div>
+          <div id="x-shape-body"></div>
+        </details>
+
+        <div class="view-bar">
+          <div class="segmented" role="group" aria-label="View">
+            <button type="button" aria-pressed="true" data-view="table">Table</button>
+            <button type="button" aria-pressed="false" data-view="gallery">Gallery</button>
+            <button type="button" aria-pressed="false" data-view="charts">Charts</button>
+          </div>
+          <div class="sort" id="x-sort-controls">
+            <label for="x-sort">Sort by</label>
+            <select id="x-sort" class="select">
+              <option value="bytes">Size</option>
+              <option value="frames">Frames</option>
+              <option value="title">Title</option>
+            </select>
+            <button type="button" id="x-sort-dir" class="btn btn-small btn-ghost"></button>
+          </div>
+        </div>
+
+        <div id="x-view-table" class="table-scroll">
+          <table class="table" id="x-table">
+            <thead>
+              <tr>
+                <th scope="col">Dataset</th>
+                <th scope="col">Data card</th>
+                <th scope="col" class="num">Scale</th>
+                <th scope="col">Data keys</th>
+              </tr>
+            </thead>
+            <tbody id="x-tbody">
+              <tr><td colspan="4" class="empty">Loading datasets…</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="x-view-gallery" class="gallery" hidden></div>
+        <div id="x-view-charts" class="charts" hidden></div>
+
+        <div class="note">
+          <p>Download commands use the <code>zea</code> CLI (<code>pip install "zea[jax,app]"</code>).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container narrow center">
+      <p>
+        OpenH-RF data is released under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>.
+      </p>
+      <p class="muted">
+        Page design adapted from the <a href="https://open-h.github.io/open-h-embodiment" target="_blank" rel="noopener">Open-H-Embodiment</a> project page.
+        <span id="generated-at"></span>
+      </p>
+    </div>
+  </footer>
+
+  <dialog class="sheet" id="x-sheet" aria-labelledby="x-sheet-title">
+    <div class="sheet-head">
+      <h2 id="x-sheet-title">Filters</h2>
+      <form method="dialog"><button class="btn btn-small btn-ghost">Close</button></form>
+    </div>
+    <div class="sheet-body" id="x-sheet-body"></div>
+    <form method="dialog" class="sheet-foot">
+      <button class="btn btn-primary" id="x-sheet-done"></button>
+    </form>
+  </dialog>
+
+  <dialog class="drawer" id="drawer" aria-labelledby="drawer-title">
+    <div class="drawer-bar">
+      <span class="drawer-path" id="drawer-path"></span>
+      <form method="dialog"><button class="btn btn-small btn-ghost">Close</button></form>
+    </div>
+    <div class="drawer-body" id="drawer-body"></div>
+  </dialog>
+
+  <div id="tooltip" class="tooltip" role="tooltip" hidden></div>
+  <div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>

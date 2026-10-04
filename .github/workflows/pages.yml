@@ -4,32 +4,69 @@ on:
   push:
     branches: [main]
     paths:
-      - "teaser/**"
+      - "site/**"
+      - "plots/openh_rf_datasets.py"
+      - "scripts/authors.csv"
+      - "scripts/compile_authors.py"
+      - ".github/workflows/pages.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "site/**"
+      - "plots/openh_rf_datasets.py"
+      - "scripts/authors.csv"
+      - "scripts/compile_authors.py"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    timeout-minutes: 10
+
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/upload-pages-artifact@v3
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v6
         with:
-          path: teaser
+          python-version: "3.11"
 
+      - name: Check catalog.yaml
+        run: uv run --no-project --with pyyaml python site/build.py --check
+
+      - name: Syntax-check the page scripts
+        run: node --check site/assets/js/site.js && node --check site/assets/js/svg.js
+
+      # site/update.py refreshes site/hub/, the build's main input.
+      - name: Build
+        run: uv run --no-project --with pyyaml python site/build.py
+
+      - name: Upload Pages artifact
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/_site
+
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

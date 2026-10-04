@@ -1,0 +1,133 @@
+# The vocabulary of the site's filters, and overrides for what build.py derives.
+#
+# build.py classifies every dataset from its data card and its files: setting, transmit
+# scheme, probe type, dimensionality and data type from the file scan, and targets and
+# tasks from the card, where each value's `match` (a case-insensitive regular expression)
+# is looked up. A target or task without `match` is only ever set here, by an override. A value
+# `includes` the values it is a region of: a dataset with any of those has it too. The
+# search finds a dataset by a value's label and `aliases` as well as by its own text.
+#
+# Under `datasets`, a dataset id (its folder in the Hub repo) may set any field of the
+# record build.py writes, which then replaces the derived value: `institution`, `title`,
+# `setting`, `targets`, `tasks`, `acquisition`, ... Only add an entry where the derived
+# value is wrong. Values of the facets must come from the vocabulary. `figure`, a path in
+# the dataset's folder, is the figure cards.py uses when there is no assets/main.png.
+
+vocabulary:
+  setting:
+    in_vivo_human: {label: In vivo (human), aliases: [human, patient, volunteer, clinical]}
+    in_vivo_animal: {label: In vivo (animal), aliases: [animal, mouse, rat, pig, porcine]}
+    ex_vivo: {label: Ex vivo}
+    phantom: {label: Phantom, description: 'Physical tissue-mimicking, flow or calibration phantoms'}
+    simulation: {label: Simulation, description: 'Numerically simulated channel data (Field II, k-Wave, Fullwave, ...)', aliases: [simulated, synthetic, in silico]}
+  acquisition:
+    focused: {label: Focused, description: 'Focused transmit beams, scanned line by line', aliases: [line-by-line, linescan]}
+    plane_wave: {label: Plane wave, description: 'Unfocused plane-wave transmits, usually at several steering angles', aliases: [PW, planewave, unfocused]}
+    diverging_wave: {label: Diverging wave, description: Unfocused transmits from a virtual source behind the array, aliases: [DW, virtual source]}
+    synthetic_aperture: {label: Synthetic aperture, description: Single-element or sub-aperture transmits (full synthetic aperture / STA), aliases: [STA, SA]}
+    coded: {label: Coded excitation, description: 'Chirp, Hadamard or other coded transmit sequences', aliases: [chirp, Hadamard]}
+    passive: {label: Passive, description: 'Receive-only recording, e.g. passive cavitation detection'}
+    tomographic: {label: Tomographic (USCT), description: Ultrasound computed tomography with arrays surrounding the object, aliases: [USCT, tomography]}
+    other: {label: Other, description: 'Schemes outside the classes above, e.g. rotating single-element or push-pulse sequences'}
+    unspecified: {label: Not stated, description: The data card does not state the transmit scheme}
+  dimensionality:
+    2d: {label: 2D, description: 2D frames (including 2D frames swept or rotated in 3D)}
+    3d: {label: 3D, description: Volumetric data from a matrix array or a mechanically moved 1D array}
+    mixed: {label: 2D + 3D}
+  probe_types:
+    linear: {label: Linear}
+    phased: {label: Phased, aliases: [sector]}
+    curvilinear: {label: Curvilinear / convex, aliases: [convex, curved]}
+    matrix: {label: Matrix (2D), aliases: [2D array]}
+    row_column: {label: Row-column, aliases: [RCA]}
+    ring: {label: Ring array}
+    ivus: {label: IVUS catheter, aliases: [catheter, intravascular]}
+    single_element: {label: Single element}
+    other: {label: Other}
+  data_type:
+    rf: {label: RF, description: Real-valued radio-frequency channel samples, aliases: [radiofrequency, radio-frequency]}
+    iq: {label: IQ, description: Complex baseband (demodulated) channel samples, aliases: [baseband, demodulated]}
+  tasks:
+    beamforming: {label: Beamforming, match: 'beamform|reconstruction|reconstruct b-mode', aliases: [DAS, delay-and-sum]}
+    sound_speed_estimation: {label: Sound-speed estimation, match: '(sound[- ]speed|speed[- ]of[- ]sound)( \(sos\))?( and attenuation)? (estimat|map|reconstruct|imag|recover|inversion)', aliases: [SoS, speed of sound]}
+    aberration_correction: {label: Aberration correction, match: 'aberration'}
+    segmentation: {label: Segmentation, match: 'segment'}
+    classification: {label: Classification, match: 'classif'}
+    motion_estimation: {label: Motion estimation, match: 'motion (estimation|tracking)|speckle tracking|displacement (estimation|tracking)|\bstrain\b'}
+    flow_imaging: {label: Flow imaging, match: 'doppler|blood flow|flow imaging|vector flow|velocimetry', aliases: [Doppler, velocimetry]}
+    elastography: {label: Elastography, match: 'elastograph|shear[- ]wave|stiffness', aliases: [shear wave, stiffness]}
+    super_resolution: {label: Super-resolution / ULM, match: 'super[- ]resolution|locali[sz]ation microscopy|\bulm\b', aliases: [ULM, localization microscopy]}
+    contrast_imaging: {label: Contrast imaging, match: 'contrast[- ](enhanced|imaging|agent)|microbubble|\bceus\b'}
+    tomography: {label: Tomography, match: 'tomograph|\busct\b'}
+    volumetric_reconstruction: {label: 3D reconstruction, match: '3-?d (reconstruction|volume|imaging)|volumetric|volume reconstruction'}
+    quantitative_ultrasound: {label: Quantitative ultrasound, match: 'quantitative|attenuation|backscatter coefficient|\bqus\b'}
+    cavitation_detection: {label: Cavitation detection, match: 'cavitation'}
+    harmonic_imaging: {label: Harmonic imaging, match: 'harmonic'}
+    denoising: {label: Denoising, match: 'denois|(noise|clutter) (reduction|suppression)'}
+    other: {label: Other}
+  targets:
+    heart: {label: Heart, group: Anatomy, match: 'cardiac(?! cycle)|\bheart\b|echocardiograph|ventric|myocard|apical|parasternal', aliases: [cardiac, echocardiography, ventricle, myocardium]}
+    carotid: {label: Carotid artery, group: Anatomy, match: 'carotid'}
+    peripheral_vessels: {label: Peripheral vessels, group: Anatomy, match: 'brachial|femoral|radial arter|jugular|peripheral (vessel|arter)|\bveins?\b', aliases: [vascular, artery, vein]}
+    aorta: {label: Aorta, group: Anatomy, match: 'aort(a|ic)', aliases: [aortic, vascular]}
+    intravascular: {label: Intravascular (IVUS), group: Anatomy, match: 'intravascular|\bivus\b', aliases: [coronary, catheter]}
+    liver: {label: Liver, group: Anatomy, match: '\bliver\b|hepat', aliases: [hepatic]}
+    abdomen: {label: Abdomen & pelvis, group: Anatomy, match: 'abdom(en|inal (wall|organ|imaging))|pelvi(s|c)', includes: [liver, kidney, bladder, prostate], aliases: [abdominal, pelvis]}
+    kidney: {label: Kidney, group: Anatomy, match: 'kidney|renal', aliases: [renal]}
+    bladder: {label: Bladder, group: Anatomy, match: 'bladder'}
+    breast: {label: Breast, group: Anatomy, match: 'breast', aliases: [mammography]}
+    thyroid: {label: Thyroid, group: Anatomy, match: 'thyroid', aliases: [neck]}
+    prostate: {label: Prostate, group: Anatomy, match: 'prostat'}
+    brain: {label: Brain (transcranial), group: Anatomy, match: 'brain|transcranial|cerebr', aliases: [cerebral, skull, neuro]}
+    musculoskeletal: {label: Muscle & tendon, group: Anatomy, match: 'muscle|tendon|musculoskeletal|quadriceps|biceps|gastrocnemius|femoris|\bcalf\b', aliases: [muscle, tendon]}
+    bone: {label: Bone, group: Anatomy, match: '\bbones?\b|cortical bone'}
+    limb: {label: Limb, group: Anatomy, match: '\blimbs?\b|forearm|\bthigh|\bcalf\b'}
+    fetal: {label: Fetal, group: Anatomy, match: 'fetal|fetus|obstetric', aliases: [obstetric, fetus, pregnancy]}
+    tumor: {label: Tumor / lesion, group: Anatomy, match: 'tumou?r|cancer|carcinoma|malignan', aliases: [lesion, cancer]}
+    tissue_phantom: {label: Tissue-mimicking phantom, group: Phantoms & media, match: 'tissue[- ]mimicking|speckle phantom|multi-?purpose phantom|\bcirs\b|\bats\b|gammex|agar|gelatin', aliases: [CIRS, agar, gelatin]}
+    flow_phantom: {label: Flow phantom, group: Phantoms & media, match: 'flow phantom|doppler phantom|vessel phantom|flow channel'}
+    microbubbles: {label: Microbubbles / contrast, group: Phantoms & media, match: 'microbubble|contrast agent|\bceus\b|sonovue|definity', aliases: [contrast, CEUS]}
+    point_targets: {label: Point / wire targets, group: Phantoms & media, match: 'point (target|scatterer)|\bwire (target|phantom)|\bwires\b|nylon|filament', aliases: [wire, scatterer]}
+    water: {label: Water (calibration), group: Phantoms & media, match: 'water (tank|bath)|\bin water\b|hydrophone', aliases: [tank, hydrophone]}
+    numerical_medium: {label: Numerical medium, group: Phantoms & media, match: 'in[- ]silico|numerical (phantom|medium)|digital (breast )?phantom|simulated (phantom|medium|tissue|speckle)', aliases: [in silico, simulated]}
+    other: {label: Other, group: Phantoms & media}
+
+datasets:
+  # Institutions the contributors section leaves out, or names in a form cards.py does
+  # not read ("KAIST", "Technion –", "Polytechnique Montréal", "us4us Ltd.", ...).
+  # `institution` is the main institution(s), which the page shows; `collaborating_institutions`
+  # are the other institutions of the dataset's authors, which the page does not show but
+  # which search and the institution filter find it by. The institutions of all datasets, of
+  # both kinds, must be in institution_filters.csv, as an author's affiliation or in a row
+  # without one; build.py fails otherwise.
+  kaist-snubh-barreleye: {institution: KAIST & Barreleye Inc. & Seoul National University Bundang Hospital}
+  mosaic-intelligence: {institution: Mosaic Intelligence Labs, collaborating_institutions: [NuevoSono]}
+  politorino: {institution: Politecnico di Torino, collaborating_institutions: [Ruhr University Bochum]}
+  resolvestroke/clinical: {institution: Resolve Stroke}
+  resolvestroke/phantom_flow: {institution: Resolve Stroke}
+  resolvestroke/phantom_mp:
+    institution: Resolve Stroke
+    thumb_position: '10% 50%'  # side-by-side figure: the part the square thumbnail shows
+  resolvestroke/saddle: {institution: Resolve Stroke}
+  siemens-healthineers: {institution: Siemens Healthineers}
+  strasbourg-basel:
+    institution: IHU Strasbourg & University of Basel
+    figure: assets/reference_bmode.png  # the largest PNG is a CT of the phantom
+  technion/bladder: {institution: Technion – Israel Institute of Technology}
+  technion/cardiac: {institution: Technion – Israel Institute of Technology}
+  technion/phantom: {institution: Technion – Israel Institute of Technology}
+  tue-carotid: {institution: Eindhoven University of Technology}
+  tumunich: {collaborating_institutions: [ImFusion]}
+  twente-cavitation: {institution: University of Twente}
+  # The card credits the converter at TU/e among the contributors.
+  ulmshare: {institution: Polytechnique Montréal, collaborating_institutions: [Mila]}
+  # The card also names NC State University, which is none of the authors' affiliations.
+  unc-liver: {institution: University of North Carolina at Chapel Hill & Stanford University}
+  # The card lists the affiliations of the OpenPros authors; the dataset comes from the UNC
+  # group, and the collaborators are the affiliations of its authors in the paper.
+  unc-openpros:
+    institution: University of North Carolina at Chapel Hill
+    collaborating_institutions:
+      [Johns Hopkins University, National Institutes of Health, Iowa State University, 'QT Imaging, Inc.']
+  us4us: {institution: us4us Ltd.}
+  weillcornell: {institution: Weill Cornell Medicine}
