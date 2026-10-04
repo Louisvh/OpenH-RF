@@ -187,9 +187,10 @@ main:focus { outline: none; }
 /* The bars of the logo's H (132 of its 180 units, ending 13 above its bottom) run from the top
    of the H to the bottom of the p: about 0.71em above the baseline to 0.21em below it. */
 .hero-logo { height: 1.25em; width: auto; position: relative; top: 0.3em; }
-.hero-authors { margin-top: 0.3rem; color: light-dark(#8a8e94, #cfd0d0); font-size: 0.95rem; }
+.hero-authors { margin-top: 1.25rem; color: var(--text-2); font-size: 0.95rem; }
 .hero-authors > summary { display: inline; list-style: none; cursor: pointer; }
 .hero-authors > summary::-webkit-details-marker { display: none; }
+.consortium-name { text-decoration: underline; text-underline-offset: 0.2em; }
 .authors-hint { font-weight: 400; }
 .authors-caret::before { content: "▾"; }
 .hero-authors[open] .authors-caret::before { content: "▴"; }
