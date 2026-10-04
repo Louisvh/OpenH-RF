@@ -125,6 +125,10 @@ port 8000 (all interfaces). `--check` only validates `catalog.yaml`.
 - `assets/img/examples*` (the banner: the paper's collages as webp, and the tile frames the
   page fades one at a time) are checked in. The paper's figure scripts made them; they are
   not in this repository.
+- `assets/img/logos/` (the plates under the buttons: every affiliation in the author list, in
+  its order, then the steering committee's institutions) are checked in, from Wikimedia
+  Commons, Wikipedia or the institution's own site, cropped to their content. Add a plate to
+  `index.html` for an affiliation added to `scripts/authors.csv`.
 - `assets/img/logo/` (the logo as SVG and PNG, with and without the glow, on a
   transparent, black and white background): `logo.py`.
 
