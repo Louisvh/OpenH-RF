@@ -1391,8 +1391,7 @@
     return parts.filter(Boolean).join("\n").toLowerCase();
   }
 
-  // The theme toggle. index.html pins data-theme="dark" and hides the button; without
-  // those, the OS theme applies until the viewer picks one.
+  // Follow the OS theme by default. The optional theme toggle can pin a choice.
   function initTheme() {
     const button = $("#theme-toggle");
     const root = document.documentElement;

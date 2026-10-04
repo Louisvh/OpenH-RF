@@ -143,9 +143,12 @@ main:focus { outline: none; }
 
 /* Overview */
 
-.hero { padding-block: 2rem 2.5rem; }
+.hero { padding-block: 2.5rem 2.5rem; }
+.hero-heading { padding-bottom: 2.5rem; }
+.hero-heading .hero-lead { margin-top: 1.6rem; max-width: 1000px; }
+.hf-icon { flex: none; }
 .hero-examples {
-  position: relative; margin-bottom: 2.5rem; border-radius: var(--radius-lg); overflow: hidden; container-type: inline-size;
+  position: relative; padding: 5px; background: #000; margin-bottom: 1.5rem; border-radius: var(--radius-lg); overflow: hidden; container-type: inline-size;
   -webkit-touch-callout: none; user-select: none;
 }
 /* Each collage tile has a link over it (.hero-tile, from initBanner) showing the other collage's

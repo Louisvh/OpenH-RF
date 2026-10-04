@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,7 +7,9 @@
   <meta name="description" content="OpenH-RF is an openly licensed dataset of pre-beamformed (channel capture) medical ultrasound data. Browse every contributed dataset by acquisition type, imaging target and included HDF5 keys.">
   <meta name="keywords" content="ultrasound, channel data, RF data, beamforming, open dataset, foundation models, zea, OpenH-RF, Open-H">
   <meta name="author" content="Open-H Consortium">
-  <meta name="theme-color" content="#131416">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#131416">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Open-H Consortium">
@@ -18,10 +20,7 @@
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" href="assets/img/logo/logo-glow-transparent.svg" type="image/svg+xml">
-  <!-- Dark for everyone for now: data-theme is pinned on <html> and the header's theme toggle is
-       hidden. The light theme is still in site.css and site.js. To offer it again, drop data-theme,
-       unhide the toggle, split theme-color by prefers-color-scheme, and set the saved theme before
-       the first paint: document.documentElement.dataset.theme = localStorage.getItem("theme") || "" -->
+  <!-- Follow the desktop color scheme, as on the release placeholder. -->
   <link rel="stylesheet" href="assets/css/site.css">
   <script defer src="assets/js/svg.js"></script>
   <script defer src="assets/js/site.js"></script>
@@ -88,6 +87,17 @@
   <div id="view-home">
 
     <section class="hero">
+      <div class="container center hero-heading">
+        <h1 class="hero-title">
+          <a href="#authors" title="Show the full author list">
+            <img class="hero-logo" src="assets/img/logo/logo-glow-transparent.svg" alt="" width="231" height="180">
+            OpenH-RF
+          </a>
+        </h1>
+        <p class="hero-lead">
+          The largest, openly licensed dataset of medical ultrasound channel capture data.
+        </p>
+      </div>
       <div class="container">
         <div class="hero-examples">
           <div class="hero-track">
@@ -109,12 +119,6 @@
         </div>
       </div>
       <div class="container narrow center">
-        <h1 class="hero-title">
-          <a href="#authors" title="Show the full author list">
-            <img class="hero-logo" src="assets/img/logo/logo-glow-transparent.svg" alt="" width="231" height="180">
-            OpenH-RF
-          </a>
-        </h1>
         <details class="hero-authors" id="authors">
           <summary>
             <span class="authors-hint">click to <span class="authors-show">show</span><span class="authors-hide">hide</span>
@@ -129,12 +133,9 @@
           </p>
           <button class="authors-close authors-hint" type="button">click to hide full author list <span class="authors-caret" aria-hidden="true"></span></button>
         </details>
-        <p class="hero-lead">
-          The largest, openly licensed dataset of medical ultrasound channel capture data.
-        </p>
         <div class="hero-links">
           <a class="btn btn-dark" href="https://huggingface.co/datasets/nvidia/OpenH-RF" target="_blank" rel="noopener">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C7.6 2 4 3.3 4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5c0-1.7-3.6-3-8-3zm0 2c3.9 0 6 1 6 1s-2.1 1-6 1-6-1-6-1 2.1-1 6-1zM6 7.3C7.5 7.8 9.6 8 12 8s4.5-.2 6-.7V11c0 .4-2.2 1.5-6 1.5S6 11.4 6 11V7.3zm0 6c1.5.5 3.6.7 6 .7s4.5-.2 6-.7V19c0 .4-2.2 1-6 1s-6-.6-6-1v-5.7z"/></svg>
+            <img class="icon hf-icon" src="assets/img/huggingface.svg" alt="" width="24" height="24">
             Dataset
           </a>
           <a class="btn btn-dark" href="https://github.com/open-h/OpenH-RF" target="_blank" rel="noopener">
