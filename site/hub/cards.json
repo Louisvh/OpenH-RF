@@ -1,6 +1,6 @@
 {
- "revision": "0877eb3a0a77bd336a96017bbc2f237677b15cac",
- "date": "2026-10-01",
+ "revision": "88730aa47007553da09ffea61b499002e8b552b1",
+ "date": "2026-10-04",
  "collections": {
   "oslo": "UltraSound ToolBox (USTB) Channel Capture Collection",
   "resolvestroke": "Resolve Stroke Transcranial CEUS, Flow and Imaging Phantom Channel Data"
@@ -224,8 +224,8 @@
     ]
    }
   },
-  "mosaic-intelligence": {
-   "sha": "0b0405c85e4f00cfffa3488235b51c8ea73b0dd7",
+  "mosaic-nuevosono": {
+   "sha": "43d67291dc61ebe8d06445f42458376ff82203a1",
    "collection": null,
    "pretty_name": "Mosaic Intelligence / NuevoSono IVUS",
    "license": "cc-by-4.0",
@@ -267,9 +267,9 @@
     "subject_metadata": "Animal study data — no human subjects."
    },
    "image": {
-    "source": "mosaic-intelligence/assets/main.png",
-    "thumb": "images/mosaic-intelligence-3dddb4e-ad6e.jpg",
-    "preview": "images/mosaic-intelligence-3dddb4e-preview.jpg",
+    "source": "mosaic-nuevosono/assets/main.png",
+    "thumb": "images/mosaic-nuevosono-3dddb4e-ad6e.jpg",
+    "preview": "images/mosaic-nuevosono-3dddb4e-preview.jpg",
     "preview_size": [
      900,
      900

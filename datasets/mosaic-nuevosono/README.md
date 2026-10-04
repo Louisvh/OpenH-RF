@@ -1,5 +1,5 @@
 ---
-name: mosaic-intelligence
+name: mosaic-nuevosono
 pretty_name: "Mosaic Intelligence / NuevoSono IVUS"
 license: cc-by-4.0
 task_categories:
@@ -18,7 +18,7 @@ language:
 
 ![IVUS pullback: B-mode, segmentation overlay and pullback trajectory](assets/pullback.gif)
 
-*Pullback through [`data/22_12_10_52.hdf5`](https://huggingface.co/datasets/nvidia/OpenH-RF/blob/main/mosaic-intelligence/data/22_12_10_52.hdf5), reconstructed from the raw channel data. Left to right: B-mode, the same frame with the lumen and intima-media segmentation, and the linear-encoder pullback position with the current frame marked.*
+*Pullback through [`data/22_12_10_52.hdf5`](https://huggingface.co/datasets/nvidia/OpenH-RF/blob/main/mosaic-nuevosono/data/22_12_10_52.hdf5), reconstructed from the raw channel data. Left to right: B-mode, the same frame with the lumen and intima-media segmentation, and the linear-encoder pullback position with the current frame marked.*
 
 ## Dataset Description
 
