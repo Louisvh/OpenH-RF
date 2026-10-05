@@ -213,11 +213,11 @@ main:focus { outline: none; }
 .hero-orgs > summary::-webkit-details-marker { display: none; }
 /* Drawn, not a glyph, whose height would depend on the fallback font: centred on the capitals,
    which reach about 0.7em above the baseline in the site's fonts. */
-.orgs-caret::before {
+.caret::before {
   content: ""; display: inline-block; width: 0.55em; height: 0.42em; vertical-align: 0.15em;
   background: currentColor; clip-path: polygon(0 0, 100% 0, 50% 100%);
 }
-.hero-orgs[open] .orgs-caret::before { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.hero-orgs[open] .caret::before, [aria-expanded="true"] > .caret::before { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
 .org-plates { display: flex; flex-wrap: wrap; gap: 0.65rem; justify-content: center; max-width: calc(6 * 7.7rem + 5 * 0.65rem); margin: 0.65rem auto 0; }
 
 .kpis { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
@@ -273,6 +273,9 @@ main:focus { outline: none; }
   padding: 0.3rem 0.65rem; cursor: pointer;
 }
 .copy-btn:hover { color: var(--text); }
+.cite-toggle { font: inherit; color: inherit; background: none; border: 0; padding: 0; text-align: start; cursor: pointer; }
+.code-block.bibtex pre { padding: 0.8rem 1rem; font-size: 0.75rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+.code-block.bibtex pre::before { content: ""; float: right; width: 3.8rem; height: 1.7rem; }
 .tok-comment, .tok-prompt { color: var(--text-3); }
 .tok-string { color: var(--series-3); }
 .tok-flag { color: var(--series-4); }
@@ -645,5 +648,5 @@ dialog::backdrop { background: rgb(0 0 0 / 0.4); }
    the colour keys keep their colours. */
 @media (forced-colors: active) {
   .segmented button[aria-pressed="true"], .topnav a[aria-current] { text-decoration: underline 2px; }
-  .swatch, .key-swatch, .bar-fill, .check, .cross, .orgs-caret::before { forced-color-adjust: none; }
+  .swatch, .key-swatch, .bar-fill, .check, .cross, .caret::before { forced-color-adjust: none; }
 }

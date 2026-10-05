@@ -1175,11 +1175,27 @@
       ["Created", d.created],
       ["Known issues", d.known_issues],
       ["License", d.license?.toUpperCase()],
+      ["Citation", d.bibtex && citation(d.bibtex)],
       ["Frame rate", [rate && median(rate, hz), prf && `PRF ${median(prf, hz)}`].filter(Boolean).join("; ")],
       ["Imaging depth", depth && `${median(depth, fmt3)}${NBSP}cm`],
       ["zea version", versions.length === 1 ? versions[0] : countList(m.zea_version, "file")],
     ];
-    return el("dl", null, rows.filter(([, v]) => v).flatMap(([k, v]) => [el("dt", { text: k }), el("dd", null, cardText(v))]));
+    return el("dl", null, rows.filter(([, v]) => v).flatMap(([k, v]) => [el("dt", { text: k }), el("dd", null, typeof v === "string" ? cardText(v) : v)]));
+  }
+
+  function citation(bibtex) {
+    const entries = bibtex.match(/^@/gm).length;
+    const label = el("span");
+    const toggle = el("button", { type: "button", class: "cite-toggle" }, label, " ", el("span", { class: "caret", "aria-hidden": "true" }));
+    const block = el("div", { class: "code-block bibtex" }, el("button", { type: "button", class: "copy-btn", text: "Copy" }), el("pre", null, el("code", { text: bibtex })));
+    const show = (open) => {
+      block.hidden = !open;
+      toggle.setAttribute("aria-expanded", String(open));
+      label.textContent = `${open ? "Hide" : "Show"} BibTeX ${entries > 1 ? "entries" : "entry"}`;
+    };
+    toggle.onclick = () => show(block.hidden);
+    show(false);
+    return [toggle, block];
   }
 
   // Scalars show their values; arrays their shapes, with the zea spec's axis names below.

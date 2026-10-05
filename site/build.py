@@ -10,6 +10,7 @@ The site is plain HTML/CSS/JS (``site/index.html`` + ``site/assets/``) that rend
 * ``site/catalog.yaml``: the filters' vocabulary, and overrides for the few values
   derived here that are wrong;
 * ``site/zea_keys.json``: the zea file-format key tree, from ``zea_keys.py``;
+* ``site/citation_suggestions.bib``: the citations in the data cards;
 * ``plots/openh_rf_datasets.py``: each dataset's short name, which the page shows and
   links it by.
 
@@ -54,6 +55,7 @@ DATASET_NAMES = SITE.parent / "plots" / "openh_rf_datasets.py"
 COMPILE_AUTHORS = SITE.parent / "scripts" / "compile_authors.py"
 AUTHOR_WEBSITES = SITE / "author_websites.csv"
 INSTITUTION_FILTERS = SITE / "institution_filters.csv"
+CITATIONS = SITE / "citation_suggestions.bib"
 # Where index.html takes the author list.
 AUTHORS_MARK = "<!-- authors -->"
 
@@ -187,6 +189,19 @@ def authors_html(institutions: set[str]) -> str:
         raise SystemExit("institution problems:\n  " + "\n  ".join(problems))
     places = ", ".join(places)
     return f'{listed}<p class="authors-affiliations">{places}</p>'
+
+
+@functools.cache
+def citations() -> dict[str, str]:
+    """The BibTeX in citation_suggestions.bib for each dataset or collection."""
+    text = CITATIONS.read_text(encoding="utf-8")
+    found = {}
+    for names, bibtex in re.findall(
+        r"^% dataset: ([^\n]+)\n(.*?)(?=^% dataset:|\Z)", text, re.M | re.S
+    ):
+        for name in names.split():
+            found[name] = bibtex.strip()
+    return found
 
 
 def validate(catalog: dict) -> list[str]:
@@ -363,6 +378,9 @@ def build_records(catalog: dict, cards: dict, corpus: dict, zea: dict) -> list[d
         # search and the institution filter use.
         main = record["institution"].split(" & ") if record["institution"] else []
         record["institutions"] = main + record["collaborating_institutions"]
+        record["bibtex"] = citations().get(eid) or citations().get(card["collection"])
+        if card["cites"] and not record["bibtex"]:
+            print(f"warning: {eid} asks to be cited, but has no entry in {CITATIONS.name}")
         layout = measured.pop("layout")
         record["measured"] = measured
         record["files"] = file_layout(layout, record["keys"], zea["keys"])
@@ -370,6 +388,9 @@ def build_records(catalog: dict, cards: dict, corpus: dict, zea: dict) -> list[d
         record["key_products"] = list(dict.fromkeys(filter(None, map(key_product, keys))))
         record["nonstandard_keys"] = [k for k in keys if not is_standard_key(k, zea["keys"])]
         records.append(record)
+    unknown = citations().keys() - {r["id"] for r in records} - set(cards["collections"])
+    if unknown:
+        raise SystemExit(f"{CITATIONS.name}: no dataset {', '.join(sorted(unknown))}")
     return records
 
 
