@@ -192,16 +192,76 @@ def authors_html(institutions: set[str]) -> str:
 
 
 @functools.cache
-def citations() -> dict[str, str]:
+def citations() -> dict[str, list[dict]]:
     """The BibTeX in citation_suggestions.bib for each dataset or collection."""
     text = CITATIONS.read_text(encoding="utf-8")
     found = {}
-    for names, bibtex in re.findall(
+    for names, block in re.findall(
         r"^% dataset: ([^\n]+)\n(.*?)(?=^% dataset:|\Z)", text, re.M | re.S
     ):
+        entries = [citation(e.strip()) for e in re.split(r"^(?=@)", block, flags=re.M)[1:]]
         for name in names.split():
-            found[name] = bibtex.strip()
+            found[name] = entries
     return found
+
+
+def citation(entry: str) -> dict:
+    fields = bib_fields(entry)
+
+    def get(name: str) -> str:
+        return latex(fields.get(name, ""))
+
+    # split on "and" outside braces
+    names = re.split(r"\s+and\s+(?![^{]*\})", fields.get("author", ""))
+    authors = [bib_name(n) for n in names if n != "others"]
+    shown = f"{authors[0]} et al." if len(authors) > 2 or "others" in names else "; ".join(authors)
+    venue = get("journal") or get("booktitle") or get("publisher") or get("archiveprefix")
+    if "school" in fields:
+        venue = f"PhD thesis, {get('school')}"
+    volume = get("volume")
+    if "number" in fields:
+        volume += f" ({get('number')})"
+    pages = get("pages").replace("-", "–")
+    details = ": ".join(part for part in (volume, pages) if part)
+    doi = re.sub(r"^https?://(dx\.)?doi\.org/", "", fields.get("doi", ""))
+    return {
+        "authors": shown,
+        "year": get("year"),
+        "title": get("title"),
+        "venue": venue,
+        "details": details or get("eprint"),
+        "link": f"https://doi.org/{doi}" if doi else fields.get("url"),
+        "bibtex": entry,
+    }
+
+
+def bib_fields(entry: str) -> dict[str, str]:
+    """The fields of a BibTeX entry by lower-case name."""
+    fields = {}
+    for line in entry.rstrip().removesuffix("}").splitlines()[1:]:
+        if not line.strip():
+            continue
+        m = re.fullmatch(r"\s*(\w+)\s*=\s*\{?(.*?)\}?,?\s*", line)
+        if not m:
+            raise SystemExit(f"{CITATIONS.name}: put each field on one line: {line!r}")
+        fields[m[1].lower()] = m[2]
+    return fields
+
+
+def bib_name(name: str) -> str:
+    split = re.fullmatch(r"(.+?)\s+(\{[^}]*\}|\S+)", name)
+    if "," in name or name.startswith("{") or not split:
+        return latex(name)
+    return f"{latex(split[2])}, {latex(split[1])}"
+
+
+def latex(text: str) -> str:
+    text = re.sub(r"\\url\{([^}]*)\}", r"\1", text)
+    text = text.replace(r"{\o}", "ø").replace(r"\&", "&").replace("--", "–")
+    text = " ".join(text.replace("{", "").replace("}", "").split())
+    if "\\" in text:
+        raise SystemExit(f"{CITATIONS.name}: add the LaTeX in {text!r} to build.latex()")
+    return text
 
 
 def validate(catalog: dict) -> list[str]:
@@ -378,8 +438,8 @@ def build_records(catalog: dict, cards: dict, corpus: dict, zea: dict) -> list[d
         # search and the institution filter use.
         main = record["institution"].split(" & ") if record["institution"] else []
         record["institutions"] = main + record["collaborating_institutions"]
-        record["bibtex"] = citations().get(eid) or citations().get(card["collection"])
-        if card["cites"] and not record["bibtex"]:
+        record["citations"] = citations().get(eid) or citations().get(card["collection"]) or []
+        if card["cites"] and not record["citations"]:
             print(f"warning: {eid} asks to be cited, but has no entry in {CITATIONS.name}")
         layout = measured.pop("layout")
         record["measured"] = measured
